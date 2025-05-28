@@ -1,6 +1,7 @@
 .about {
   flex-direction: column;
   margin-top: 3em;
+  
 }
 .about h1{
   font-family: josefin sans;
@@ -37,5 +38,6 @@
   .app .about {
     align-items: flex-start;
     margin-top: 2em;
+    padding: 0 1.5em;
   }
 }

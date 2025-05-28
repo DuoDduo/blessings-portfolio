@@ -113,6 +113,7 @@
   .nav__list-item {
     margin: 1.5em 0;
     padding-left: 1.5em;
+    font-weight: bold;
   }
 
   /* Hamburger visible and fixed top-right */

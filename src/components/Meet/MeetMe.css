@@ -59,7 +59,8 @@
   .meet-me {
     flex-direction: column;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 3rem 1rem;
+    margin: 0 1em;
   }
 
   .meet-me__img {
