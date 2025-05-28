@@ -2,7 +2,7 @@ import React from 'react'
 import './MeetMe.css'
 import profilePic from '../../assets/profile.jpg' // Replace with actual image path
 
-const MeetMe = () => {
+const Meetme = () => {
   return (
     <section id='meet' className='section'>
       <h2 className='section__title'>Meet Me</h2>
@@ -30,4 +30,4 @@ const MeetMe = () => {
   )
 }
 
-export default MeetMe
+export default Meetme

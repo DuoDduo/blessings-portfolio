@@ -7,8 +7,10 @@ import Skills from './components/Skills/Skills';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
-import MeetMe from './components/Meet/Meetme';
+
 import './App.css';
+import Meetme from './components/Meet/Meetme';
+
 
 const App = () => {
   const [{ themeName }] = useContext(ThemeContext);
@@ -19,7 +21,7 @@ const App = () => {
 
       <main>
         <About />
-         <MeetMe />
+         <Meetme/>
         <Projects />
         <Skills />
         <Contact />
