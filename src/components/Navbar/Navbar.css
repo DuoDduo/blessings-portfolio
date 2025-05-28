@@ -1,0 +1,126 @@
+/* Navbar.css */
+
+/* Reset box sizing for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Navbar container */
+.nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* hamburger on right */
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 1200;
+}
+
+/* Navigation list styling */
+.nav__list {
+  margin-right: 1.5em;
+  display: flex;
+}
+
+.nav__list-item {
+  margin-left: 1.5em;
+}
+
+.nav__list-item a {
+  color: var(--clr-fg);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav__list-item a:hover,
+.nav__list-item a:focus {
+  color: var(--clr-primary);
+  outline: none;
+}
+
+/* Hamburger button */
+.app .nav__hamburger {
+  display: none;
+  background-color: transparent;
+  border: none;
+  padding: 0.6em;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: var(--clr-fg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app .nav__hamburger:hover,
+.app .nav__hamburger:focus {
+  background-color: var(--clr-primary);
+  color: white;
+  outline: none;
+}
+
+/* Overlay behind the menu (optional) */
+.nav__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 900;
+  display: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav__overlay.visible {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* MOBILE / Responsive */
+@media (max-width: 600px) {
+  /* Hide normal nav list by default */
+  .nav__list {
+    display: flex;              /* Keep flex to allow smooth animation */
+    flex-direction: column;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    right: 0;                   /* Stick to right */
+    height: 100vh;
+    width: 250px;               /* Fixed width */
+    background-color: var( --clr-primary);
+    padding-top: 4rem;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%); /* Hidden offscreen to right */
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    z-index: 1000;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;       /* Disable interactions when hidden */
+    overflow-y: auto;           /* Scroll if content too tall */
+  }
+
+  /* When open: slide in nav */
+  .nav__list.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;       /* Enable interactions */
+  }
+
+  .nav__list-item {
+    margin: 1.5em 0;
+    padding-left: 1.5em;
+  }
+
+  /* Hamburger visible and fixed top-right */
+  .app .nav__hamburger {
+    display: flex;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1100;
+  }
+}

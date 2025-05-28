@@ -1,0 +1,45 @@
+.projects__grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  grid-gap: 2em;
+}
+
+.projects__tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5em;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  background: transparent;
+  border: 2px solid var(--clr-primary);
+  color: var(--clr-primary);
+  padding: 0.5em 1.2em;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background: var(--clr-primary);
+  color: var(--clr-bg);
+}
+
+.tab-button.active {
+  background: var(--clr-primary);
+  color: var(--clr-bg);
+  box-shadow: 0 0 10px var(--clr-primary);
+}
+.project__image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 1em;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
