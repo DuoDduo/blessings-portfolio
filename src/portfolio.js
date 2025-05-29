@@ -29,7 +29,7 @@ const header = {
 const about = {
   name: 'Blessing James',
   role: 'Software Developer & Designer',
-  description: `I love blending coding, design, and creativity to build outstanding digital experiences.`,
+  description: `I love blending code, design, and creativity to build outstanding digital experiences.`,
  
   resume: 'https://drive.google.com/file/d/1ZGps9neH8iYVi3jTDizV83yZtSM9bSxt/view?usp=sharing',
   social: {
@@ -52,7 +52,7 @@ const projects = [
   },
   {
     name: 'Aptech Benin',
-    description: 'Official website repository of Aptech Benin',
+    description: 'Official Website of Aptech Benin',
     stack: ['HTML', 'CSS', 'JS', 'Bootstrap'],
     sourceCode: 'https://github.com',
     livePreview: 'https://duodduo.github.io/aptech-benin/',

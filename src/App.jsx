@@ -7,7 +7,6 @@ import Skills from './components/Skills/Skills';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
-import { Analytics } from "@vercel/analytics/next"
 
 import './App.css';
 import MeetMe from './components/Meet/MeetMe';
@@ -18,7 +17,6 @@ const App = () => {
 
   return (
     <div id='top' className={`${themeName} app`}>
-       <Analytics />
       <Header />
 
       <main>
