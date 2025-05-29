@@ -1,25 +1,23 @@
-import React, { useState } from 'react';
-import { projects } from '../../portfolio';
-import ProjectContainer from '../ProjectContainer/ProjectContainer';
-import './Projects.css';
+import React, { useState } from 'react'
+import { projects as allProjects } from '../../portfolio'
+import ProjectContainer from '../ProjectContainer/ProjectContainer'
+import './Projects.css'
 
-const categories = ['Web', 'Graphics', 'UI/UX'];
+const categories = ['Web', 'Graphics', 'UI/UX'] // Only defined categories, no 'All'
 
 const Projects = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Web');
+  const [selectedCategory, setSelectedCategory] = useState('Web') // Default is 'Web'
 
-  const filteredProjects = projects.filter(
+  const filteredProjects = allProjects.filter(
     (project) => project.category === selectedCategory
-  );
-
-  console.log('Selected Category:', selectedCategory);
-  console.log('Filtered Projects:', filteredProjects.map(p => p.name));
+  )
 
   return (
-    <section id='projects' className='section projects'>
-      <h2 className='section__title'>Projects</h2>
+    <section id="projects" className="section projects">
+      <h2 className="section__title">Projects</h2>
 
-      <div className='projects__tabs'>
+      {/* Category Tabs */}
+      <div className="projects__tabs">
         {categories.map((category) => (
           <button
             key={category}
@@ -31,17 +29,23 @@ const Projects = () => {
         ))}
       </div>
 
-      <div className='projects__grid'>
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((project) => (
-            <ProjectContainer key={project.name} project={project} />
-          ))
-        ) : (
-          <p>No projects found for {selectedCategory}</p>
-        )}
-      </div>
+      {/* Project Grid */}
+      {filteredProjects.length > 0 ? (
+        <div className="projects__grid" key={selectedCategory}>
+          {filteredProjects.map((project, index) => (
+            <ProjectContainer
+              key={`${project.name}-${index}`}
+              project={project}
+            />
+          ))}
+        </div>
+      ) : (
+        <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
+          No projects in this category.
+        </p>
+      )}
     </section>
-  );
-};
+  )
+}
 
-export default Projects;
+export default Projects
