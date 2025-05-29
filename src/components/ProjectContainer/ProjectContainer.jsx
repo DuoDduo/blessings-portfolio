@@ -6,7 +6,9 @@ import './ProjectContainer.css';
 
 const ProjectContainer = ({ project }) => (
   <div className='project glass'>
-    {project.image && <img src={project.image} alt={`${project.name} preview`} className='project__image' />}
+    {project.image && (
+      <img src={project.image} alt={`${project.name} preview`} className='project__image' />
+    )}
     <h3>{project.name}</h3>
 
     <p className='project__description'>{project.description}</p>
@@ -20,7 +22,8 @@ const ProjectContainer = ({ project }) => (
       </ul>
     )}
 
-    {project.sourceCode && (
+    {/* For Web projects: show both links */}
+    {project.category === 'Web' && project.sourceCode && (
       <a
         href={project.sourceCode}
         aria-label='source code'
@@ -32,7 +35,7 @@ const ProjectContainer = ({ project }) => (
       </a>
     )}
 
-    {project.livePreview && (
+    {project.category === 'Web' && project.livePreview && (
       <a
         href={project.livePreview}
         aria-label='live preview'
@@ -43,6 +46,22 @@ const ProjectContainer = ({ project }) => (
         <LaunchIcon />
       </a>
     )}
+
+    {/* For UI/UX projects: only show live preview */}
+    {project.category === 'UI/UX' && project.livePreview && (
+      <a
+        href={project.livePreview}
+        aria-label='live preview'
+        className='link link--icon'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <LaunchIcon />
+      </a>
+    )}
+
+    {/* For Graphics projects: no links (just image) */}
   </div>
 );
+
 export default ProjectContainer

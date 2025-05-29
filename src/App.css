@@ -4,7 +4,7 @@
   --clr-bg: #101322;
   --clr-bg-alt: #2a2f4c;
   --clr-fg: #dce0f0;
-  --clr-fg-alt: #cdcdff;
+  /* --clr-fg-alt: #cdcdff; */
   --clr-primary: #798fde;
   --shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
             rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
@@ -14,12 +14,13 @@
   font-family: "Josefin Slab", serif;
   line-height: 1.5;
   color: var(--clr-fg);
-  background-color: var(--clr-bg);
-  background: linear-gradient(135deg, rgba(6, 27, 124, 0.134), rgba(14, 32, 43, 0.458)), url('./assets/background.jpg');
-  background-size: cover;
-  object-fit: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  /* background-color: var(--clr-bg); */
+  background: linear-gradient(139deg, rgba(9, 19, 61, 0.134), rgba(31, 28, 79, 0.159)), url('./assets/background.jpg');
+  background-size:contain;
+  object-fit: cover;
+  background-repeat:repeat;
+  background-position: right;
+
 }
 
 main {

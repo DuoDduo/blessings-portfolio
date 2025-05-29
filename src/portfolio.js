@@ -1,14 +1,22 @@
 // Import images
 import project1Image from './assets/projects/faithexplorers.png'
 import project2Image from './assets/projects/project2.png'
-import project3Image from './assets/projects/background1.jpg'
-// import project2Image from './assets/projects/project2.png'// You can import more images if needed:
+import project3Image from './assets/projects/teensandyouth.jpg'
+import project6Image from './assets/projects/flyer2.jpg'// You can import more images if needed:
 import project7Image from './assets/projects/purposeacademy.png'
-// import project3Image from './assets/projects/project3.png'
+import project5Image from './assets/projects/followers.jpg'
 import project4Image from './assets/projects/aptechbenin.png'
-import project10Image from './assets/projects/anchorport.png'
+import project8Image from './assets/projects/maycpc.jpg'
+import project9Image from './assets/projects/flyer.jpg'
+import project10Image from './assets/projects/singlesmarried.jpg'
 import project11Image from './assets/projects/abby.png'
 import project12Image from './assets/projects/chimjoy.png'
+import project13Image from './assets/projects/cartoon1.jpg'
+import project14Image from './assets/projects/cartoon2.jpg'
+import project15Image from './assets/projects/cartoon3.jpg'
+import project16Image from './assets/projects/anchorport.png'
+import project17Image from './assets/projects/devconnect.png'
+import project18Image from './assets/projects/babyhub.png'
 
 
 // ----- HEADER -----
@@ -67,7 +75,7 @@ const projects = [
     sourceCode: 'https://github.com/DuoDduo/anchorport',
     livePreview: 'https://duodduo.github.io/anchorport/',
     category: 'Web',
-    image: project10Image,
+    image: project16Image,
   },
   {
     name: "Abby's Kitchen",
@@ -90,37 +98,91 @@ const projects = [
 
   // --- GRAPHICS PROJECTS ---
   {
-    name: 'Project 2',
-    description: 'Amet asperiores et impedit aliquam consectetur?',
+    name: 'Followers',
+    description: 'Celebrating LinkedIn followers',
+    stack: ['Photoshop'],
+    sourceCode: 'https://github.com',
+    livePreview: 'https://github.com',
+    category: 'Graphics',
+    image: project5Image,
+  },
+  {
+    name: "Flyer",
+    description: 'Social Media flyer',
+    stack: ['Photoshop'],
+    sourceCode: 'https://github.com',
+    livePreview: 'https://github.com',
+    category: 'Graphics',
+    image: project6Image,
+  },
+  {
+    name: 'Flyer',
+    description: 'Singles and Married flyer',
     stack: ['Photoshop', 'Illustrator'],
+    sourceCode: 'https://github.com',
+    livePreview: 'https://github.com',
+    category: 'Graphics',
+    image: project10Image,
+  },
+   {
+    name: 'Flyer',
+    description: 'Teens & Youth',
+    stack: ['Photoshop'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
     category: 'Graphics',
     image: project3Image,
   },
   {
-    name: 'Project 5',
-    description: 'Amet asperiores et impedit aliquam consectetur?',
-    stack: ['Photoshop', 'Illustrator'],
+    name: "Flyer",
+    description: 'Children/Teenagers',
+    stack: ['Photoshop'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
     category: 'Graphics',
-    image: project3Image,
+    image: project8Image,
   },
   {
-    name: 'Project 8',
-    description: 'Amet asperiores et impedit aliquam consectetur?',
+    name: 'Flyer',
+    description: 'Delivery',
     stack: ['Photoshop', 'Illustrator'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
     category: 'Graphics',
-    image: project3Image,
+    image: project9Image,
+  },
+   {
+    name: 'Cartoon',
+    description: 'Cartoon 1',
+    stack: ['Illustrator'],
+    sourceCode: 'https://github.com',
+    livePreview: 'https://github.com',
+    category: 'Graphics',
+    image: project13Image,
+  },
+  {
+    name: "Cartoon",
+    description: 'Cartoon 2',
+    stack: ['Illustrator'],
+    sourceCode: 'https://github.com',
+    livePreview: 'https://github.com',
+    category: 'Graphics',
+    image: project14Image,
+  },
+  {
+    name: 'Cartoon',
+    description: 'Cartoon 3',
+    stack: ['Illustrator'],
+    sourceCode: 'https://github.com',
+    livePreview: 'https://github.com',
+    category: 'Graphics',
+    image: project15Image,
   },
 
   // --- UI/UX PROJECTS ---
   {
-    name: 'Project 3',
-    description: 'Amet asperiores et impedit aliquam consectetur?',
+    name: 'Helpline',
+    description: 'An NGO website UI',
     stack: ['Figma'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
@@ -128,22 +190,22 @@ const projects = [
     image: project2Image,
   },
   {
-    name: 'Project 6',
-    description: 'Amet asperiores et impedit aliquam consectetur?',
-    stack: ['Figma', 'Adobe XD'],
+    name: 'DevConnect',
+    description: 'Career Quest Project: UI for mobile app that connect developers around the world',
+    stack: ['Figma'],
     sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
+    livePreview: 'https://embed.figma.com/proto/7cXMdiuDRUA7kCCn1CQ6A0/BabyHub?page-id=0%3A1&node-id=27-2457&p=f&viewport=188%2C263%2C0.5&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A2&show-proto-sidebar=1&embed-host=share ',
     category: 'UI/UX',
-    image: project2Image,
+    image: project17Image,
   },
   {
-    name: 'Project 9',
-    description: 'Amet asperiores et impedit aliquam consectetur?',
-    stack: ['Figma', 'Adobe XD'],
+    name: 'BabyHub',
+    description: 'A mobile app UI solely for infant products',
+    stack: ['Figma'],
     sourceCode: 'https://github.com',
     livePreview: 'https://github.com',
     category: 'UI/UX',
-    image: project2Image,
+    image: project18Image,
   },
 ];
 
