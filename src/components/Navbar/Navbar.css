@@ -83,15 +83,15 @@
 @media (max-width: 600px) {
   /* Hide normal nav list by default */
   .nav__list {
-    display: flex;              /* Keep flex to allow smooth animation */
+    display: flex; /* Keep flex to allow smooth animation */
     flex-direction: column;
     justify-content: flex-start;
     position: fixed;
     top: 0;
-    right: 0;                   /* Stick to right */
+    right: 0; /* Stick to right */
     height: 100vh;
-    width: 250px;               /* Fixed width */
-    background-color: var( --clr-primary);
+    width: 250px; /* Fixed width */
+    background-color: var(--clr-primary);
     padding-top: 4rem;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
     transform: translateX(100%); /* Hidden offscreen to right */
@@ -99,15 +99,15 @@
     z-index: 1000;
     margin: 0;
     opacity: 0;
-    pointer-events: none;       /* Disable interactions when hidden */
-    overflow-y: auto;           /* Scroll if content too tall */
+    pointer-events: none; /* Disable interactions when hidden */
+    overflow-y: auto; /* Scroll if content too tall */
   }
 
   /* When open: slide in nav */
   .nav__list.open {
     transform: translateX(0);
     opacity: 1;
-    pointer-events: auto;       /* Enable interactions */
+    pointer-events: auto; /* Enable interactions */
   }
 
   .nav__list-item {
