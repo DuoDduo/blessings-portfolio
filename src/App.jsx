@@ -18,6 +18,7 @@ const App = () => {
 
   return (
     <div id='top' className={`${themeName} app`}>
+       <Analytics />
       <Header />
 
       <main>
