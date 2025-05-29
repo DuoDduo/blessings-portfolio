@@ -4,7 +4,7 @@ import project2Image from './assets/projects/project2.png'
 import project3Image from './assets/projects/teensandyouth.jpg'
 import project6Image from './assets/projects/flyer2.jpg'// You can import more images if needed:
 import project7Image from './assets/projects/purposeacademy.png'
-import project5Image from './assets/projects/followers.jpg'
+import project5Image from './assets/projects/Followers.jpg'
 import project4Image from './assets/projects/aptechbenin.png'
 import project8Image from './assets/projects/maycpc.jpg'
 import project9Image from './assets/projects/flyer.jpg'
