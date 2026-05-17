@@ -1,67 +1,85 @@
-import React from 'react';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LaunchIcon from '@mui/icons-material/Launch';
-import './ProjectContainer.css';
+// src/components/ProjectContainer/ProjectContainer.jsx
+import React from 'react'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import LaunchIcon from '@mui/icons-material/Launch'
+import './ProjectContainer.css'
 
+const ProjectContainer = ({ project }) => {
+  const hasLinks =
+    (project.category === 'Web' && (project.sourceCode || project.livePreview)) ||
+    (project.category === 'UI/UX' && project.livePreview)
 
-const ProjectContainer = ({ project }) => (
-  <div className='project glass'>
-    {project.image && (
-      <img src={project.image} alt={`${project.name} preview`} className='project__image' />
-    )}
-    <h3>{project.name}</h3>
+  return (
+    <article className='project-card'>
 
-    <p className='project__description'>{project.description}</p>
-    {project.stack && (
-      <ul className='project__stack'>
-        {project.stack.map((item) => (
-          <li key={item} className='project__stack-item'>
-            {item}
-          </li>
-        ))}
-      </ul>
-    )}
+      {/* ── Image with cinematic overlay ── */}
+      <div className='project-card__media'>
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={`${project.name} preview`}
+            className='project-card__img'
+          />
+        ) : (
+          <div className='project-card__img-placeholder'>
+            <span className='project-card__placeholder-text'>&lt;/&gt;</span>
+          </div>
+        )}
 
-    {/* For Web projects: show both links */}
-    {project.category === 'Web' && project.sourceCode && (
-      <a
-        href={project.sourceCode}
-        aria-label='source code'
-        className='link link--icon'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <GitHubIcon />
-      </a>
-    )}
+        {/* Gradient overlay — always present, links surface on hover */}
+        <div className='project-card__overlay'>
+          {hasLinks && (
+            <div className='project-card__links'>
+              {project.category !== 'UI/UX' && project.sourceCode && (
+                <a
+                  href={project.sourceCode}
+                  aria-label='Source code'
+                  className='project-card__link'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <GitHubIcon fontSize='small' />
+                  <span>Source</span>
+                </a>
+              )}
+              {project.livePreview && (
+                <a
+                  href={project.livePreview}
+                  aria-label='Live preview'
+                  className='project-card__link project-card__link--primary'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <LaunchIcon fontSize='small' />
+                  <span>Live</span>
+                </a>
+              )}
+            </div>
+          )}
+        </div>
 
-    {project.category === 'Web' && project.livePreview && (
-      <a
-        href={project.livePreview}
-        aria-label='live preview'
-        className='link link--icon'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <LaunchIcon />
-      </a>
-    )}
+        {/* Category badge */}
+        <span className='project-card__badge'>{project.category}</span>
+      </div>
 
-    {/* For UI/UX projects: only show live preview */}
-    {project.category === 'UI/UX' && project.livePreview && (
-      <a
-        href={project.livePreview}
-        aria-label='live preview'
-        className='link link--icon'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <LaunchIcon />
-      </a>
-    )}
+      {/* ── Card body ── */}
+      <div className='project-card__body'>
+        <h3 className='project-card__name'>{project.name}</h3>
+        <p className='project-card__desc'>{project.description}</p>
 
-    {/* For Graphics projects: no links (just image) */}
-  </div>
-);
+        {project.stack && (
+          <ul className='project-card__stack'>
+            {project.stack.map((item) => (
+              <li key={item} className='project-card__tag'>
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+    </article>
+  )
+}
 
 export default ProjectContainer

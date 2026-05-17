@@ -1,47 +1,55 @@
+// src/components/Projects/Projects.jsx
 import React, { useState } from 'react'
 import { projects as allProjects } from '../../portfolio'
 import ProjectContainer from '../ProjectContainer/ProjectContainer'
 import './Projects.css'
 
-const categories = ['Web', 'Graphics', 'UI/UX'] // Only defined categories, no 'All'
+const categories = ['Web', 'UI/UX', 'Graphics']
 
 const Projects = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Web') // Default is 'Web'
+  const [selectedCategory, setSelectedCategory] = useState('Web')
 
   const filteredProjects = allProjects.filter(
     (project) => project.category === selectedCategory
   )
 
   return (
-    <section id="projects" className="section projects">
-      <h2 className="section__title">Projects</h2>
+    <section id='projects' className='section projects'>
+      <h2 className='section__title'>Projects</h2>
 
-      {/* Category Tabs */}
-      <div className="projects__tabs">
+      {/* Category tabs */}
+      <div className='projects__tabs' role='tablist' aria-label='Project categories'>
         {categories.map((category) => (
           <button
             key={category}
-            className={`tab-button ${selectedCategory === category ? 'active' : ''}`}
+            role='tab'
+            aria-selected={selectedCategory === category}
+            className={`projects__tab ${selectedCategory === category ? 'projects__tab--active' : ''}`}
             onClick={() => setSelectedCategory(category)}
           >
+            <span className='projects__tab-slash'>//</span>
             {category}
           </button>
         ))}
       </div>
 
-      {/* Project Grid */}
+      {/* Grid */}
       {filteredProjects.length > 0 ? (
-        <div className="projects__grid" key={selectedCategory}>
+        <div className='projects__grid' key={selectedCategory}>
           {filteredProjects.map((project, index) => (
-            <ProjectContainer
+            <div
               key={`${project.name}-${index}`}
-              project={project}
-            />
+              className='projects__card-wrap'
+              style={{ '--delay': `${index * 80}ms` }}
+            >
+              <ProjectContainer project={project} />
+            </div>
           ))}
         </div>
       ) : (
-        <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
-          No projects in this category.
+        <p className='projects__empty'>
+          <span className='projects__empty-prefix'>// </span>
+          No projects in this category yet.
         </p>
       )}
     </section>

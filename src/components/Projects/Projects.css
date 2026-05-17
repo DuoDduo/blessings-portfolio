@@ -1,59 +1,124 @@
+/* src/components/Projects/Projects.css */
+
+/* ── Tab bar ───────────────────────────────────────────────── */
+.projects__tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.projects__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-fg-muted);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.55rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.projects__tab-slash {
+  color: var(--clr-primary);
+  opacity: 0;
+  font-size: 0.85em;
+  transition: opacity 0.2s ease;
+}
+
+.projects__tab:hover {
+  color: var(--clr-fg-alt);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.projects__tab:hover .projects__tab-slash {
+  opacity: 0.5;
+}
+
+/* Active tab */
+.projects__tab--active {
+  color: var(--clr-fg);
+  border-color: rgba(239, 11, 239, 0.3);
+  background: rgba(239, 11, 239, 0.06);
+  box-shadow:
+    0 0 20px rgba(239, 11, 239, 0.08),
+    inset 0 1px 0 rgba(239, 11, 239, 0.1);
+}
+
+.projects__tab--active .projects__tab-slash {
+  opacity: 1;
+}
+
+.projects__tab--active:hover {
+  border-color: rgba(239, 11, 239, 0.45);
+  background: rgba(239, 11, 239, 0.1);
+  color: #ffffff;
+}
+
+/* ── Grid ──────────────────────────────────────────────────── */
 .projects__grid {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
-  grid-gap: 2em;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 1.5rem;
 }
 
-.projects__tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5em;
-  gap: 1em;
-  flex-wrap: wrap;
+/* Staggered card entrance */
+.projects__card-wrap {
+  animation: cardReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--delay, 0ms);
 }
 
-.tab-button {
-  background: transparent;
-  border: 2px solid var(--clr-primary);
-  color: var(--clr-primary);
-  padding: 0.5em 1.2em;
-  font-weight: 600;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.tab-button:hover {
-  background: var(--clr-primary);
-  color: var(--clr-bg);
-}
-
-.tab-button.active {
-  background: var(--clr-primary);
-  color: var(--clr-bg);
-  box-shadow: 0 0 10px var(--clr-primary);
-}
-.project__image {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  margin-bottom: 1em;
-  object-fit: cover;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-.projects__grid {
-  animation: fadeIn 0.4s ease-in;
-}
-
-@keyframes fadeIn {
+@keyframes cardReveal {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ── Empty state ───────────────────────────────────────────── */
+.projects__empty {
+  text-align: center;
+  font-family: "Josefin Sans", monospace;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  color: var(--clr-fg-muted);
+  padding: 3rem 0;
+}
+
+.projects__empty-prefix {
+  color: var(--clr-primary);
+  opacity: 0.6;
+}
+
+/* ── Mobile ────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .projects__grid {
+    grid-template-columns: 1fr;
+    padding: 0 0.5rem;
+  }
+
+  .projects__tabs {
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+  }
+
+  .projects__tab {
+    font-size: 0.72rem;
+    padding: 0.5rem 1rem;
   }
 }

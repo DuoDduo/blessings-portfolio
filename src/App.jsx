@@ -7,6 +7,7 @@ import Skills from './components/Skills/Skills';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
+import GitHubStats from './components/Github/GitHubStats';
 
 import './App.css';
 import MeetMe from './components/Meet/MeetMe';
@@ -23,6 +24,7 @@ const App = () => {
         <About />
          <MeetMe/>
         <Projects />
+        <GitHubStats />
         <Skills />
         <Contact />
       </main>

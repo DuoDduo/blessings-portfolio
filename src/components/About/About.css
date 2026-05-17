@@ -1,43 +1,266 @@
+/* src/components/About/About.css */
+
+/* ── Section wrapper ───────────────────────────────────────── */
 .about {
+  display: flex;
   flex-direction: column;
-  margin-top: 3em;
-  
+  align-items: flex-start;
+  padding-top: 140px;    /* clear the fixed navbar */
+  padding-bottom: 3rem;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  /* Subtle page-entry animation */
+  animation: heroReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.about h1{
-  font-family: josefin sans;
-  font-weight: 600;
+
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Role eyebrow — [ Focus // Agentic RAG ] ───────────────── */
+.about__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-family: "Josefin Sans", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.about__bracket {
+  color: var(--clr-primary);
+  font-size: 0.9em;
+  opacity: 0.7;
+}
+
+.about__role-text {
+  color: var(--clr-cyan);
+  opacity: 0.75;
+}
+
+/* ── Hero Headline Elements ────────────────────────────────── */
+.about__hero-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 .about__name {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+
+  /* Gradient: white → magenta/primary neon */
+  background: linear-gradient(
+    125deg,
+    #ffffff 0%,
+    #f0f0f8 35%,
+    var(--clr-primary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about__headline {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--clr-fg);
+  margin: 0;
+  margin-top: 0.75rem;
+}
+
+/* Stylized ampersand to lean into the editorial feel */
+.about__headline-amp {
+  font-family: 'Josefin Slab', serif;
+  font-weight: 300;
   color: var(--clr-primary);
+  opacity: 0.9;
+  padding: 0 0.15rem;
 }
 
-.about__role {
-  margin-top: 1.2em;
+/* Blinking terminal cursor */
+.about__cursor {
+  display: inline-block;
+  -webkit-text-fill-color: var(--clr-primary);
+  color: var(--clr-primary);
+  margin-left: 0.05em;
+  animation: cursorBlink 1.1s step-end infinite;
+  font-weight: 300;
 }
 
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Ambient Accent Line ───────────────────────────────────── */
+.about__accent-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.about__accent-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--clr-primary);
+  box-shadow: 0 0 10px var(--clr-primary), 0 0 20px var(--clr-primary-glow);
+  animation: dotPulse 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.6; }
+}
+
+.about__accent-track {
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-cyan), transparent);
+  opacity: 0.5;
+}
+
+/* ── Description Content ────────────────────────────────────── */
 .about__desc {
-  font-size: 1rem;
-  max-width: 600px;
+  font-size: 1.05rem;
+  max-width: 620px;
+  line-height: 1.8;
+  color: var(--clr-fg-alt);
+  margin: 0;
 }
 
-.about__desc,
-.about__contact {
-  margin-top: 2.4em;
+/* ── Interactive Actions Row ───────────────────────────────── */
+.about__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.25rem;
 }
 
-.about .link--icon {
-  margin-right: 0.8em;
+/* Glassmorphic/Neo Resume Button */
+.about__resume-btn {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 0.7rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
 }
 
-.about .btn--outline {
-  margin-right: 1em;
+.about__resume-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, var(--clr-primary), var(--clr-cyan));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
 }
 
+.about__resume-btn:hover {
+  color: #05050a;
+  border-color: transparent;
+  box-shadow: 0 0 24px var(--clr-primary-glow);
+  transform: translateY(-1px);
+}
+
+.about__resume-btn:hover::before { 
+  opacity: 1; 
+}
+
+.about__btn-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.about__resume-btn:hover .about__btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Neo Social Link Icon Matrices */
+.about__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.about__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  color: rgba(122, 139, 166, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: transparent;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about__social-link:hover {
+  color: #ffffff;
+  border-color: rgba(239, 11, 239, 0.35);
+  background: rgba(239, 11, 239, 0.07);
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px var(--clr-primary-glow);
+}
+
+/* ── Mobile Layout Breakpoints ────────────────────────────── */
 @media (max-width: 600px) {
-  .app .about {
+  .about {
+    padding-top: 100px;
+  }
+
+  .about__headline {
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+
+  .about__actions {
+    flex-direction: column;
     align-items: flex-start;
-    margin-top: 2em;
-    padding: 0 1.5em;
+    width: 100%;
+  }
+
+  .about__resume-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

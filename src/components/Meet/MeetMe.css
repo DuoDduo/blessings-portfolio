@@ -1,89 +1,331 @@
+/* src/components/MeetMe/MeetMe.css */
+
+/* ── Section spacing ───────────────────────────────────────── */
+.meet-section {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* ── Glass panel container ─────────────────────────────────── */
 .meet-me {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
-  flex-wrap: wrap;
-  padding: 2.5rem 1.5rem;
-  background: transparent;
-  border-radius: 1rem;
-  box-shadow: var(--shadow);
-  transition: background-color 0.3s ease;
-   box-shadow: 0 0 2px var(--clr-primary);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 3.5rem;
+
+  /* Refined glass surface */
+  background: rgba(6, 6, 16, 0.5);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 20px;
+  padding: 3rem 3rem;
+
+  /* Subtle glow on the container edge */
+  box-shadow:
+    0 0 0 1px rgba(239, 11, 239, 0.04),
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .meet-me:hover {
-  background-color: rgba(0, 0, 0, 0.03); /* subtle highlight on hover */
+  border-color: rgba(239, 11, 239, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(239, 11, 239, 0.08),
+    0 0 60px rgba(239, 11, 239, 0.05),
+    0 24px 64px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
+/* ── Image frame with targeting corners ────────────────────── */
+.meet-me__frame-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+}
+
+/* The four corner brackets */
+.meet-me__corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Top-left: magenta */
+.meet-me__corner--tl {
+  top: -6px;
+  left: -6px;
+  border-top: 2px solid var(--clr-primary);
+  border-left: 2px solid var(--clr-primary);
+  border-radius: 3px 0 0 0;
+}
+
+/* Top-right: cyan */
+.meet-me__corner--tr {
+  top: -6px;
+  right: -6px;
+  border-top: 2px solid var(--clr-cyan);
+  border-right: 2px solid var(--clr-cyan);
+  border-radius: 0 3px 0 0;
+}
+
+/* Bottom-left: cyan */
+.meet-me__corner--bl {
+  bottom: -6px;
+  left: -6px;
+  border-bottom: 2px solid var(--clr-cyan);
+  border-left: 2px solid var(--clr-cyan);
+  border-radius: 0 0 0 3px;
+}
+
+/* Bottom-right: magenta */
+.meet-me__corner--br {
+  bottom: -6px;
+  right: -6px;
+  border-bottom: 2px solid var(--clr-primary);
+  border-right: 2px solid var(--clr-primary);
+  border-radius: 0 0 3px 0;
+}
+
+/* Image itself */
 .meet-me__img {
-  width: 380px;
-  height: 380px;
+  width: 300px;
+  height: 300px;
   object-fit: cover;
-  border-radius: 1rem;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
+  border-radius: 12px;
+  display: block;
+
+  /* Dual-color glow matching the corners */
+  box-shadow:
+    0 0 0 1px rgba(239, 11, 239, 0.15),
+    0 0 30px rgba(239, 11, 239, 0.1),
+    0 0 60px rgba(0, 229, 255, 0.06),
+    0 20px 40px rgba(0, 0, 0, 0.5);
+
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease;
 }
 
-.meet-me__img:hover {
-  transform: scale(1.05); /* gentle zoom on hover */
+.meet-me__frame-wrap:hover .meet-me__img {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(239, 11, 239, 0.25),
+    0 0 40px rgba(239, 11, 239, 0.15),
+    0 0 80px rgba(0, 229, 255, 0.08),
+    0 28px 50px rgba(0, 0, 0, 0.55);
 }
 
-.meet-me__text {
-  max-width: 520px;
-  /* font-size: 1.125rem; */
-  line-height: 1.6;
-  /* color: var(--clr-fg-alt); */
+/* Corner scan animation on hover */
+.meet-me__frame-wrap:hover .meet-me__corner--tl,
+.meet-me__frame-wrap:hover .meet-me__corner--br {
+  border-color: var(--clr-cyan);
+  transition: border-color 0.3s ease;
 }
 
-.meet-me__text p {
-  margin-bottom: 1.2rem;
+.meet-me__frame-wrap:hover .meet-me__corner--tr,
+.meet-me__frame-wrap:hover .meet-me__corner--bl {
+  border-color: var(--clr-primary);
+  transition: border-color 0.3s ease;
 }
 
+/* Status badge */
+.meet-me__status {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-fg-alt);
+  background: rgba(6, 6, 16, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.3rem 0.75rem;
+  border-radius: 99px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.meet-me__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
+  animation: statusPulse 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.4); }
+}
+
+/* ── Right column: structured profile ──────────────────────── */
+.meet-me__profile {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 0.25rem;
+}
+
+/* Eyebrow */
+.meet-me__eyebrow {
+  font-family: "Josefin Sans", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: lowercase;
+  color: var(--clr-fg-muted);
+}
+
+.meet-me__eyebrow-slash {
+  color: var(--clr-primary);
+  opacity: 0.7;
+}
+
+/* Headline */
+.meet-me__headline {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--clr-fg);
+  margin: 0;
+}
+
+.meet-me__headline-accent {
+  background: linear-gradient(120deg, var(--clr-primary), var(--clr-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bio text */
+.meet-me__bio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.meet-me__bio p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--clr-fg-alt);
+  margin: 0;
+}
+
+.meet-me__bio strong {
+  color: var(--clr-fg);
+  font-weight: 600;
+}
+
+/* Specialization block */
+.meet-me__spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.meet-me__spec-label {
+  font-family: "Josefin Sans", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: lowercase;
+  color: var(--clr-fg-muted);
+}
+
+.meet-me__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.meet-me__tag {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-cyan);
+  background: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.meet-me__tag:hover {
+  background: rgba(0, 229, 255, 0.12);
+  border-color: rgba(0, 229, 255, 0.35);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ── Responsive: 1024px ─────────────────────────────────────── */
 @media (max-width: 1024px) {
   .meet-me {
-    gap: 1.8rem;
+    gap: 2.5rem;
+    padding: 2.5rem 2rem;
   }
 
+  .meet-me__frame-wrap,
   .meet-me__img {
-    width: 320px;
-    height: 320px;
-  }
-
-  .meet-me__text {
-    max-width: 420px;
+    width: 260px;
+    height: 260px;
   }
 }
 
+/* ── Responsive: 768px ──────────────────────────────────────── */
 @media (max-width: 768px) {
   .meet-me {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    justify-items: center;
     text-align: center;
-    padding: 3rem 1rem;
-    margin: 0 1em;
+    gap: 3rem;
+    padding: 2.5rem 1.5rem;
+    margin: 0 0.5rem;
   }
 
+  .meet-me__frame-wrap,
   .meet-me__img {
-    width: 220px;
-    height: 220px;
-    border-radius: 0.75rem;
-    margin-bottom: 1.5rem;
+    width: 200px;
+    height: 200px;
   }
 
-  .meet-me__text {
-    max-width: 100%;
-    padding: 0 1rem;
-    font-size: 1rem;
+  .meet-me__headline {
+    font-size: 1.3rem;
+  }
+
+  .meet-me__tags {
+    justify-content: center;
   }
 }
 
+/* ── Responsive: 400px ──────────────────────────────────────── */
 @media (max-width: 400px) {
+  .meet-me__frame-wrap,
   .meet-me__img {
-    width: 180px;
-    height: 180px;
+    width: 170px;
+    height: 170px;
   }
 
-  .meet-me__text {
-    font-size: 0.95rem;
+  .meet-me__bio p {
+    font-size: 0.9rem;
   }
 }

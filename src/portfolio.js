@@ -2,7 +2,7 @@
 import project1Image from './assets/projects/faithexplorers.png'
 import project2Image from './assets/projects/project2.png'
 import project3Image from './assets/projects/teensandyouth.jpg'
-import project6Image from './assets/projects/flyer2.jpg'// You can import more images if needed:
+import project6Image from './assets/projects/flyer2.jpg'
 import project7Image from './assets/projects/purposeacademy.png'
 import project5Image from './assets/projects/Followers.jpg'
 import project4Image from './assets/projects/aptechbenin.png'
@@ -18,6 +18,9 @@ import project16Image from './assets/projects/anchorport.png'
 import project17Image from './assets/projects/devconnect.png'
 import project18Image from './assets/projects/babyhub.png'
 
+// New Year & Frutajugo Assets (Ensure these assets exist in your directory)
+import projectNewYearImage from './assets/projects/visionletter.png' 
+import projectFrutajugoImage from './assets/projects/frutajugo.png' 
 
 // ----- HEADER -----
 const header = {
@@ -28,19 +31,37 @@ const header = {
 // ----- ABOUT -----
 const about = {
   name: 'Blessing James',
-  role: 'Software Developer & Designer',
-  description: `I love blending code, design, and creativity to build outstanding digital experiences.`,
+  role: 'AI Engineer & Full-Stack Developer',
+  description: `I architect production-ready intelligent systems, specializing in Agentic RAG and multi-agent AI architectures, while building high-performance full-stack web applications.`,
  
   resume: 'https://drive.google.com/file/d/1ZGps9neH8iYVi3jTDizV83yZtSM9bSxt/view?usp=sharing',
   social: {
     linkedin: 'https://www.linkedin.com/in/dblessingjames',
     github: 'https://github.com/DuoDduo',
-     behance: 'https://www.behance.net/blessing_james',
+    behance: 'https://www.behance.net/blessing_james',
   },
 };
 
 const projects = [
   // --- WEB PROJECTS ---
+  {
+    name: 'Vision Letter 2026',
+    description: 'An elite, interactive New Year brand activation platform showcasing neo-tech glassmorphism and custom layout animations.',
+    stack: ['React', 'Tailwind CSS', 'Framer Motion'],
+    sourceCode: 'https://github.com/DuoDduo',
+    livePreview: 'https://new-year-one-murex.vercel.app/',
+    category: 'Web',
+    image: projectNewYearImage,
+  },
+  {
+    name: 'Frutajugo Website',
+    description: 'A premium, high-performance web interface designed with clean modern interactions and rich UI textures.',
+    stack: ['React', 'Tailwind CSS', 'JavaScript'],
+    sourceCode: 'https://github.com/DuoDduo',
+    livePreview: 'https://www.frutajugo.com/',
+    category: 'Web',
+    image: projectFrutajugoImage,
+  },
   {
     name: 'Faith Explorers',
     description: 'A Christian blog website',
@@ -60,10 +81,10 @@ const projects = [
     image: project4Image,
   },
   {
-    name: 'Purpose Academy',
+    name: 'School of Purpose',
     description: 'School of Purpose ministry official website',
-    stack: ['React', 'Tailwind', 'React'],
-    sourceCode: 'https://github.com/DuoDduo/Purpose-Academy',
+    stack: ['React', 'Tailwind', 'JavaScript'],
+    sourceCode: 'https://schoolofpurpose.vercel.app/',
     livePreview: 'https://www.schoolofpurpose-sop.com/',
     category: 'Web',
     image: project7Image,
@@ -124,7 +145,7 @@ const projects = [
     category: 'Graphics',
     image: project10Image,
   },
-   {
+  {
     name: 'Flyer',
     description: 'Teens & Youth',
     stack: ['Photoshop'],
@@ -151,7 +172,7 @@ const projects = [
     category: 'Graphics',
     image: project9Image,
   },
-   {
+  {
     name: 'Cartoon',
     description: 'Cartoon 1',
     stack: ['Illustrator'],
@@ -209,14 +230,16 @@ const projects = [
   },
 ];
 
-
 // ----- SKILLS -----
 const skills = [
+  'Python',
+  'FastAPI',
+  'Agentic RAG / LangChain',
   'JavaScript',
   'React',
+  'Tailwind CSS',
   'Flutter',
-  'Python',
-  'Git and Github',
+  'Git & GitHub',
   'Figma',
   'Photoshop',
   'Illustrator',
