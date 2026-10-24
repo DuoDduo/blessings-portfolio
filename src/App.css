@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Josefin+Slab:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Josefin+Slab:ital,wght@0,100..700;1,100..700&display=swap');
 
 /* ============================================================
    DESIGN TOKENS
    ============================================================ */
 :root {
-  --clr-bg:            #05050a;
+  --clr-bg:            #020206;
   --clr-bg-alt:        rgba(255, 255, 255, 0.025);
   --clr-fg:            #eef2f8;
   --clr-fg-alt:        #7a8ba6;
@@ -13,21 +13,23 @@
   --clr-primary:       #ef0bef;
   --clr-cyan:          #00e5ff;
   --clr-accent:        #4f46e5;
+  --clr-terminal-green: #00ff66;
 
   --clr-primary-glow:  rgba(239, 11, 239, 0.18);
   --clr-cyan-glow:     rgba(0, 229, 255, 0.12);
+  --clr-terminal-glow: rgba(0, 255, 102, 0.15);
 
-  --glass-bg:          rgba(5, 5, 14, 0.52);
-  --glass-bg-light:    rgba(255, 255, 255, 0.03);
-  --glass-border:      1px solid rgba(255, 255, 255, 0.06);
-  --glass-border-hi:   1px solid rgba(255, 255, 255, 0.13);
-  --glass-blur:        blur(24px);
+  --glass-bg:          rgba(2, 2, 8, 0.65);
+  --glass-bg-light:    rgba(255, 255, 255, 0.02);
+  --glass-border:      1px solid rgba(255, 255, 255, 0.05);
+  --glass-border-hi:   1px solid rgba(255, 255, 255, 0.11);
+  --glass-blur:        blur(28px);
 
   --shadow-sm:         0 4px 16px rgba(0, 0, 0, 0.35);
   --shadow-md:         0 12px 40px rgba(0, 0, 0, 0.55),
                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
-  --grid-line:         rgba(239, 11, 239, 0.05);
+  --grid-line:         rgba(0, 229, 255, 0.04);
   --grid-size:         48px;
 }
 
@@ -64,12 +66,12 @@ html {
   overflow-x: hidden;
   min-height: 100vh;
 
-  background-color: var(--clr-bg);
-  background-image:
-    /* Dark void overlay — tweak the opacity values to taste */
+  /* background-color: var(--clr-bg); */
+  /* background-image:
+    /* Dark void overlay — tweak the opacity values to taste 
     linear-gradient(rgba(5, 5, 10, 0.80) 0%, rgba(5, 5, 10, 0.90) 100%),
-    /* ▼ Replace with your image */
-    url('../../assets/bg.jpg');
+    /* ▼ Replace with your image *
+    url('./assets/background.jpg'); */
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
@@ -343,4 +345,55 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .app::before,
   .app::after { animation: none; }
+}
+
+/* ============================================================
+   CODER COMMAND DECK & CRT SCANLINES
+   ============================================================ */
+.cyber-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.12) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.45;
+}
+
+.mono-text {
+  font-family: "Fira Code", "Courier New", monospace !important;
+}
+
+.terminal-accent {
+  color: var(--clr-terminal-green) !important;
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+}
+
+.cyan-accent {
+  color: var(--clr-cyan) !important;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.magenta-accent {
+  color: var(--clr-primary) !important;
+  text-shadow: 0 0 10px rgba(239, 11, 239, 0.4);
+}
+
+/* Scrollbar customization for coder matrix */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #020206;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 102, 0.2);
+  border-radius: 99px;
+  border: 1px solid rgba(0, 255, 102, 0.05);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 102, 0.45);
 }

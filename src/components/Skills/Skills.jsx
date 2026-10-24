@@ -6,16 +6,17 @@ import './Skills.css'
 const Skills = () => {
   if (!skills || !skills.length) return null
 
-  // If your portfolio.js data is a flat array, we can group them logically here
-  // or render them in an elite matrix. Let's group them to look highly intentional.
-  const coreAI = skills.filter(s => /rag|agent|python|ai|model|prompt|fastapi/i.test(s))
-  const webStack = skills.filter(s => !/rag|agent|python|ai|model|prompt|fastapi/i.test(s))
+  // Group skills by category properties
+  const aiMl = skills.filter(s => s.category === 'AI/ML')
+  const fullstack = skills.filter(s => s.category === 'Fullstack')
+  const frontend = skills.filter(s => s.category === 'Frontend')
+  const tools = skills.filter(s => s.category === 'Tools')
 
   const renderSkillCard = (skill, index) => (
     <li key={index} className='skills__list-item'>
       <div className='skills__pill'>
         <span className='skills__indicator' />
-        <span className='skills__name'>{skill}</span>
+        <span className='skills__name'>{skill.name}</span>
       </div>
     </li>
   )
@@ -25,25 +26,49 @@ const Skills = () => {
       <h2 className='section__title'>Tech Stack Matrix</h2>
 
       {/* Group 1: Intelligent Layer */}
-      {coreAI.length > 0 && (
+      {aiMl.length > 0 && (
         <div className='skills__group'>
           <h3 className='skills__group-title'>
-            <span className='skills__group-bracket'>//</span> Intelligence & Core Architectures
+            <span className='skills__group-bracket'>//</span> AI/ML Systems & Intelligent Layer
           </h3>
           <ul className='skills__list'>
-            {coreAI.map((skill, index) => renderSkillCard(skill, index))}
+            {aiMl.map((skill, index) => renderSkillCard(skill, index))}
           </ul>
         </div>
       )}
 
-      {/* Group 2: Systems & Deployment Layer */}
-      {webStack.length > 0 && (
+      {/* Group 2: Fullstack Infrastructure */}
+      {fullstack.length > 0 && (
         <div className='skills__group'>
           <h3 className='skills__group-title'>
-            <span className='skills__group-bracket'>//</span> Full-Stack & Interface Implementation
+            <span className='skills__group-bracket'>//</span> Full-Stack & Backend Systems
           </h3>
           <ul className='skills__list'>
-            {webStack.map((skill, index) => renderSkillCard(skill, index))}
+            {fullstack.map((skill, index) => renderSkillCard(skill, index))}
+          </ul>
+        </div>
+      )}
+
+      {/* Group 3: Frontend Layer */}
+      {frontend.length > 0 && (
+        <div className='skills__group'>
+          <h3 className='skills__group-title'>
+            <span className='skills__group-bracket'>//</span> Responsive Interfaces & Frontend
+          </h3>
+          <ul className='skills__list'>
+            {frontend.map((skill, index) => renderSkillCard(skill, index))}
+          </ul>
+        </div>
+      )}
+
+      {/* Group 4: DevOps & Tools */}
+      {tools.length > 0 && (
+        <div className='skills__group'>
+          <h3 className='skills__group-title'>
+            <span className='skills__group-bracket'>//</span> DevOps, Deployments & Core Tools
+          </h3>
+          <ul className='skills__list'>
+            {tools.map((skill, index) => renderSkillCard(skill, index))}
           </ul>
         </div>
       )}

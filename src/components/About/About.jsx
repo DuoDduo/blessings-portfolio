@@ -7,15 +7,15 @@ import { about } from '../../portfolio'
 import './About.css'
 
 const About = () => {
-  const { name, description, resume, social } = about
+  const { name, role, description, resume, social } = about
 
   return (
-    <section className='about'>
+    <section id='about' className='about'>
 
       {/* Engineering System Eyebrow */}
       <div className='about__eyebrow'>
         <span className='about__bracket'>[</span>
-        <span className='about__role-text'>Core Focus // Agentic RAG & Multi-Agent Systems</span>
+        <span className='about__role-text'>Core Focus // Agentic AI & Systems Engineering</span>
         <span className='about__bracket'>]</span>
       </div>
 
@@ -29,9 +29,11 @@ const About = () => {
         )}
         
         {/* Authoritative Primary Job Headline */}
-        <h2 className='about__headline'>
-          AI Systems Engineer <span className='about__headline-amp'>&</span> Full-Stack Developer
-        </h2>
+        {role && (
+          <h2 className='about__headline'>
+            {role.split('&')[0]} <span className='about__headline-amp'>&</span>{role.split('&')[1]}
+          </h2>
+        )}
       </div>
 
       {/* Ambient Accent Indicator */}

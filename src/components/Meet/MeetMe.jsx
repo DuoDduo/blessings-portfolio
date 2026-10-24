@@ -4,12 +4,12 @@ import './MeetMe.css'
 import profilePic from '../../assets/profile.jpg'
 
 const specializations = [
-  'Agentic RAG Systems',
+  'Agentic RAG Architectures',
   'Multi-Agent Orchestration',
-  'LLM Integration',
-  'Full-Stack Architecture',
-  'REST & GraphQL APIs',
-  'Cloud Infrastructure',
+  'Neural Network Pipelines',
+  'Robust Distributed APIs',
+  'High-Performance Fullstack',
+  'Vector Search & Embeddings',
 ]
 
 const MeetMe = () => {
