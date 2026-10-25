@@ -1,7 +1,7 @@
 // src/components/MeetMe/MeetMe.jsx
 import React from 'react'
 import './MeetMe.css'
-import profilePic from '../../assets/profile.jpg'
+import profilePic from '../../assets/profile.webp'
 
 const specializations = [
   'Agentic RAG Architectures',

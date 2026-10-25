@@ -12,11 +12,10 @@ const Contact = () => {
       </p>
       <a
         href={`mailto:${contact.email}`}
+        className='btn btn--outline'
         aria-label='Email Blessing James'
       >
-        <span type='button' className='btn btn--outline'>
-          Email me
-        </span>
+        Email me
       </a>
     </section>
   )

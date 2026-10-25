@@ -19,6 +19,8 @@ const ProjectContainer = ({ project }) => {
             src={project.image}
             alt={`${project.name} preview`}
             className='project-card__img'
+            loading='lazy'
+            decoding='async'
           />
         ) : (
           <div className='project-card__img-placeholder'>

@@ -36,9 +36,8 @@
 }
 
 .nav__list-item a:hover,
-.nav__list-item a:focus {
+.nav__list-item a:focus-visible {
   color: var(--clr-primary);
-  outline: none;
 }
 
 /* Hamburger button */
@@ -54,10 +53,9 @@
 }
 
 .app .nav__hamburger:hover,
-.app .nav__hamburger:focus {
+.app .nav__hamburger:focus-visible {
   background-color: var(--clr-primary);
   color: white;
-  outline: none;
 }
 
 /* Overlay behind the menu (optional) */

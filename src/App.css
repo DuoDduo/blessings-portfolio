@@ -49,14 +49,10 @@ html {
 
 /* ============================================================
    APP SHELL
-   
+
    Background stack (bottom → top):
-   1. Your background image (place a dark photo at src/assets/bg.jpg)
-      Great options → unsplash.com: search "dark terminal", "circuit board dark",
-      "dark code editor". Download, drop in src/assets/bg.jpg.
-   2. Dark overlay — controls how much image bleeds through
-   3. ::before — perspective grid (scrolls toward viewer)
-   4. ::after  — magenta/cyan atmospheric glow orbs
+   1. ::before — perspective grid (scrolls toward viewer)
+   2. ::after  — magenta/cyan atmospheric glow orbs
    ============================================================ */
 .app {
   font-family: "Josefin Slab", serif;
@@ -66,16 +62,6 @@ html {
   overflow-x: hidden;
   min-height: 100vh;
 
-  /* background-color: var(--clr-bg); */
-  /* background-image:
-    /* Dark void overlay — tweak the opacity values to taste 
-    linear-gradient(rgba(5, 5, 10, 0.80) 0%, rgba(5, 5, 10, 0.90) 100%),
-    /* ▼ Replace with your image *
-    url('./assets/background.jpg'); */
-  background-size: cover;
-  background-position: center top;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
 }
 
 /* — Perspective grid — */
@@ -314,16 +300,18 @@ main {
 .btn--icon:active { transform: translateY(0); }
 
 /* ============================================================
-   SCROLLBAR & SELECTION
+   FOCUS
+   Visible ring for keyboard users only; mouse clicks stay clean.
    ============================================================ */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--clr-bg); }
-::-webkit-scrollbar-thumb {
-  background: rgba(239,11,239,.3);
-  border-radius: 99px;
+:focus-visible {
+  outline: 2px solid var(--clr-cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(239,11,239,.55); }
 
+/* ============================================================
+   SELECTION
+   ============================================================ */
 ::selection {
   background: rgba(239,11,239,.25);
   color: #ffffff;
@@ -348,21 +336,8 @@ main {
 }
 
 /* ============================================================
-   CODER COMMAND DECK & CRT SCANLINES
+   CODER ACCENTS
    ============================================================ */
-.cyber-scanlines {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.12) 50%
-  );
-  background-size: 100% 4px;
-  opacity: 0.45;
-}
-
 .mono-text {
   font-family: "Fira Code", "Courier New", monospace !important;
 }
@@ -382,7 +357,9 @@ main {
   text-shadow: 0 0 10px rgba(239, 11, 239, 0.4);
 }
 
-/* Scrollbar customization for coder matrix */
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
 ::-webkit-scrollbar {
   width: 5px;
 }

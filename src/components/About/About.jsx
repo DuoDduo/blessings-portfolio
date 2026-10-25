@@ -52,13 +52,12 @@ const About = () => {
         {resume && (
           <a
             href={resume}
+            className='btn about__resume-btn'
             target='_blank'
             rel='noopener noreferrer'
           >
-            <button className='btn about__resume-btn'>
-              <span>View Resume</span>
-              <span className='about__btn-arrow'>→</span>
-            </button>
+            <span>View Resume</span>
+            <span className='about__btn-arrow' aria-hidden='true'>→</span>
           </a>
         )}
 

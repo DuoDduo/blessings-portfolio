@@ -4,58 +4,67 @@ import './GitHubStats.css'
 
 /* ── Config ─────────────────────────────────────────────────── */
 const USERNAME = 'DuoDduo'
+const PROFILE_URL = `https://github.com/${USERNAME}`
+
+// The public events API only reaches back ~90 days, so the heatmap
+// covers exactly that window rather than inventing older activity.
+const WEEKS = 13
+const DAYS = WEEKS * 7
+
+// Unauthenticated API calls are limited to 60/hour per visitor IP,
+// so results are cached in the browser for an hour.
+const CACHE_KEY = `gh-stats:${USERNAME}`
+const CACHE_TTL = 60 * 60 * 1000
 
 /* ── API helper ─────────────────────────────────────────────── */
 const ghFetch = (path) =>
   fetch(`https://api.github.com/${path}`, {
     headers: { Accept: 'application/vnd.github+json' },
   }).then((r) => {
-    if (!r.ok) throw new Error(`GitHub ${r.status} — ${path}`)
+    if (!r.ok) throw new Error(`GitHub API responded ${r.status}`)
     return r.json()
   })
+
+/* ── Cache helpers (storage can be unavailable or full) ────── */
+const readCache = () => {
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY))
+    if (cached && Date.now() - cached.savedAt < CACHE_TTL) return cached.data
+  } catch { /* ignore */ }
+  return null
+}
+
+const writeCache = (data) => {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), data }))
+  } catch { /* ignore */ }
+}
 
 /* ── Date helpers ───────────────────────────────────────────── */
 const toKey = (d) => new Date(d).toISOString().slice(0, 10)
 
-/* ── Build heatmap grid (52 weeks × 7 days) ─────────────────── */
+/* ── Build heatmap grid (WEEKS × 7 days) ────────────────────── */
 const buildGrid = (activityMap) => {
   const today = new Date()
   const start = new Date(today)
-  start.setDate(today.getDate() - 363)
+  start.setDate(today.getDate() - (DAYS - 1))
   start.setDate(start.getDate() - start.getDay()) // align to Sunday
 
   const grid = []
   const cur = new Date(start)
 
-  for (let w = 0; w < 52; w++) {
+  for (let w = 0; w < WEEKS; w++) {
     const col = []
     for (let d = 0; d < 7; d++) {
       const key = toKey(cur)
-      const isFuture = cur > today
-      const knownCount = activityMap[key]
+      const count = cur > today ? 0 : (activityMap[key] ?? 0)
       let level = 0
+      if (count > 10) level = 4
+      else if (count > 5) level = 3
+      else if (count > 2) level = 2
+      else if (count > 0) level = 1
 
-      if (!isFuture) {
-        if (knownCount != null) {
-          // Real data from events API
-          if (knownCount === 0) level = 0
-          else if (knownCount <= 2) level = 1
-          else if (knownCount <= 5) level = 2
-          else if (knownCount <= 10) level = 3
-          else level = 4
-        } else {
-          // Artistic fill for weeks beyond the 90-day events window
-          const recency = w / 52
-          const r = Math.random()
-          const b = recency * 0.5 + 0.08
-          if      (r > 1 - b * 0.12) level = 4
-          else if (r > 1 - b * 0.28) level = 3
-          else if (r > 1 - b * 0.48) level = 2
-          else if (r > 1 - b * 0.65) level = 1
-        }
-      }
-
-      col.push({ level, date: key, count: knownCount ?? 0 })
+      col.push({ level, date: key, count })
       cur.setDate(cur.getDate() + 1)
     }
     grid.push(col)
@@ -67,7 +76,7 @@ const buildGrid = (activityMap) => {
 const calcStreak = (map) => {
   let best = 0, cur = 0
   const today = new Date()
-  for (let i = 363; i >= 0; i--) {
+  for (let i = DAYS - 1; i >= 0; i--) {
     const d = new Date(today)
     d.setDate(today.getDate() - i)
     if ((map[toKey(d)] ?? 0) > 0) { cur++; best = Math.max(best, cur) }
@@ -87,8 +96,9 @@ const LANG_COLORS = {
 
 const buildLanguages = (repos) => {
   const counts = {}
-  repos.forEach(({ language }) => {
-    if (language) counts[language] = (counts[language] ?? 0) + 1
+  // Forks are other people's code, so they don't count toward my languages
+  repos.forEach(({ language, fork }) => {
+    if (language && !fork) counts[language] = (counts[language] ?? 0) + 1
   })
   const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1
   return Object.entries(counts)
@@ -119,16 +129,22 @@ const GitHubStats = () => {
     let dead = false
 
     const load = async () => {
+      const cached = readCache()
+      if (cached) {
+        setData(cached)
+        setLoading(false)
+        return
+      }
+
       try {
-        // ① User profile
-        const user = await ghFetch(`users/${USERNAME}`)
+        const [user, repos, commitRes, prRes] = await Promise.all([
+          ghFetch(`users/${USERNAME}`),
+          ghFetch(`users/${USERNAME}/repos?per_page=100&sort=pushed`),
+          ghFetch(`search/commits?q=author:${USERNAME}&per_page=1`),
+          ghFetch(`search/issues?q=type:pr+author:${USERNAME}&per_page=1`),
+        ])
 
-        // ② Public repos for language tally
-        const repos = await ghFetch(
-          `users/${USERNAME}/repos?per_page=100&sort=pushed`
-        )
-
-        // ③ Public events — 3 pages ≈ 300 events, ~90 days back
+        // Public events — up to 3 pages ≈ 300 events, ~90 days back
         let events = []
         for (let page = 1; page <= 3; page++) {
           const chunk = await ghFetch(
@@ -137,16 +153,6 @@ const GitHubStats = () => {
           events = events.concat(chunk)
           if (chunk.length < 100) break
         }
-
-        // ④ Commit count via search
-        const commitRes = await ghFetch(
-          `search/commits?q=author:${USERNAME}&per_page=1`
-        )
-
-        // ⑤ PR count via search
-        const prRes = await ghFetch(
-          `search/issues?q=type:pr+author:${USERNAME}&per_page=1`
-        )
 
         if (dead) return
 
@@ -165,17 +171,20 @@ const GitHubStats = () => {
           activityMap[key] = (activityMap[key] ?? 0) + weight
         })
 
-        setData({
-          user,
+        const result = {
+          followers:  user.followers,
           repoCount:  user.public_repos,
           commits:    commitRes.total_count,
           prs:        prRes.total_count,
           streak:     calcStreak(activityMap),
           languages:  buildLanguages(repos),
           activityMap,
-        })
+        }
+        writeCache(result)
+        setData(result)
       } catch (err) {
-        if (!dead) setError(err.message)
+        console.warn('GitHub stats unavailable:', err)
+        if (!dead) setError(true)
       } finally {
         if (!dead) setLoading(false)
       }
@@ -224,21 +233,26 @@ const GitHubStats = () => {
       <h2 className='section__title'>GitHub Activity</h2>
       <div className='github-stats__shell github-stats__shell--error'>
         <span className='github-stats__prompt-caret'>❯</span>
-        <span className='github-stats__error-msg'>{error ?? 'Failed to load.'}</span>
+        <span className='github-stats__error-msg'>
+          Live stats are taking a break.{' '}
+          <a href={PROFILE_URL} target='_blank' rel='noopener noreferrer' className='link'>
+            See my activity on GitHub →
+          </a>
+        </span>
       </div>
     </section>
   )
 
-  const { user, repoCount, commits, prs, streak, languages } = data
+  const { followers, repoCount, commits, prs, streak, languages } = data
 
   const fmtNum = (n) =>
     n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n)
 
   const metrics = [
-    { label: 'Total Commits',  value: fmtNum(commits) },
-    { label: 'Pull Requests',  value: fmtNum(prs)     },
-    { label: 'Public Repos',   value: repoCount        },
-    { label: 'Best Streak',    value: `${streak}d`     },
+    { label: 'Public Commits',   value: fmtNum(commits) },
+    { label: 'Pull Requests',    value: fmtNum(prs)     },
+    { label: 'Public Repos',     value: repoCount        },
+    { label: 'Best Streak (90d)', value: `${streak}d`    },
   ]
 
   /* ── Main render ── */
@@ -255,13 +269,13 @@ const GitHubStats = () => {
             gh stats --user {USERNAME}
           </span>
           <a
-            href={`https://github.com/${USERNAME}`}
+            href={PROFILE_URL}
             target='_blank'
             rel='noopener noreferrer'
             className='github-stats__status'
           >
             <span className='github-stats__status-dot' aria-hidden='true' />
-            {user.followers.toLocaleString()} followers
+            {followers.toLocaleString()} followers
           </a>
         </div>
 
@@ -278,12 +292,12 @@ const GitHubStats = () => {
         {/* ── Contribution heatmap ── */}
         <div className='github-stats__heatmap-wrap'>
           <div className='github-stats__heatmap-label'>
-            // Contribution activity — past 12 months
+            // Public activity — last 90 days
           </div>
           <div
             className='github-stats__heatmap'
             role='img'
-            aria-label='GitHub contribution heatmap'
+            aria-label='GitHub public activity heatmap for the last 90 days'
           >
             {grid.map((col, wi) => (
               <div key={wi} className='github-stats__heatmap-col'>
