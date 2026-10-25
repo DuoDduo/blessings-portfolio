@@ -1,22 +1,24 @@
 // Page sections built on the "Blueprint" design system (components/ui).
 import { useEffect, useRef, useState } from 'react'
 import { FaBehance, FaGithub, FaLinkedin } from 'react-icons/fa'
-import { about, contact, pillars, projects } from '../portfolio'
+import { about, contact, education, experience, pillars, projects } from '../portfolio'
 import { GITHUB_PROFILE, useGitHubStats } from '../hooks/useGitHubStats'
 import { gsap, prefersReducedMotion, useCountUp, useHeroIntro, useTilt } from '../motion/motion'
 import profilePic from '../assets/profile.webp'
 import {
   Button, Card, SectionHeader, Tag, ThemeToggle,
 } from '../components/ui/ui'
-import HeroCanvas from './HeroCanvas'
 import './sections.css'
 
 const NAV = [
-  { href: '#work', label: 'Work' },
   { href: '#about', label: 'About' },
-  { href: '#github', label: 'GitHub' },
+  { href: '#work', label: 'Work' },
+  { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ]
+
+// Gold serif accent for the key phrase in a heading
+const Accent = ({ children }) => <em className='accent'>{children}</em>
 
 /* ── Header ─────────────────────────────────────────────────── */
 export const SiteHeader = () => (
@@ -47,26 +49,24 @@ export const Hero = () => {
   useHeroIntro(scope)
   return (
     <section ref={scope} className='hero' aria-labelledby='hero-title'>
-      <div className='hero__copy'>
-        <h1 id='hero-title' className='hero__name' aria-label={about.name}>
-          {about.name.split(' ').map((word) => (
-            <span key={word} className='hero__line' aria-hidden='true'>
-              <span className='hero__word'>{word}</span>
-            </span>
-          ))}
-        </h1>
-        <p className='hero__role'>
-          {about.role.split(' and ')[0]} <span className='hero__amp'>&amp;</span>{' '}
-          <span className='hero__accent'>{about.role.split(' and ')[1]}</span>
-        </p>
-        <p className='hero__tagline'>{about.tagline}</p>
-        <div className='hero__actions'>
-          <Button href='#work' data-magnetic>View my work</Button>
-          <Button variant='secondary' href={about.resume} external>Résumé</Button>
-          <Socials />
-        </div>
+      <h1 id='hero-title' className='hero__headline' aria-label='I build intelligent products, and make the AI accountable.'>
+        <span className='hero__line' aria-hidden='true'>
+          {['I', 'build', 'intelligent', 'products,'].map((w) => <span key={w} className='hero__word'>{w}</span>)}
+        </span>
+        <span className='hero__line' aria-hidden='true'>
+          {['and', 'make', 'the', 'AI'].map((w) => <span key={w} className='hero__word'>{w}</span>)}
+          <span className='hero__word accent'>accountable.</span>
+        </span>
+      </h1>
+      <p className='hero__intro'>
+        I&apos;m <strong>{about.name}</strong>, a {about.role.replace(' and ', ' & ')}.
+      </p>
+      <div className='hero__actions'>
+        <Button href='#work' data-magnetic>View my work</Button>
+        <Button variant='secondary' href={about.resume} download='Blessing_James_CV.pdf'>Download CV</Button>
+        <Socials />
       </div>
-      <HeroCanvas />
+      <p className='hero__hint'>Move your pointer, scroll, or click anywhere to send a signal through the network.</p>
     </section>
   )
 }
@@ -74,7 +74,7 @@ export const Hero = () => {
 /* ── About ──────────────────────────────────────────────────── */
 export const About = () => (
   <section id='about' className='section' aria-labelledby='about-title'>
-    <div data-reveal><SectionHeader id='about-title' title='About' /></div>
+    <div data-reveal><SectionHeader id='about-title' title={<>Hey, I&apos;m <Accent>Blessing</Accent>.</>} /></div>
     <div className='about' data-reveal>
       <img src={profilePic} alt='Blessing James' className='about__photo' width='320' height='400' loading='lazy' />
       <div className='about__bio'>
@@ -115,7 +115,7 @@ const WorkCard = ({ project }) => {
       <div ref={tiltRef} className='work-card__tilt'>
         <Card className='work-card'>
           <div className='work-card__media'>
-            <img src={project.image} alt={`${project.name} pipeline diagram`} className='work-card__img' width='640' height='360' loading='lazy' />
+            <img src={project.image} alt={`${project.name} preview`} className='work-card__img' width='640' height='360' loading='lazy' />
           </div>
           <div className='work-card__body'>
             <div className='work-card__heading'>
@@ -125,6 +125,7 @@ const WorkCard = ({ project }) => {
             <p className='work-card__desc'>{project.description}</p>
             <div className='tag-row'>{project.stack.map((s) => <Tag key={s}>{s}</Tag>)}</div>
             <ProjectLinks project={project} />
+            {project.note && <p className='work-card__note'>{project.note}</p>}
           </div>
         </Card>
       </div>
@@ -137,9 +138,9 @@ export const Work = () => {
   return (
     <section id='work' className='section' aria-labelledby='work-title'>
       <div data-reveal>
-        <SectionHeader id='work-title' title='Selected work'>
-          AI and machine learning projects, from retrieval systems to classic models. Team projects
-          say what I built.
+        <SectionHeader id='work-title' title={<>Systems where AI <Accent>shows its working</Accent>.</>}>
+          AI and machine learning projects, from compliance and retrieval systems to classic
+          models. Team projects say what I built.
         </SectionHeader>
       </div>
       <ul className='work-grid'>
@@ -148,6 +149,40 @@ export const Work = () => {
     </section>
   )
 }
+
+/* ── Experience ─────────────────────────────────────────────── */
+export const Experience = () => (
+  <section id='experience' className='section' aria-labelledby='experience-title'>
+    <div data-reveal>
+      <SectionHeader id='experience-title' title={<>Where I&apos;ve been <Accent>learning by building</Accent>.</>} />
+    </div>
+    <ol className='timeline'>
+      {experience.map(({ when, title, org, detail }) => (
+        <li key={`${title}-${org}`} className='timeline__item' data-reveal-batch>
+          <span className='timeline__when'>{when}</span>
+          <Card as='div' className='timeline__card'>
+            <h3 className='timeline__title'>{title}</h3>
+            <p className='timeline__org'>{org}</p>
+            <p className='timeline__detail'>{detail}</p>
+          </Card>
+        </li>
+      ))}
+    </ol>
+
+    <h3 className='education__title' data-reveal>Education</h3>
+    <ul className='education'>
+      {education.map(({ when, title, org }) => (
+        <li key={title} data-reveal-batch>
+          <Card as='div' className='education__card'>
+            {when && <span className='timeline__when'>{when}</span>}
+            <p className='timeline__title'>{title}</p>
+            <p className='timeline__org'>{org}</p>
+          </Card>
+        </li>
+      ))}
+    </ul>
+  </section>
+)
 
 /* ── More work (Web, UI/UX, Graphics) ───────────────────────── */
 const MORE_CATEGORIES = [
@@ -175,7 +210,7 @@ export const MoreWork = () => {
   return (
     <section id='more-work' className='section' aria-labelledby='more-title'>
       <div data-reveal>
-        <SectionHeader id='more-title' title='More work'>
+        <SectionHeader id='more-title' title={<>Where it <Accent>started</Accent>.</>}>
           Client websites, interface design and graphic design.
         </SectionHeader>
       </div>
@@ -232,7 +267,7 @@ export const GitHubSection = () => {
   return (
     <section id='github' className='section' aria-labelledby='github-title'>
       <div data-reveal>
-        <SectionHeader id='github-title' title='On GitHub'>
+        <SectionHeader id='github-title' title={<>Building <Accent>in the open</Accent>.</>}>
           Live numbers from my public profile, excluding forks.
         </SectionHeader>
       </div>
@@ -276,7 +311,7 @@ export const GitHubSection = () => {
 export const Contact = () => (
   <section id='contact' className='section contact' aria-labelledby='contact-title'>
     <div data-reveal>
-      <SectionHeader id='contact-title' title='Get in touch'>
+      <SectionHeader id='contact-title' title={<>Let&apos;s build something <Accent>you can trust</Accent>.</>}>
         I&apos;m open to full-stack and AI/ML engineering roles and freelance projects. Email is the fastest way to reach me.
       </SectionHeader>
     </div>

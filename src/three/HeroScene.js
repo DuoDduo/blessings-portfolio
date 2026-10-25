@@ -1,7 +1,8 @@
-// Interactive hero scene: a layered network drawn like a blueprint.
+// Page-wide backdrop scene: a layered network drawn like a blueprint.
 // Pulses of data travel along the connections; the pointer tilts the
-// network; a click sends a signal wave through every layer.
-// Loaded lazily by sections/HeroCanvas.jsx.
+// network; a click sends a signal wave through every layer; scrolling
+// carries the camera through it.
+// Loaded lazily by sections/SceneBackdrop.jsx.
 import {
   AdditiveBlending, BufferAttribute, BufferGeometry, CanvasTexture, Color, Group,
   IcosahedronGeometry, InstancedMesh, LineBasicMaterial, LineSegments, MeshBasicMaterial,
@@ -179,6 +180,9 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
   const pointer = { x: 0, y: 0 }
   const tilt = { x: 0, y: 0 }
   let progress = 0
+  let smooth = 0
+  let baseZ = CAMERA_Z
+  let driftX = 2.4
 
   const onPointerMove = (e) => {
     const r = canvas.getBoundingClientRect()
@@ -209,8 +213,10 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
     if (!w || !h) return
     renderer.setSize(w, h, false)
     camera.aspect = w / h
-    // Keep the whole network in frame on narrow canvases
-    camera.position.z = w / h < 1 ? CAMERA_Z / Math.max(w / h, 0.6) : CAMERA_Z
+    // Keep the whole network in frame on narrow screens, and drift less there
+    baseZ = w / h < 1 ? CAMERA_Z / Math.max(w / h, 0.6) : CAMERA_Z
+    driftX = w / h < 1 ? 0.6 : 2.4
+    camera.position.z = baseZ
     camera.updateProjectionMatrix()
   }
   const resizeObserver = new ResizeObserver(resize)
@@ -232,9 +238,13 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
 
     tilt.x += (pointer.y * 0.25 - tilt.x) * 0.06
     tilt.y += (pointer.x * 0.45 - tilt.y) * 0.06
-    network.rotation.x = tilt.x + Math.sin(now / 4000) * 0.05
-    network.rotation.y = tilt.y - 0.35 + progress * 1.4 + Math.sin(now / 5000) * 0.08
-    camera.position.y = -progress * 1.2
+    // Scrolling the page carries you through the network: it turns,
+    // drifts from side to side between sections and flies closer mid-page
+    smooth += (progress - smooth) * 0.08
+    network.rotation.x = tilt.x + Math.sin(now / 4000) * 0.05 + smooth * 0.6
+    network.rotation.y = tilt.y - 0.35 + smooth * Math.PI * 1.6 + Math.sin(now / 5000) * 0.08
+    network.position.x = Math.sin(smooth * Math.PI * 3) * driftX
+    camera.position.z = baseZ - Math.sin(smooth * Math.PI) * 3
 
     spawnClock += dt
     if (spawnClock > 0.12) { spawnClock = 0; spawnPulse() }
@@ -269,7 +279,7 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
   return {
     wave,
     setTheme: () => { setTheme(); if (reducedMotion) render() },
-    // 0 at the top of the page, 1 once the hero has scrolled away
+    // 0 at the top of the page, 1 at the bottom
     setProgress: (p) => { progress = p },
     dispose: () => {
       stopLoop()

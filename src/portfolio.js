@@ -24,6 +24,7 @@ import sabilensImage from './assets/projects/sabilens.svg'
 import taxpyreImage from './assets/projects/taxpyre.svg'
 import breastCancerImage from './assets/projects/breastcancer.svg'
 import sentinnelImage from './assets/projects/sentinnel.svg'
+import e1netImage from './assets/projects/e1net.webp'
 
 // ----- ABOUT -----
 const about = {
@@ -33,9 +34,10 @@ const about = {
   bio: [
     "I'm Blessing, a full-stack developer and AI/ML engineer. I build products end to end: React front ends, FastAPI and Flask back ends, and the machine learning and LLM systems inside them.",
     'I care most about AI that people can trust. On Sentinnel Banking I built the RAG layer that checks every agent decision against written policy. On TaxPyre, every answer cites the passages it came from.',
-    'Recently I completed an AI engineering internship at Flexisaf and a generative AI fellowship, where I built team capstone projects.',
+    'I trained as an AI engineer in the Ogun State GenAI Fellowship with Publica Academy, where I built team capstones such as Sentinnel Banking and SabiLens.',
   ],
-  resume: 'https://drive.google.com/file/d/1SsgATiH1pcj7NcQ91dwGB2AH92nLbM_n/view?usp=sharing',
+  // Served from public/; replace that file to update the CV
+  resume: '/Blessing_James_CV.pdf',
   social: {
     github: 'https://github.com/DuoDduo',
     linkedin: 'https://www.linkedin.com/in/dblessingjames',
@@ -47,18 +49,18 @@ const about = {
 const pillars = [
   {
     title: 'Intelligence',
-    proof: 'Multi-agent orchestration with LangGraph, RAG pipelines grounded in real documents, and classic ML for classification and risk scoring.',
-    tags: ['LangGraph', 'LangChain', 'ChromaDB', 'scikit-learn', 'pandas', 'NLTK'],
+    proof: 'Retrieval over real documents with pgvector and ChromaDB, LLM drafting behind rule-based checks, multi-agent orchestration with LangGraph, and classic ML for classification and risk scoring.',
+    tags: ['OpenAI API', 'pgvector', 'LangGraph', 'LangChain', 'ChromaDB', 'scikit-learn', 'pandas'],
   },
   {
     title: 'Product',
-    proof: 'Full-stack apps with React front ends and Python APIs, from the database schema to the interface.',
-    tags: ['React', 'Tailwind CSS', 'FastAPI', 'Flask', 'SQLAlchemy', 'PostgreSQL'],
+    proof: 'Full-stack apps from the database schema to the interface: Next.js and React front ends on Python APIs, with proper sign-in and roles.',
+    tags: ['Next.js', 'React', 'Tailwind CSS', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL', 'Auth0'],
   },
   {
     title: 'Production',
-    proof: 'Work that is tested and deployed: my habit-tracking app runs 29 passing backend tests and is live on Vercel.',
-    tags: ['Docker', 'pytest', 'Git & GitHub', 'Vercel'],
+    proof: 'Work that ships: e1NET deploys to Azure through GitHub Actions with malware scanning on every upload, and my habit tracker runs 29 passing tests.',
+    tags: ['Azure', 'Docker', 'GitHub Actions', 'pytest', 'Vercel'],
   },
 ]
 
@@ -66,6 +68,14 @@ const pillars = [
 // team: true marks group work; role says what I personally built.
 const projects = [
   // --- AI/ML PROJECTS ---
+  {
+    name: 'e1NET',
+    description: 'Compliance that small businesses can actually do. e1NET checks the policies a business already keeps against Cyber Essentials and ISO 27001: it finds the relevant passages, drafts each assessment with AI, and lets versioned rules, not the model, decide what counts as met. Every finding links to its evidence and lands in an audit trail.',
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'OpenAI API', 'Next.js', 'Auth0', 'Azure', 'GitHub Actions'],
+    note: 'Private repository. Walkthrough on request.',
+    category: 'AI/ML',
+    image: e1netImage,
+  },
   {
     name: 'SabiLens',
     description: 'Checks whether a product is genuine from a photo of its label. A ResNet50 vision model and PaddleOCR read the packaging, then an LLM agent checks it against the NAFDAC registry and returns a verdict in under 5 seconds.',
@@ -212,9 +222,50 @@ const projects = [
   { name: 'Cartoon 3', description: 'Character illustration.', stack: ['Illustrator'], category: 'Graphics', image: cartoon3Image },
 ]
 
+// ----- EXPERIENCE (from my CV) -----
+const experience = [
+  {
+    when: '08/2025 – 02/2026',
+    title: 'AI Engineer Trainee',
+    org: 'Ogun State GenAI Fellowship (Publica Academy)',
+    detail: 'Built multi-agent systems with LangGraph, production RAG pipelines with semantic chunking and vector embeddings, and type-safe FastAPI and Pydantic backends for LLM integration.',
+  },
+  {
+    when: '11/2024 – now',
+    title: 'Web Developer',
+    org: 'School of Purpose',
+    detail: 'Build and maintain the web apps, including an admin dashboard for data-driven management.',
+  },
+  {
+    when: '08/2024 – 02/2025',
+    title: 'Cyber Risk Analyst Intern',
+    org: 'Chevron',
+    detail: 'Analysed phishing reports to find vulnerabilities, validated disaster recovery and business continuity plans in enterprise exercises, and took part in data privacy audit walkthroughs.',
+  },
+  {
+    when: '09/2024 – 11/2024',
+    title: 'Technical Instructor',
+    org: 'Aptech Computer Education',
+    detail: 'Taught object-oriented programming, database management and software engineering fundamentals.',
+  },
+  {
+    when: '09/2023 – 09/2024',
+    title: 'Front-End Developer',
+    org: 'JEXCEL TECH',
+    detail: 'Built modular React components for enterprise apps, with a focus on cross-platform usability and maintainable code.',
+  },
+]
+
+// ----- EDUCATION (from my CV) -----
+const education = [
+  { title: 'B.Sc. in Data Science', org: 'IU International University of Applied Sciences, Germany' },
+  { when: '2022 – 2024', title: 'Advanced Diploma in Software Engineering (ADSE)', org: 'Aptech Computer Education' },
+  { when: '2021 – 2022', title: 'Diploma in Graphic Design', org: 'Aptech Computer Education' },
+]
+
 // ----- CONTACT -----
 const contact = {
   email: 'pelubs2956@mail.com',
 }
 
-export { about, pillars, projects, contact }
+export { about, pillars, projects, experience, education, contact }
