@@ -102,6 +102,34 @@
   font: var(--weight-bold) var(--text-xl) / var(--leading-snug) var(--font-sans);
   color: var(--color-text);
 }
+/* Gold serif accent for the second half of the role */
+.hero__accent,
+.hero__amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--weight-regular);
+  font-size: 1.15em;
+  color: var(--color-annotation);
+}
+.hero__amp { color: var(--color-text-muted); }
+
+/* Ember light that follows the pointer (see motion.js useCursorGlow) */
+.cursor-glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: 280px;
+  height: 280px;
+  margin: -140px 0 0 -140px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, var(--cursor-glow) 0%, transparent 65%);
+  filter: blur(20px);
+  mix-blend-mode: var(--cursor-blend);
+  opacity: 0;
+}
+
 .hero__tagline {
   margin-top: var(--space-3);
   max-width: 34ch;

@@ -1,10 +1,11 @@
 import {
   About, Contact, GitHubSection, Hero, MoreWork, SiteFooter, SiteHeader, Work,
 } from './sections/Sections';
-import { useScrollReveals } from './motion/motion';
+import { useCursorGlow, useScrollReveals } from './motion/motion';
 
 const App = () => {
   useScrollReveals();
+  useCursorGlow();
 
   return (
     <>

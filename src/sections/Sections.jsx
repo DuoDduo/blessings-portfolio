@@ -55,10 +55,13 @@ export const Hero = () => {
             </span>
           ))}
         </h1>
-        <p className='hero__role'>{about.role}</p>
+        <p className='hero__role'>
+          {about.role.split(' and ')[0]} <span className='hero__amp'>&amp;</span>{' '}
+          <span className='hero__accent'>{about.role.split(' and ')[1]}</span>
+        </p>
         <p className='hero__tagline'>{about.tagline}</p>
         <div className='hero__actions'>
-          <Button href='#work'>View my work</Button>
+          <Button href='#work' data-magnetic>View my work</Button>
           <Button variant='secondary' href={about.resume} external>Résumé</Button>
           <Socials />
         </div>
@@ -278,7 +281,7 @@ export const Contact = () => (
       </SectionHeader>
     </div>
     <div className='contact__actions' data-reveal>
-      <Button href={`mailto:${contact.email}`}>Email me</Button>
+      <Button href={`mailto:${contact.email}`} data-magnetic>Email me</Button>
       <Button variant='secondary' href={about.social.linkedin} external>Message me on LinkedIn</Button>
     </div>
   </section>

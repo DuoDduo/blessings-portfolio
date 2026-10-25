@@ -1,35 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="SabiLens pipeline: scan, vision and OCR, regulatory agent, verdict">
   <defs>
-    <pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#8db4f5" stroke-opacity=".09"/></pattern>
-    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8db4f5"/></marker>
+    <pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#ff7a45" stroke-opacity=".09"/></pattern>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ff7a45"/></marker>
   </defs>
-  <rect width="640" height="360" fill="#081a33"/>
+  <rect width="640" height="360" fill="#0d0d0f"/>
   <rect width="640" height="360" fill="url(#g)"/>
   <g font-family="Segoe UI, system-ui, sans-serif" fill="#fff">
-    <rect x="28" y="150" width="112" height="84" rx="6" fill="#0e2747" stroke="#8db4f5"/>
+    <rect x="28" y="150" width="112" height="84" rx="6" fill="#16161a" stroke="#ff7a45"/>
     <text x="84" y="185" text-anchor="middle" font-size="17" font-weight="700">Scan</text>
-    <text x="84" y="210" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">front + back</text>
+    <text x="84" y="210" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">front + back</text>
 
-    <rect x="182" y="112" width="128" height="72" rx="6" fill="#0e2747" stroke="#8db4f5"/>
+    <rect x="182" y="112" width="128" height="72" rx="6" fill="#16161a" stroke="#ff7a45"/>
     <text x="246" y="142" text-anchor="middle" font-size="17" font-weight="700">Vision</text>
-    <text x="246" y="165" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">ResNet50</text>
-    <rect x="182" y="200" width="128" height="72" rx="6" fill="#0e2747" stroke="#8db4f5"/>
+    <text x="246" y="165" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">ResNet50</text>
+    <rect x="182" y="200" width="128" height="72" rx="6" fill="#16161a" stroke="#ff7a45"/>
     <text x="246" y="230" text-anchor="middle" font-size="17" font-weight="700">OCR</text>
-    <text x="246" y="253" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">PaddleOCR</text>
+    <text x="246" y="253" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">PaddleOCR</text>
 
-    <rect x="352" y="150" width="128" height="84" rx="6" fill="#0e2747" stroke="#8db4f5"/>
+    <rect x="352" y="150" width="128" height="84" rx="6" fill="#16161a" stroke="#ff7a45"/>
     <text x="416" y="183" text-anchor="middle" font-size="17" font-weight="700">Registry</text>
-    <text x="416" y="208" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">LLM + NAFDAC</text>
+    <text x="416" y="208" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">LLM + NAFDAC</text>
 
-    <rect x="522" y="150" width="96" height="84" rx="6" fill="#06142a" stroke="#6fd3a5" stroke-width="2"/>
+    <rect x="522" y="150" width="96" height="84" rx="6" fill="#0a0a0b" stroke="#6fd3a5" stroke-width="2"/>
     <text x="570" y="185" text-anchor="middle" font-size="17" font-weight="700" fill="#6fd3a5">Verdict</text>
-    <text x="570" y="210" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">3 outcomes</text>
+    <text x="570" y="210" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">3 outcomes</text>
   </g>
-  <g stroke="#8db4f5" stroke-width="1.5" fill="none" marker-end="url(#a)">
+  <g stroke="#ff7a45" stroke-width="1.5" fill="none" marker-end="url(#a)">
     <path d="M140 180 L178 150"/><path d="M140 204 L178 234"/>
     <path d="M310 148 L348 180"/><path d="M310 236 L348 204"/>
     <path d="M480 192 L518 192"/>
   </g>
-  <path d="M570 238 L570 296" stroke="#ffc93c" stroke-dasharray="3 4"/>
-  <text x="566" y="322" text-anchor="end" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-style="italic" fill="#ffc93c">verdict in under 5 seconds</text>
+  <path d="M570 238 L570 296" stroke="#e8b86f" stroke-dasharray="3 4"/>
+  <text x="566" y="322" text-anchor="end" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-style="italic" fill="#e8b86f">verdict in under 5 seconds</text>
 </svg>

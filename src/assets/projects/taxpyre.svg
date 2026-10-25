@@ -1,30 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="TaxPyre pipeline: question, retriever, language model, answer with sources">
   <defs>
-    <pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#8db4f5" stroke-opacity=".09"/></pattern>
-    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8db4f5"/></marker>
+    <pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#ff7a45" stroke-opacity=".09"/></pattern>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ff7a45"/></marker>
   </defs>
-  <rect width="640" height="360" fill="#081a33"/>
+  <rect width="640" height="360" fill="#0d0d0f"/>
   <rect width="640" height="360" fill="url(#g)"/>
   <g font-family="Segoe UI, system-ui, sans-serif" fill="#fff">
-    <rect x="28" y="150" width="116" height="84" rx="6" fill="#0e2747" stroke="#8db4f5"/>
+    <rect x="28" y="150" width="116" height="84" rx="6" fill="#16161a" stroke="#ff7a45"/>
     <text x="86" y="185" text-anchor="middle" font-size="17" font-weight="700">Question</text>
-    <text x="86" y="210" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">React UI</text>
+    <text x="86" y="210" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">React UI</text>
 
-    <rect x="184" y="150" width="128" height="84" rx="6" fill="#0e2747" stroke="#8db4f5"/>
+    <rect x="184" y="150" width="128" height="84" rx="6" fill="#16161a" stroke="#ff7a45"/>
     <text x="248" y="185" text-anchor="middle" font-size="17" font-weight="700">Retriever</text>
-    <text x="248" y="210" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">top 5 · Chroma</text>
+    <text x="248" y="210" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">top 5 · Chroma</text>
 
-    <rect x="352" y="150" width="116" height="84" rx="6" fill="#0e2747" stroke="#8db4f5"/>
+    <rect x="352" y="150" width="116" height="84" rx="6" fill="#16161a" stroke="#ff7a45"/>
     <text x="410" y="185" text-anchor="middle" font-size="17" font-weight="700">LLM</text>
-    <text x="410" y="210" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">LangChain</text>
+    <text x="410" y="210" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">LangChain</text>
 
-    <rect x="508" y="150" width="110" height="84" rx="6" fill="#06142a" stroke="#6fd3a5" stroke-width="2"/>
+    <rect x="508" y="150" width="110" height="84" rx="6" fill="#0a0a0b" stroke="#6fd3a5" stroke-width="2"/>
     <text x="563" y="185" text-anchor="middle" font-size="17" font-weight="700" fill="#6fd3a5">Answer</text>
-    <text x="563" y="210" text-anchor="middle" font-size="13" fill="#a9bcd6" font-family="Consolas, monospace">+ sources</text>
+    <text x="563" y="210" text-anchor="middle" font-size="13" fill="#a8a29e" font-family="Consolas, monospace">+ sources</text>
   </g>
-  <g stroke="#8db4f5" stroke-width="1.5" fill="none" marker-end="url(#a)">
+  <g stroke="#ff7a45" stroke-width="1.5" fill="none" marker-end="url(#a)">
     <path d="M144 192 L180 192"/><path d="M312 192 L348 192"/><path d="M468 192 L504 192"/>
   </g>
-  <path d="M248 238 L248 296" stroke="#ffc93c" stroke-dasharray="3 4"/>
-  <text x="256" y="322" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-style="italic" fill="#ffc93c">152 chunks from 4 bills, 500+ pages</text>
+  <path d="M248 238 L248 296" stroke="#e8b86f" stroke-dasharray="3 4"/>
+  <text x="256" y="322" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-style="italic" fill="#e8b86f">152 chunks from 4 bills, 500+ pages</text>
 </svg>

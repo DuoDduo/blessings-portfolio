@@ -76,6 +76,47 @@ export const useTilt = (max = 6) => {
   return ref
 }
 
+/* Ember glow that follows the pointer and fades when it rests; buttons marked
+   data-magnetic lean toward the pointer */
+export const useCursorGlow = () => {
+  useEffect(() => {
+    if (prefersReducedMotion() || !finePointer()) return
+    const glow = document.createElement('div')
+    glow.className = 'cursor-glow'
+    glow.setAttribute('aria-hidden', 'true')
+    document.body.appendChild(glow)
+    const x = gsap.quickTo(glow, 'x', { duration: 0.45, ease: 'power3.out' })
+    const y = gsap.quickTo(glow, 'y', { duration: 0.45, ease: 'power3.out' })
+    let idle = 0
+    const onMove = (e) => {
+      x(e.clientX); y(e.clientY)
+      gsap.to(glow, { opacity: 1, duration: 0.3, overwrite: 'auto' })
+      clearTimeout(idle)
+      idle = setTimeout(() => gsap.to(glow, { opacity: 0, duration: 0.8 }), 900)
+    }
+    const magnets = [...document.querySelectorAll('[data-magnetic]')].map((el) => {
+      const mx = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3.out' })
+      const my = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3.out' })
+      const move = (e) => {
+        const r = el.getBoundingClientRect()
+        mx((e.clientX - r.left - r.width / 2) * 0.25)
+        my((e.clientY - r.top - r.height / 2) * 0.35)
+      }
+      const leave = () => { mx(0); my(0) }
+      el.addEventListener('pointermove', move)
+      el.addEventListener('pointerleave', leave)
+      return () => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave) }
+    })
+    window.addEventListener('pointermove', onMove, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      clearTimeout(idle)
+      magnets.forEach((off) => off())
+      glow.remove()
+    }
+  }, [])
+}
+
 /* Count a number up from zero the first time it scrolls into view */
 export const useCountUp = (value, format = String) => {
   const ref = useRef(null)

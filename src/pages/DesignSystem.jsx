@@ -8,12 +8,13 @@ import {
 import './DesignSystem.css'
 
 const COLORS = [
-  { token: '--color-bg', name: 'Background', use: 'Page canvas: paper in light, blueprint in dark.' },
-  { token: '--color-surface', name: 'Surface', use: 'Cards and traces sitting on the canvas.' },
+  { token: '--color-bg', name: 'Background', use: 'Page canvas: night in dark, bone in light.' },
+  { token: '--color-surface', name: 'Surface', use: 'Opaque fallback for glass where blur is unsupported.' },
   { token: '--color-text', name: 'Text', use: 'Headings and body copy.' },
   { token: '--color-text-muted', name: 'Muted text', use: 'Descriptions, captions, metadata.' },
-  { token: '--color-link', name: 'Draft blue', use: 'Links, trace lines and step markers.' },
-  { token: '--color-annotation', name: 'Annotation', use: 'Margin notes only. Never buttons or headings.' },
+  { token: '--color-primary', name: 'Ember', use: 'Primary buttons and their glow. Dark text on top.' },
+  { token: '--color-link', name: 'Ember text', use: 'Links, trace lines, network connections.' },
+  { token: '--color-annotation', name: 'Gold', use: 'Serif accents and margin notes. Never buttons.' },
   { token: '--color-verified', name: 'Verified', use: 'A decision that passed its checks.' },
   { token: '--color-flagged', name: 'Flagged', use: 'A decision that was blocked or escalated.' },
 ]
@@ -77,7 +78,7 @@ const DesignSystem = () => (
         <ul className='ds-principles'>
           <li><strong>Show the reasoning.</strong> Every claim points to a repo, a number or a trace.</li>
           <li><strong>One loud thing.</strong> The decision trace carries the personality. Everything else stays quiet.</li>
-          <li><strong>Colour means something.</strong> Green passed, orange was flagged, yellow is a note. Nothing is coloured for decoration.</li>
+          <li><strong>Colour means something.</strong> Ember is for action, gold for notes, green for passed and red for flagged. Nothing else carries colour.</li>
           <li><strong>Motion shows the system working.</strong> The 3D network in the hero runs live and answers your pointer and clicks. Elsewhere, motion responds to scrolling and interaction, and all of it stops when your system asks for reduced motion.</li>
         </ul>
       </section>
@@ -99,8 +100,9 @@ const DesignSystem = () => (
 
       <section className='ds-section' aria-labelledby='type'>
         <SectionHeader id='type' title='Type'>
-          Schibsted Grotesk for everything people read. JetBrains Mono only for real system
-          output inside traces. Sizes follow the classical typographic scale.
+          Schibsted Grotesk for everything people read, Instrument Serif italic in gold for a
+          single accent phrase, and JetBrains Mono only for real system output inside traces.
+          Sizes follow the classical typographic scale.
         </SectionHeader>
         <ul className='ds-type'>
           {TYPE_SCALE.map(({ token, px, sample }) => (
@@ -136,8 +138,9 @@ const DesignSystem = () => (
           <Card className='ds-grid__wide'>
             <h3 className='ds-card-title'>Card</h3>
             <p className='ds-card-copy'>
-              Surfaces use a hairline border, not a shadow, like a frame on a drawing sheet.
-              Radius grows with the size of the element: chips are crisp, surfaces are softer.
+              Surfaces are frosted glass: a translucent fill, a 40px backdrop blur and a hairline
+              border catch the ember light behind them. Radius grows with the size of the
+              element: chips are crisp, surfaces are softer.
             </p>
             <div className='ds-row'>
               <Tag>Python</Tag><Tag>scikit-learn</Tag><Tag>ChromaDB</Tag>

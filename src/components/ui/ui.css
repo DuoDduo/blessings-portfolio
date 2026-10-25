@@ -21,8 +21,10 @@
 .ui-button--primary {
   background: var(--color-primary);
   color: var(--color-on-primary);
+  font-weight: var(--weight-bold);
+  box-shadow: 0 0 0 1px var(--color-primary), 0 8px 20px var(--color-primary-glow);
 }
-.ui-button--primary:hover { background: var(--color-link); }
+.ui-button--primary:hover { box-shadow: 0 0 0 1px var(--color-primary), 0 10px 32px var(--color-primary-glow); }
 
 .ui-button--secondary {
   background: var(--glass-bg);
