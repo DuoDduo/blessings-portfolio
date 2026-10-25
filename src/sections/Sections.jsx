@@ -1,12 +1,14 @@
 // Page sections built on the "Blueprint" design system (components/ui).
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaBehance, FaGithub, FaLinkedin } from 'react-icons/fa'
 import { about, contact, pillars, projects } from '../portfolio'
 import { GITHUB_PROFILE, useGitHubStats } from '../hooks/useGitHubStats'
+import { gsap, prefersReducedMotion, useCountUp, useHeroIntro, useTilt } from '../motion/motion'
 import profilePic from '../assets/profile.webp'
 import {
-  Button, Card, DecisionTrace, SectionHeader, Tag, ThemeToggle,
+  Button, Card, SectionHeader, Tag, ThemeToggle,
 } from '../components/ui/ui'
+import HeroCanvas from './HeroCanvas'
 import './sections.css'
 
 const NAV = [
@@ -32,14 +34,6 @@ export const SiteHeader = () => (
 )
 
 /* ── Hero ───────────────────────────────────────────────────── */
-const HERO_TRACE = [
-  { layer: 'input', title: 'Card payment at a POS terminal', detail: '₦480,000 · POS · 02:14 · 3rd charge in 6 min' },
-  { layer: 'rules engine', title: 'Velocity limit exceeded', detail: 'max 2 POS charges per 10 min', status: 'flagged' },
-  { layer: 'ml model', title: 'Fraud probability 0.87', detail: 'random forest · above 0.85 raises risk one level' },
-  { layer: 'policy (rag)', title: 'Matched the card-fraud policy', detail: 'ChromaDB · 6 policy documents' },
-  { layer: 'llm', title: 'Explanation written for the audit log', detail: '"Blocked: three POS charges in six minutes exceed the velocity rule."', status: 'passed' },
-]
-
 const Socials = () => (
   <ul className='socials'>
     <li><a href={about.social.github} target='_blank' rel='noopener noreferrer' aria-label='GitHub'><FaGithub /></a></li>
@@ -48,32 +42,37 @@ const Socials = () => (
   </ul>
 )
 
-export const Hero = () => (
-  <section className='hero' aria-labelledby='hero-title'>
-    <div className='hero__copy'>
-      <h1 id='hero-title' className='hero__name'>{about.name}</h1>
-      <p className='hero__role'>{about.role}</p>
-      <p className='hero__tagline'>{about.tagline}</p>
-      <div className='hero__actions'>
-        <Button href='#work'>View my work</Button>
-        <Button variant='secondary' href={about.resume} external>Résumé</Button>
-        <Socials />
+export const Hero = () => {
+  const scope = useRef(null)
+  useHeroIntro(scope)
+  return (
+    <section ref={scope} className='hero' aria-labelledby='hero-title'>
+      <div className='hero__copy'>
+        <h1 id='hero-title' className='hero__name' aria-label={about.name}>
+          {about.name.split(' ').map((word) => (
+            <span key={word} className='hero__line' aria-hidden='true'>
+              <span className='hero__word'>{word}</span>
+            </span>
+          ))}
+        </h1>
+        <p className='hero__role'>{about.role}</p>
+        <p className='hero__tagline'>{about.tagline}</p>
+        <div className='hero__actions'>
+          <Button href='#work'>View my work</Button>
+          <Button variant='secondary' href={about.resume} external>Résumé</Button>
+          <Socials />
+        </div>
       </div>
-    </div>
-    <div className='hero__trace'>
-      <DecisionTrace
-        caption='How one decision moves through Sentinnel Banking, a system I helped build (synthetic example)'
-        steps={HERO_TRACE}
-      />
-    </div>
-  </section>
-)
+      <HeroCanvas />
+    </section>
+  )
+}
 
 /* ── About ──────────────────────────────────────────────────── */
 export const About = () => (
   <section id='about' className='section' aria-labelledby='about-title'>
-    <SectionHeader id='about-title' title='About' />
-    <div className='about'>
+    <div data-reveal><SectionHeader id='about-title' title='About' /></div>
+    <div className='about' data-reveal>
       <img src={profilePic} alt='Blessing James' className='about__photo' width='320' height='400' loading='lazy' />
       <div className='about__bio'>
         {about.bio.map((p) => <p key={p}>{p}</p>)}
@@ -81,7 +80,7 @@ export const About = () => (
     </div>
     <ul className='pillars'>
       {pillars.map(({ title, proof, tags }) => (
-        <li key={title}>
+        <li key={title} data-reveal-batch>
           <Card as='div' className='pillar'>
             <h3 className='pillar__title'>{title}</h3>
             <p className='pillar__proof'>{proof}</p>
@@ -106,31 +105,42 @@ const ProjectLinks = ({ project, hideSource }) => {
 }
 
 /* ── Selected work (AI/ML) ──────────────────────────────────── */
+const WorkCard = ({ project }) => {
+  const tiltRef = useTilt(5)
+  return (
+    <li data-reveal-batch className='work-grid__item'>
+      <div ref={tiltRef} className='work-card__tilt'>
+        <Card className='work-card'>
+          <div className='work-card__media'>
+            <img src={project.image} alt={`${project.name} pipeline diagram`} className='work-card__img' width='640' height='360' loading='lazy' />
+          </div>
+          <div className='work-card__body'>
+            <div className='work-card__heading'>
+              <h3 className='work-card__name'>{project.name}</h3>
+              <Tag>{project.team ? (project.role ? `Team · ${project.role}` : 'Team project') : 'Solo project'}</Tag>
+            </div>
+            <p className='work-card__desc'>{project.description}</p>
+            <div className='tag-row'>{project.stack.map((s) => <Tag key={s}>{s}</Tag>)}</div>
+            <ProjectLinks project={project} />
+          </div>
+        </Card>
+      </div>
+    </li>
+  )
+}
+
 export const Work = () => {
   const featured = projects.filter((p) => p.category === 'AI/ML')
   return (
     <section id='work' className='section' aria-labelledby='work-title'>
-      <SectionHeader id='work-title' title='Selected work'>
-        AI and machine learning projects, from retrieval systems to classic models. Team projects
-        say what I built.
-      </SectionHeader>
+      <div data-reveal>
+        <SectionHeader id='work-title' title='Selected work'>
+          AI and machine learning projects, from retrieval systems to classic models. Team projects
+          say what I built.
+        </SectionHeader>
+      </div>
       <ul className='work-grid'>
-        {featured.map((project) => (
-          <li key={project.name}>
-            <Card className='work-card'>
-              <img src={project.image} alt={`${project.name} pipeline diagram`} className='work-card__img' width='640' height='360' loading='lazy' />
-              <div className='work-card__body'>
-                <div className='work-card__heading'>
-                  <h3 className='work-card__name'>{project.name}</h3>
-                  <Tag>{project.team ? (project.role ? `Team · ${project.role}` : 'Team project') : 'Solo project'}</Tag>
-                </div>
-                <p className='work-card__desc'>{project.description}</p>
-                <div className='tag-row'>{project.stack.map((s) => <Tag key={s}>{s}</Tag>)}</div>
-                <ProjectLinks project={project} />
-              </div>
-            </Card>
-          </li>
-        ))}
+        {featured.map((project) => <WorkCard key={project.name} project={project} />)}
       </ul>
     </section>
   )
@@ -146,11 +156,26 @@ const MORE_CATEGORIES = [
 export const MoreWork = () => {
   const [active, setActive] = useState('Web')
   const items = projects.filter((p) => p.category === active)
+  const gridRef = useRef(null)
+  const firstRender = useRef(true)
+
+  // Answer a tab change by bringing the new set of projects in
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return }
+    if (prefersReducedMotion() || !gridRef.current) return
+    const tween = gsap.from(gridRef.current.children, {
+      y: 24, opacity: 0, duration: 0.5, ease: 'power3.out', stagger: 0.05,
+    })
+    return () => tween.kill()
+  }, [active])
+
   return (
     <section id='more-work' className='section' aria-labelledby='more-title'>
-      <SectionHeader id='more-title' title='More work'>
-        Client websites, interface design and graphic design.
-      </SectionHeader>
+      <div data-reveal>
+        <SectionHeader id='more-title' title='More work'>
+          Client websites, interface design and graphic design.
+        </SectionHeader>
+      </div>
       <div className='tabs' role='tablist' aria-label='Project type'>
         {MORE_CATEGORIES.map(({ id, label }) => (
           <button
@@ -167,7 +192,7 @@ export const MoreWork = () => {
           </button>
         ))}
       </div>
-      <ul id='more-panel' role='tabpanel' aria-labelledby={`tab-${active}`} className='more-grid'>
+      <ul ref={gridRef} id='more-panel' role='tabpanel' aria-labelledby={`tab-${active}`} className='more-grid'>
         {items.map((project) => (
           <li key={project.name} className='more-card'>
             <img src={project.image} alt='' className='more-card__img' loading='lazy' />
@@ -189,13 +214,25 @@ export const MoreWork = () => {
 /* ── GitHub ─────────────────────────────────────────────────── */
 const fmt = (n) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n))
 
+const Stat = ({ label, value }) => {
+  const ref = useCountUp(value, fmt)
+  return (
+    <div className='github__stat'>
+      <dt>{label}</dt>
+      <dd ref={ref}>{typeof value === 'number' ? fmt(value) : '…'}</dd>
+    </div>
+  )
+}
+
 export const GitHubSection = () => {
   const { data, status } = useGitHubStats()
   return (
     <section id='github' className='section' aria-labelledby='github-title'>
-      <SectionHeader id='github-title' title='On GitHub'>
-        Live numbers from my public profile, excluding forks.
-      </SectionHeader>
+      <div data-reveal>
+        <SectionHeader id='github-title' title='On GitHub'>
+          Live numbers from my public profile, excluding forks.
+        </SectionHeader>
+      </div>
       {status === 'error' && (
         <p className='github__fallback'>
           GitHub isn&apos;t responding right now. <a href={GITHUB_PROFILE} target='_blank' rel='noopener noreferrer'>See my profile on GitHub</a>.
@@ -205,16 +242,11 @@ export const GitHubSection = () => {
         <Card as='div' className='github' aria-busy={status === 'loading'}>
           <dl className='github__stats'>
             {[
-              ['Public commits', data && fmt(data.commits)],
-              ['Pull requests', data && fmt(data.prs)],
-              ['Public repos', data && data.repos],
-              ['Followers', data && data.followers],
-            ].map(([label, value]) => (
-              <div key={label} className='github__stat'>
-                <dt>{label}</dt>
-                <dd>{value ?? '…'}</dd>
-              </div>
-            ))}
+              ['Public commits', data?.commits],
+              ['Pull requests', data?.prs],
+              ['Public repos', data?.repos],
+              ['Followers', data?.followers],
+            ].map(([label, value]) => <Stat key={label} label={label} value={value} />)}
           </dl>
           {data?.languages?.length > 0 && (
             <div className='github__langs'>
@@ -240,10 +272,12 @@ export const GitHubSection = () => {
 /* ── Contact ────────────────────────────────────────────────── */
 export const Contact = () => (
   <section id='contact' className='section contact' aria-labelledby='contact-title'>
-    <SectionHeader id='contact-title' title='Get in touch'>
-      I&apos;m open to full-stack and AI/ML engineering roles and freelance projects. Email is the fastest way to reach me.
-    </SectionHeader>
-    <div className='hero__actions'>
+    <div data-reveal>
+      <SectionHeader id='contact-title' title='Get in touch'>
+        I&apos;m open to full-stack and AI/ML engineering roles and freelance projects. Email is the fastest way to reach me.
+      </SectionHeader>
+    </div>
+    <div className='contact__actions' data-reveal>
       <Button href={`mailto:${contact.email}`}>Email me</Button>
       <Button variant='secondary' href={about.social.linkedin} external>Message me on LinkedIn</Button>
     </div>

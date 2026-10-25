@@ -78,7 +78,7 @@ const DesignSystem = () => (
           <li><strong>Show the reasoning.</strong> Every claim points to a repo, a number or a trace.</li>
           <li><strong>One loud thing.</strong> The decision trace carries the personality. Everything else stays quiet.</li>
           <li><strong>Colour means something.</strong> Green passed, orange was flagged, yellow is a note. Nothing is coloured for decoration.</li>
-          <li><strong>Motion answers people.</strong> The trace draws once on load. Everything else moves only when someone acts.</li>
+          <li><strong>Motion shows the system working.</strong> The 3D network in the hero runs live and answers your pointer and clicks. Elsewhere, motion responds to scrolling and interaction, and all of it stops when your system asks for reduced motion.</li>
         </ul>
       </section>
 

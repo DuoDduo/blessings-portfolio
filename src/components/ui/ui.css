@@ -25,9 +25,12 @@
 .ui-button--primary:hover { background: var(--color-link); }
 
 .ui-button--secondary {
-  background: transparent;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   color: var(--color-text);
   border-color: var(--color-line-strong);
+  box-shadow: var(--glass-highlight);
 }
 .ui-button--secondary:hover { border-color: var(--color-text); }
 
@@ -52,13 +55,24 @@
 .ui-tag--verified { color: var(--color-verified); border-color: currentColor; }
 .ui-tag--flagged  { color: var(--color-flagged);  border-color: currentColor; }
 
-/* ── Card ───────────────────────────────────────────────────── */
-.ui-card {
-  background: var(--color-surface);
-  border: var(--line-width) solid var(--color-line);
+/* ── Glass surface (cards, traces) ──────────────────────────── */
+.ui-card,
+.ui-trace {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border: var(--line-width) solid var(--glass-border);
   border-radius: var(--radius-surface);
-  padding: var(--space-6);
+  box-shadow: var(--glass-highlight), var(--glass-shadow);
 }
+
+/* Without backdrop blur, fall back to an opaque surface so text stays readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ui-card, .ui-trace { background: var(--color-surface); }
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.ui-card { padding: var(--space-6); }
 
 /* ── SectionHeader ──────────────────────────────────────────── */
 .ui-section-header { max-width: var(--measure); margin-bottom: var(--space-6); }
@@ -94,9 +108,6 @@
 /* ── DecisionTrace ──────────────────────────────────────────── */
 .ui-trace {
   margin: 0;
-  background: var(--color-surface);
-  border: var(--line-width) solid var(--color-line);
-  border-radius: var(--radius-surface);
   padding: var(--space-5) var(--space-6);
 }
 .ui-trace__caption {
@@ -173,9 +184,12 @@
   width: 2.5rem;
   height: 2.5rem;
   color: var(--color-text);
-  background: transparent;
-  border: var(--line-width) solid var(--color-line);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--line-width) solid var(--glass-border);
   border-radius: var(--radius-pill);
+  box-shadow: var(--glass-highlight);
   cursor: pointer;
   transition: border-color var(--duration-fast) var(--ease-out);
 }

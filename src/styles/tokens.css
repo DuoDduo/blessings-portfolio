@@ -1,26 +1,28 @@
 /* ============================================================
    DESIGN TOKENS — "Blueprint"
-   Architecture drawings and decision audit trails: deterministic
-   engines decide, LLMs explain, every step is on the record.
+   Architecture drawings and decision audit trails, seen through
+   frosted glass: deterministic engines decide, LLMs explain.
 
    Layers:
    1. Primitives  — raw values, never used directly in components
    2. Semantic    — what a value means; components use only these
-   Theme is set by data-theme on <html> (see public/theme-init.js).
+   Dark is the default theme. Light is applied by data-theme="light"
+   on <html> (see public/theme-init.js).
    ============================================================ */
 
 /* ── 1. Primitives ───────────────────────────────────────────── */
 :root {
-  --blueprint-900: #0a1f38;
-  --blueprint-800: #0f2a4a;   /* Blueprint — dark background */
-  --blueprint-700: #143459;
-  --blueprint-600: #1c4372;
+  --blueprint-950: #040c19;
+  --blueprint-900: #06142a;
+  --blueprint-800: #081a33;   /* Blueprint — dark background */
+  --blueprint-700: #0e2747;
+  --blueprint-600: #163a66;
   --blueprint-300: #a9bcd6;
 
   --paper-50:  #ffffff;
-  --paper-100: #f5f7fa;       /* Paper — light background */
-  --paper-200: #e9eef4;
-  --paper-300: #d5dde7;
+  --paper-100: #f2f5f9;       /* Paper — light background */
+  --paper-200: #e6ecf3;
+  --paper-300: #d2dbe6;
 
   --ink-900: #0e1b2c;         /* Ink — light-theme text */
   --ink-600: #4a5b70;
@@ -76,22 +78,54 @@
   /* Radius varies with hierarchy: chips are crisp, surfaces softer */
   --radius-chip:    2px;
   --radius-control: 4px;
-  --radius-surface: 8px;
+  --radius-surface: 10px;
   --radius-pill:    999px;
 
   --line-width: 1px;
   --grid-size: 24px;
   --content-max: 72rem;
 
-  /* Motion — answers a person's action; no idle animation */
+  /* Glass: how much the backdrop is blurred behind surfaces */
+  --glass-blur: 18px;
+
+  /* Motion */
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --duration-fast: 120ms;
   --duration-base: 200ms;
   --duration-draw: 900ms;
 }
 
-/* ── 2. Semantic — light ("white print") ─────────────────────── */
+/* ── 2. Semantic — dark ("blueprint"), the default ───────────── */
 :root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg:          var(--blueprint-800);
+  --color-surface:     var(--blueprint-700);
+  --color-surface-alt: var(--blueprint-950);
+  --color-text:        var(--paper-50);
+  --color-text-muted:  var(--blueprint-300);
+  --color-line:        rgba(169, 188, 214, 0.16);
+  --color-line-strong: rgba(169, 188, 214, 0.4);
+  --color-grid:        rgba(141, 180, 245, 0.06);
+  --color-link:        var(--draft-300);
+  --color-primary:     var(--paper-50);
+  --color-on-primary:  var(--blueprint-800);
+  --color-annotation:  var(--annotation-400);
+  --color-highlight:   rgba(255, 201, 60, 0.28);
+  --color-verified:    var(--verified-300);
+  --color-flagged:     var(--flagged-300);
+  --color-focus:       var(--annotation-400);
+
+  --glass-bg:        rgba(14, 39, 71, 0.45);
+  --glass-bg-strong: rgba(8, 26, 51, 0.72);
+  --glass-border:    rgba(141, 180, 245, 0.16);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --glass-shadow:    0 16px 48px rgba(0, 0, 0, 0.35);
+  --glow-1:          rgba(40, 104, 214, 0.3);
+  --glow-2:          rgba(141, 180, 245, 0.12);
+}
+
+/* ── 2. Semantic — light ("white print") ─────────────────────── */
 :root[data-theme='light'] {
   color-scheme: light;
   --color-bg:          var(--paper-100);
@@ -110,50 +144,14 @@
   --color-verified:    #1f7a52;
   --color-flagged:     var(--flagged-600);
   --color-focus:       var(--draft-700);
-}
 
-/* ── 2. Semantic — dark ("blueprint") ────────────────────────── */
-:root[data-theme='dark'] {
-  color-scheme: dark;
-  --color-bg:          var(--blueprint-800);
-  --color-surface:     var(--blueprint-700);
-  --color-surface-alt: var(--blueprint-900);
-  --color-text:        var(--paper-50);
-  --color-text-muted:  var(--blueprint-300);
-  --color-line:        rgba(169, 188, 214, 0.22);
-  --color-line-strong: rgba(169, 188, 214, 0.45);
-  --color-grid:        rgba(141, 180, 245, 0.08);
-  --color-link:        var(--draft-300);
-  --color-primary:     var(--paper-50);
-  --color-on-primary:  var(--blueprint-800);
-  --color-annotation:  var(--annotation-400);
-  --color-highlight:   rgba(255, 201, 60, 0.28);
-  --color-verified:    var(--verified-300);
-  --color-flagged:     var(--flagged-300);
-  --color-focus:       var(--annotation-400);
-}
-
-/* No stored choice and no script: follow the system setting */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    color-scheme: dark;
-    --color-bg:          var(--blueprint-800);
-    --color-surface:     var(--blueprint-700);
-    --color-surface-alt: var(--blueprint-900);
-    --color-text:        var(--paper-50);
-    --color-text-muted:  var(--blueprint-300);
-    --color-line:        rgba(169, 188, 214, 0.22);
-    --color-line-strong: rgba(169, 188, 214, 0.45);
-    --color-grid:        rgba(141, 180, 245, 0.08);
-    --color-link:        var(--draft-300);
-    --color-primary:     var(--paper-50);
-    --color-on-primary:  var(--blueprint-800);
-    --color-annotation:  var(--annotation-400);
-    --color-highlight:   rgba(255, 201, 60, 0.28);
-    --color-verified:    var(--verified-300);
-    --color-flagged:     var(--flagged-300);
-    --color-focus:       var(--annotation-400);
-  }
+  --glass-bg:        rgba(255, 255, 255, 0.6);
+  --glass-bg-strong: rgba(242, 245, 249, 0.82);
+  --glass-border:    rgba(14, 27, 44, 0.1);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --glass-shadow:    0 12px 36px rgba(14, 27, 44, 0.08);
+  --glow-1:          rgba(31, 78, 140, 0.12);
+  --glow-2:          rgba(255, 201, 60, 0.1);
 }
 
 @media (prefers-reduced-motion: reduce) {

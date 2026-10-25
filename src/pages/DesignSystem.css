@@ -6,12 +6,7 @@
   font-size: var(--text-sm);
   line-height: var(--leading-body);
   color: var(--color-text);
-  background-color: var(--color-bg);
-  /* Drawing-sheet grid on the same 24px unit as the layout */
-  background-image:
-    linear-gradient(var(--color-grid) var(--line-width), transparent var(--line-width)),
-    linear-gradient(90deg, var(--color-grid) var(--line-width), transparent var(--line-width));
-  background-size: var(--grid-size) var(--grid-size);
+  /* Background, grid and glow come from body (styles/base.css) */
 }
 
 /* Plain text links only; components such as buttons set their own colour */
