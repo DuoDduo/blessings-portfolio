@@ -22,6 +22,7 @@ import projectFrutajugoImage from './assets/projects/frutajugo.webp'
 import sabilensImage from './assets/projects/sabilens.svg'
 import taxpyreImage from './assets/projects/taxpyre.svg'
 import breastCancerImage from './assets/projects/breastcancer.svg'
+import sentinnelImage from './assets/projects/sentinnel.svg'
 
 // ----- HEADER -----
 const header = {
@@ -69,6 +70,14 @@ const projects = [
     sourceCode: 'https://github.com/DuoDduo/ml_projects/tree/master/breast_cancer',
     category: 'AI/ML',
     image: breastCancerImage,
+  },
+  {
+    name: 'Sentinnel Banking',
+    description: 'Multi-agent banking system: three LangGraph agents route complaints across 15+ categories, score fraud risk and recommend products. Policy engines make every decision, a random forest only raises risk sensitivity, and LLMs only write audit-ready explanations. Team project: I built the RAG layer that checks each decision against 6 policy documents in ChromaDB.',
+    stack: ['Python', 'FastAPI', 'LangGraph', 'ChromaDB', 'scikit-learn', 'PostgreSQL', 'React'],
+    sourceCode: 'https://github.com/DuoDduo/genai_sentinnel_banking_integration',
+    category: 'AI/ML',
+    image: sentinnelImage,
   },
 
   // --- WEB PROJECTS ---

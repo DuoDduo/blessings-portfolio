@@ -41,8 +41,8 @@ const RADII = [
 const EXAMPLE_TRACE = [
   { layer: 'input', title: 'Card payment at a POS terminal', detail: 'txn_8841 · ₦480,000 · POS · 02:14 · 3rd charge in 6 min' },
   { layer: 'rules engine', title: 'Velocity limit exceeded', detail: 'rule FRM-VEL-03: max 2 POS charges per 10 min', status: 'flagged' },
-  { layer: 'ml model', title: 'Fraud probability 0.87', detail: 'gradient boosted classifier · threshold 0.70' },
-  { layer: 'policy (rag)', title: 'Matched card-fraud policy section 2.1', detail: 'retrieved 3 passages · top score 0.91' },
+  { layer: 'ml model', title: 'Fraud probability 0.87', detail: 'random forest · above 0.85 raises risk one level' },
+  { layer: 'policy (rag)', title: 'Matched the card-fraud policy', detail: 'ChromaDB · 6 policy documents · all-mpnet-base-v2' },
   { layer: 'llm', title: 'Explanation written for the audit log', detail: '"Blocked: three POS charges in six minutes exceed the velocity rule."', status: 'passed' },
 ]
 
