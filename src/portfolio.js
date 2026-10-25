@@ -19,6 +19,9 @@ import project17Image from './assets/projects/devconnect.webp'
 import project18Image from './assets/projects/babyhub.webp'
 import projectNewYearImage from './assets/projects/visionletter.webp'
 import projectFrutajugoImage from './assets/projects/frutajugo.webp'
+import sabilensImage from './assets/projects/sabilens.svg'
+import taxpyreImage from './assets/projects/taxpyre.svg'
+import breastCancerImage from './assets/projects/breastcancer.svg'
 
 // ----- HEADER -----
 const header = {
@@ -41,6 +44,33 @@ const about = {
 };
 
 const projects = [
+  // --- AI/ML PROJECTS ---
+  {
+    name: 'SabiLens',
+    description: 'Checks whether a product is genuine from a photo of its label. A ResNet50 vision model and PaddleOCR read the packaging, then an LLM agent checks it against the NAFDAC registry and returns a verdict in under 5 seconds. Team project.',
+    stack: ['Python', 'FastAPI', 'ResNet50', 'PaddleOCR', 'ChromaDB', 'React', 'Google Cloud'],
+    sourceCode: 'https://github.com/Cunyie08/genai_sabilens_national_product_integrity',
+    livePreview: 'https://sabi-lens.vercel.app/',
+    category: 'AI/ML',
+    image: sabilensImage,
+  },
+  {
+    name: 'TaxPyre Nigeria',
+    description: "A RAG assistant that answers questions about Nigeria's 2026 tax reforms in plain language. It searches 152 chunks from 4 bills (500+ pages) and cites the passages behind every answer.",
+    stack: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'React', 'Docker'],
+    sourceCode: 'https://github.com/DuoDduo/nigeria-tax-reform',
+    category: 'AI/ML',
+    image: taxpyreImage,
+  },
+  {
+    name: 'Breast Cancer Classifier',
+    description: 'End-to-end ML project: cleaning, EDA and feature selection on 569 tumour samples, then a tuned logistic regression served through FastAPI with a React front end. Test F1 0.991, with 97.7% of malignant cases correctly identified.',
+    stack: ['Python', 'scikit-learn', 'pandas', 'FastAPI', 'React', 'Tailwind CSS'],
+    sourceCode: 'https://github.com/DuoDduo/ml_projects/tree/master/breast_cancer',
+    category: 'AI/ML',
+    image: breastCancerImage,
+  },
+
   // --- WEB PROJECTS ---
   {
     name: 'Vision Letter 2026',

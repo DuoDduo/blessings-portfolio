@@ -4,10 +4,10 @@ import { projects as allProjects } from '../../portfolio'
 import ProjectContainer from '../ProjectContainer/ProjectContainer'
 import './Projects.css'
 
-const categories = ['Web', 'UI/UX', 'Graphics']
+const categories = ['AI/ML', 'Web', 'UI/UX', 'Graphics']
 
 const Projects = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Web')
+  const [selectedCategory, setSelectedCategory] = useState('AI/ML')
 
   const filteredProjects = allProjects.filter(
     (project) => project.category === selectedCategory

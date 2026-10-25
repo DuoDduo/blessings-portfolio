@@ -6,7 +6,7 @@ import './ProjectContainer.css'
 
 const ProjectContainer = ({ project }) => {
   const hasLinks =
-    (project.category === 'Web' && (project.sourceCode || project.livePreview)) ||
+    (['AI/ML', 'Web'].includes(project.category) && (project.sourceCode || project.livePreview)) ||
     (project.category === 'UI/UX' && project.livePreview)
 
   return (
