@@ -1,8 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
 import { Analytics } from "@vercel/analytics/react"
-import './index.css';
+import '@fontsource-variable/schibsted-grotesk';
+import '@fontsource-variable/jetbrains-mono';
+import './styles/tokens.css';
+import './styles/base.css';
+import App from './App.jsx';
 
 // The design system reference lives at /design and loads as its own chunk
 const DesignSystem = lazy(() => import('./pages/DesignSystem.jsx'));
