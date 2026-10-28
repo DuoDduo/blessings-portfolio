@@ -5,6 +5,8 @@
   --color-text: #eef2f8;
   --color-text-muted: #a3b1c6;
   --color-bg: #020206;
+  --color-link: #00e5ff;
+  --color-annotation: #f86cf8;
   --note-ink: #eef2f8;
   color-scheme: dark;
   position: relative;
@@ -35,7 +37,7 @@
   mix-blend-mode: screen;
 }
 
-/* The name sits behind the cut-out, so the head overlaps the letters */
+/* ── Name: sits behind the cut-out, so the head overlaps the letters ── */
 .hero__name {
   position: absolute;
   /* Low enough that the head overlaps the letters */
@@ -43,13 +45,18 @@
   left: 0;
   right: 0;
   z-index: 1;
-  text-align: center;
-  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  gap: 0.22em;
   font: var(--weight-black) clamp(3rem, 10.4vw, 10.5rem) / 0.9 var(--font-sans);
   letter-spacing: -0.045em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--color-text);
 }
+/* Each part masks its letters so they can rise into view */
+.hero__name-part { display: inline-flex; overflow: hidden; padding: 0.04em 0.02em 0.06em; }
+.hero__char { display: inline-block; will-change: transform; }
 
 .hero__subject {
   position: absolute;
@@ -68,6 +75,7 @@
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
+  transform-origin: 50% 40%;
   /* Fade the crop at the bottom of the frame */
   -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
   mask-image: linear-gradient(to bottom, #000 82%, transparent);
@@ -100,8 +108,77 @@
   margin-top: var(--space-5);
 }
 
+/* ── Scroll cue, bottom right ──────────────────────────────── */
+.hero__cue {
+  position: absolute;
+  right: clamp(1rem, 4vw, 3rem);
+  bottom: clamp(1.25rem, 5vh, 3.5rem);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+.hero__cue-line {
+  position: relative;
+  width: 3rem;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(238, 242, 248, 0.2);
+}
+.hero__cue-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-link);
+  animation: hero-cue 2.2s var(--ease-out) infinite;
+}
+@keyframes hero-cue {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* ── Statement the photo hands over to (wide screens) ──────── */
+.hero__statement {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  /* The middle column is where the photo card sits after the handover */
+  grid-template-columns: minmax(0, 1fr) 32% minmax(0, 1fr);
+  align-items: center;
+  padding: 0 clamp(1.5rem, 3.5vw, 3.5rem);
+  pointer-events: none;
+}
+.hero__statement-then { grid-column: 1; justify-self: end; padding-right: clamp(1rem, 2.5vw, 2.5rem); text-align: right; }
+.hero__statement-now { grid-column: 3; padding-left: clamp(1rem, 2.5vw, 2.5rem); }
+.hero__statement-line {
+  max-width: 11ch;
+  font: var(--weight-bold) clamp(2.1rem, 3.4vw, 4.2rem) / 1.04 var(--font-sans);
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+.hero__statement-then .hero__statement-line { margin-left: auto; }
+.hero__statement-line--accent { color: var(--color-annotation); }
+/* Each word rises out of its own mask */
+.hero__mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; }
+.hero__word { display: inline-block; }
+.hero__statement-detail { max-width: 22rem; margin-top: var(--space-6); }
+.hero__statement-detail p { font-size: var(--text-md); line-height: var(--leading-body); color: var(--color-text-muted); }
+.hero__statement-link {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-weight: var(--weight-bold);
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+.hero__statement-link:hover { text-decoration-thickness: 2px; }
+
 /* ── Viewfinder (intro only) ───────────────────────────────── */
-.hero__viewfinder { display: none; position: absolute; inset: 0; z-index: 6; pointer-events: none; }
+.hero__viewfinder { display: none; position: absolute; inset: 0; z-index: 8; pointer-events: none; }
 .hero__vf-frame {
   position: absolute;
   inset: 7%;
@@ -143,22 +220,19 @@
 }
 .hero__shutter { position: absolute; inset: 0; background: #000; opacity: 0; }
 
-/* ── Tablet ────────────────────────────────────────────────── */
+/* ── Below 1024px: name, photo, copy, then statement, stacked ── */
 @media (max-width: 1023px) {
-  .hero__subject { height: min(80%, 92vw); }
-}
-
-/* ── Phone: name, photo, then copy, stacked ────────────────── */
-@media (max-width: 720px) {
   .hero { height: auto; min-height: 0; max-height: none; overflow: visible; }
-  .hero__stage { position: relative; inset: auto; aspect-ratio: 1 / 1.15; overflow: hidden; }
+  .hero__stage { position: relative; inset: auto; aspect-ratio: 1 / 1.1; max-height: 82svh; overflow: hidden; }
   .hero__name {
     top: 5%;
-    white-space: normal;
-    font-size: clamp(2.4rem, 14.5vw, 5rem);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    font-size: clamp(2.4rem, 14.5vw, 6.5rem);
     line-height: 0.88;
   }
-  .hero__subject { height: 78%; }
+  .hero__subject { height: min(78%, 92vw); }
   .hero__copy {
     position: relative;
     left: auto;
@@ -166,5 +240,22 @@
     max-width: none;
     padding: var(--space-5) var(--space-4) var(--space-2);
   }
+  .hero__cue { display: none; }
+  .hero__statement {
+    position: relative;
+    inset: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding: var(--space-8) var(--space-4) var(--space-4);
+    pointer-events: auto;
+  }
+  .hero__statement-then, .hero__statement-now { grid-column: 1; justify-self: start; padding: 0; text-align: left; }
+  .hero__statement-then .hero__statement-line { margin-left: 0; }
+  .hero__statement-line { max-width: 14ch; font-size: clamp(2rem, 8vw, 3.2rem); }
   .hero__vf-info { justify-content: center; gap: var(--space-4); }
+}
+
+@media (min-width: 721px) and (max-width: 1023px) {
+  .hero__copy, .hero__statement { padding-left: var(--space-7); padding-right: var(--space-7); }
 }
