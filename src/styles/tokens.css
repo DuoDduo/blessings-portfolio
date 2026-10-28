@@ -45,15 +45,17 @@
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
   --font-serif: 'Instrument Serif', Georgia, serif;
 
-  /* Classical typographic scale (Bringhurst): 14 16 18 21 24 36 48 72 */
+  /* Classical typographic scale (Bringhurst): 14 16 18 21 24 36 48 72.
+     The larger steps are fluid: they reach these sizes at desktop width
+     and shrink smoothly on phones (min value at ~360px wide). */
   --text-xs:   0.875rem;
   --text-sm:   1rem;
-  --text-md:   1.125rem;
-  --text-lg:   1.3125rem;
-  --text-xl:   1.5rem;
-  --text-2xl:  2.25rem;
-  --text-3xl:  3rem;
-  --text-4xl:  clamp(3rem, 7vw, 4.5rem);
+  --text-md:   clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+  --text-xl:   clamp(1.1875rem, 1.05rem + 0.6vw, 1.5rem);
+  --text-2xl:  clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
+  --text-3xl:  clamp(2.1rem, 1.6rem + 2.2vw, 3rem);
+  --text-4xl:  clamp(2.6rem, 1.6rem + 5vw, 4.5rem);
 
   --leading-tight: 1.1;
   --leading-snug:  1.3;

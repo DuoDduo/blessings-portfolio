@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react"
 import '@fontsource-variable/schibsted-grotesk';
 import '@fontsource-variable/jetbrains-mono';
 import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/caveat';
 import './styles/tokens.css';
 import './styles/base.css';
 import App from './App.jsx';

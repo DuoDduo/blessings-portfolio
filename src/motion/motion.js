@@ -13,20 +13,6 @@ export const prefersReducedMotion = () =>
 
 const finePointer = () => window.matchMedia('(pointer: fine)').matches
 
-/* Hero intro: the name rises out of its line masks, then the rest follows */
-export const useHeroIntro = (scope) => {
-  useLayoutEffect(() => {
-    if (prefersReducedMotion()) return
-    const ctx = gsap.context(() => {
-      gsap.timeline({ defaults: { ease: 'power4.out' } })
-        .from('.hero__word', { yPercent: 110, duration: 1.1, stagger: 0.08 })
-        .from('.hero__role, .hero__tagline', { y: 24, opacity: 0, duration: 0.8, stagger: 0.1 }, '-=0.6')
-        .from('.hero__actions > *', { y: 16, opacity: 0, duration: 0.6, stagger: 0.06 }, '-=0.5')
-    }, scope)
-    return () => ctx.revert()
-  }, [scope])
-}
-
 /* Scroll reveals for anything marked data-reveal; cards arrive in batches */
 export const useScrollReveals = () => {
   useLayoutEffect(() => {

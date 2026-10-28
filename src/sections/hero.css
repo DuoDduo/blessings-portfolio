@@ -1,0 +1,207 @@
+/* Hero: full-bleed photo shoot. Always dark, like a studio, in either theme. */
+
+.hero {
+  /* Local dark palette so the photo reads the same in light and dark mode */
+  --color-text: #eef2f8;
+  --color-text-muted: #a3b1c6;
+  --color-bg: #020206;
+  --note-ink: #eef2f8;
+  color-scheme: dark;
+  position: relative;
+  z-index: 1;
+  height: calc(100svh - 3.75rem);
+  min-height: 34rem;
+  max-height: 64rem;
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.hero__stage { position: absolute; inset: 0; }
+
+.hero__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse 60% 55% at 50% 30%, #0d0d24 0%, #020206 70%);
+  transform-origin: 50% 45%;
+}
+
+.hero__trails {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+}
+
+/* The name sits behind the cut-out, so the head overlaps the letters */
+.hero__name {
+  position: absolute;
+  /* Low enough that the head overlaps the letters */
+  top: 21%;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  text-align: center;
+  white-space: nowrap;
+  font: var(--weight-black) clamp(3rem, 10.4vw, 10.5rem) / 0.9 var(--font-sans);
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.hero__subject {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 2;
+  /* Square photo: as tall as the stage allows, never wider than the screen */
+  height: min(88%, 92vw);
+  aspect-ratio: 1 / 1;
+  /* translate (not transform) centres it, leaving transform free for GSAP */
+  translate: -50% 0;
+}
+.hero__subject-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  /* Fade the crop at the bottom of the frame */
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
+  mask-image: linear-gradient(to bottom, #000 82%, transparent);
+}
+
+/* ── Hand-drawn notes (large screens only) ─────────────────── */
+.hero__notes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: var(--note-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(239, 11, 239, 0.55));
+}
+.hero__loop { stroke-width: 2.6; }
+.hero__arrow { stroke-width: 2; }
+
+.hero__labels { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+.hero__label {
+  position: absolute;
+  display: grid;
+  width: max-content;
+  max-width: 13rem;
+  translate: 0 -50%;
+  text-shadow: 0 2px 12px rgba(2, 2, 6, 0.9);
+}
+.hero__label--left { translate: -100% -50%; text-align: right; }
+.hero__label-part {
+  font: var(--weight-medium) var(--text-xs) / 1.3 var(--font-sans);
+  font-style: italic;
+  color: var(--color-link);
+}
+.hero__label-title {
+  font: 600 clamp(1.3rem, 1.5vw, 1.65rem) / 1.05 'Caveat Variable', 'Segoe Print', cursive;
+  color: var(--note-ink);
+}
+
+/* ── Copy, bottom left ─────────────────────────────────────── */
+.hero__copy {
+  position: absolute;
+  left: clamp(1rem, 4vw, 3rem);
+  bottom: clamp(1.25rem, 5vh, 3.5rem);
+  z-index: 5;
+  max-width: 24rem;
+  text-shadow: 0 2px 16px rgba(2, 2, 6, 0.85);
+}
+.hero__role {
+  font: var(--weight-bold) var(--text-lg) / var(--leading-snug) var(--font-sans);
+}
+.hero__role .accent { font-size: 1.15em; }
+.hero__tagline {
+  margin-top: var(--space-2);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+/* ── Viewfinder (intro only) ───────────────────────────────── */
+.hero__viewfinder { display: none; position: absolute; inset: 0; z-index: 6; pointer-events: none; }
+.hero__vf-frame {
+  position: absolute;
+  inset: 7%;
+  /* Corner brackets drawn with gradients */
+  background:
+    linear-gradient(var(--note-ink), var(--note-ink)) top left / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) top left / 1.5px 28px,
+    linear-gradient(var(--note-ink), var(--note-ink)) top right / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) top right / 1.5px 28px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom left / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom left / 1.5px 28px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom right / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom right / 1.5px 28px;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+}
+.hero__focus {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  color: var(--note-ink);
+}
+.hero__focus svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.hero__vf-info {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: 3.5%;
+  display: flex;
+  gap: var(--space-5);
+  justify-content: flex-end;
+  font: var(--text-xs) / 1 var(--font-mono);
+  letter-spacing: 0.12em;
+  color: var(--note-ink);
+  font-variant-numeric: tabular-nums;
+}
+.hero__shutter { position: absolute; inset: 0; background: #000; opacity: 0; }
+
+/* ── Tablet: notes hidden, as on the reference ─────────────── */
+@media (max-width: 1023px) {
+  .hero__notes, .hero__labels { display: none; }
+  .hero__subject { height: min(80%, 92vw); }
+}
+
+/* ── Phone: name, photo, then copy, stacked ────────────────── */
+@media (max-width: 720px) {
+  .hero { height: auto; min-height: 0; max-height: none; overflow: visible; }
+  .hero__stage { position: relative; inset: auto; aspect-ratio: 1 / 1.15; overflow: hidden; }
+  .hero__name {
+    top: 5%;
+    white-space: normal;
+    font-size: clamp(2.4rem, 14.5vw, 5rem);
+    line-height: 0.88;
+  }
+  .hero__subject { height: 78%; }
+  .hero__copy {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    max-width: none;
+    padding: var(--space-5) var(--space-4) var(--space-2);
+  }
+  .hero__vf-info { justify-content: center; gap: var(--space-4); }
+}

@@ -1,9 +1,8 @@
 // Page sections built on the "Blueprint" design system (components/ui).
 import { useEffect, useRef, useState } from 'react'
-import { FaBehance, FaGithub, FaLinkedin } from 'react-icons/fa'
 import { about, contact, education, experience, pillars, projects } from '../portfolio'
 import { GITHUB_PROFILE, useGitHubStats } from '../hooks/useGitHubStats'
-import { gsap, prefersReducedMotion, useCountUp, useHeroIntro, useTilt } from '../motion/motion'
+import { gsap, prefersReducedMotion, useCountUp, useTilt } from '../motion/motion'
 import profilePic from '../assets/profile.webp'
 import {
   Button, Card, SectionHeader, Tag, ThemeToggle,
@@ -17,57 +16,50 @@ const NAV = [
   { href: '#contact', label: 'Contact' },
 ]
 /* ── Header ─────────────────────────────────────────────────── */
-export const SiteHeader = () => (
-  <header className='site-header'>
-    <div className='site-header__inner'>
-      <a href='#top' className='site-header__name'>{about.name}</a>
-      <nav aria-label='Sections' className='site-header__nav'>
-        {NAV.map(({ href, label }) => (
-          <a key={href} href={href} className='site-header__link'>{label}</a>
-        ))}
-      </nav>
-      <ThemeToggle />
-    </div>
-  </header>
-)
+export const SiteHeader = () => {
+  const [open, setOpen] = useState(false)
+  const headerRef = useRef(null)
 
-/* ── Hero ───────────────────────────────────────────────────── */
-const Socials = () => (
-  <ul className='socials'>
-    <li><a href={about.social.github} target='_blank' rel='noopener noreferrer' aria-label='GitHub'><FaGithub /></a></li>
-    <li><a href={about.social.linkedin} target='_blank' rel='noopener noreferrer' aria-label='LinkedIn'><FaLinkedin /></a></li>
-    <li><a href={about.social.behance} target='_blank' rel='noopener noreferrer' aria-label='Behance'><FaBehance /></a></li>
-  </ul>
-)
+  // Close the mobile menu on Escape or a tap outside the header
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    const onPointer = (e) => { if (!headerRef.current?.contains(e.target)) setOpen(false) }
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('pointerdown', onPointer)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('pointerdown', onPointer)
+    }
+  }, [open])
 
-export const Hero = () => {
-  const scope = useRef(null)
-  useHeroIntro(scope)
   return (
-    <section ref={scope} className='hero' aria-labelledby='hero-title'>
-      <div className='hero__copy'>
-        <h1 id='hero-title' className='hero__name' aria-label={about.name}>
-          {about.name.split(' ').map((word) => (
-            <span key={word} className='hero__line' aria-hidden='true'>
-              <span className='hero__word'>{word}</span>
-            </span>
+    <header ref={headerRef} className='site-header' data-open={open}>
+      <div className='site-header__inner'>
+        <a href='#top' className='site-header__name'>{about.name}</a>
+        <nav id='site-nav' aria-label='Sections' className='site-header__nav'>
+          {NAV.map(({ href, label }) => (
+            <a key={href} href={href} className='site-header__link' onClick={() => setOpen(false)}>{label}</a>
           ))}
-        </h1>
-        <p className='hero__role'>
-          {about.title[0]} <span className='accent'>&amp; {about.title[1]}</span>
-        </p>
-        <p className='hero__tagline'>{about.summary}</p>
-        <div className='hero__actions'>
-          <Button href='#work' data-magnetic>View my work</Button>
-          <Button variant='secondary' href={about.resume} download='Blessing_James_CV.pdf'>Download CV</Button>
-          <Socials />
-        </div>
+        </nav>
+        <ThemeToggle />
+        <button
+          type='button'
+          className='site-header__menu'
+          aria-expanded={open}
+          aria-controls='site-nav'
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className='site-header__menu-bar' aria-hidden='true' />
+          <span className='site-header__menu-bar' aria-hidden='true' />
+        </button>
       </div>
-      {/* The right column is left open for the 3D network behind the page */}
-      <div className='hero__stage' aria-hidden='true' />
-    </section>
+    </header>
   )
 }
+
+/* The hero lives in Hero.jsx */
 
 /* ── About ──────────────────────────────────────────────────── */
 export const About = () => (

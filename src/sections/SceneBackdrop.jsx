@@ -43,11 +43,11 @@ const SceneBackdrop = () => {
           end: 'max',
           onUpdate: (self) => scene.setProgress(self.progress),
         }))
-        // Full strength behind the hero, quieter behind reading sections
-        triggers.push(gsap.to(stageRef.current, {
+        // Hidden behind the photo hero, then fades in quietly behind the sections
+        triggers.push(gsap.fromTo(stageRef.current, { opacity: 0 }, {
           opacity: 0.28,
           ease: 'none',
-          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+          scrollTrigger: { trigger: '.hero', start: 'center top', end: 'bottom top', scrub: true },
         }).scrollTrigger)
       })
       .catch((err) => {
