@@ -25,42 +25,46 @@ import taxpyreImage from './assets/projects/taxpyre.svg'
 import breastCancerImage from './assets/projects/breastcancer.svg'
 import sentinnelImage from './assets/projects/sentinnel.svg'
 import e1netImage from './assets/projects/e1net.webp'
+import wineLoanImage from './assets/projects/wineloan.svg'
+
+// All wording below comes from the CV (public/Blessing_James_CV.pdf).
+// e1NET and TaxPyre are not on the CV and keep their own short lines.
 
 // ----- ABOUT -----
 const about = {
   name: 'Blessing James',
-  // Title shown in the hero, in the same order as the CV
   title: ['AI/ML Engineer', 'Full-Stack Developer'],
-  summary: 'I build AI products and the web apps around them.',
+  summary: 'Building intelligent, production-ready systems that solve real-world problems.',
   bio: [
-    'I build AI features and the applications around them, combining RAG, LLM integration and machine learning with full-stack development.',
-    'Recently I built e1NET, a compliance platform for small businesses, and completed the Ogun State GenAI Fellowship with Publica Academy.',
+    'Results-driven AI Engineer and Full-Stack Developer. I specialise in Agentic RAG architectures, multi-agent orchestration and end-to-end LLM integration, bringing together the full stack from data pipelines to scalable web deployments.',
+    'Equally at home across the full machine learning lifecycle, from exploratory data analysis and feature engineering to model training, evaluation and production deployment.',
   ],
   // Served from public/; replace that file to update the CV
   resume: '/Blessing_James_CV.pdf',
   social: {
     github: 'https://github.com/DuoDduo',
-    linkedin: 'https://www.linkedin.com/in/dblessingjames',
+    linkedin: 'https://www.linkedin.com/in/blessing-james-6b541829b/',
     behance: 'https://www.behance.net/blessing_james',
   },
 }
 
-// ----- PILLARS (replace the old skills list; every tag is used in a repo) -----
+// ----- SKILLS (the four groups on the CV) -----
 const pillars = [
   {
-    title: 'AI and machine learning',
-    proof: 'RAG pipelines, LLM integration, multi-agent workflows and ML models.',
-    tags: ['OpenAI API', 'pgvector', 'LangGraph', 'LangChain', 'ChromaDB', 'scikit-learn', 'pandas'],
+    title: 'AI Engineering',
+    tags: ['Large Language Models (LLMs)', 'Agentic RAG', 'Multi-agent Systems', 'Transformer Models', 'Tool Integration', 'Prompt Engineering'],
   },
   {
-    title: 'Full-stack development',
-    proof: 'Next.js and React front ends on FastAPI and PostgreSQL back ends.',
-    tags: ['Next.js', 'React', 'Tailwind CSS', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL', 'Auth0'],
+    title: 'Machine Learning & Data Science',
+    tags: ['Linear Algebra', 'Inferential Statistics', 'Scikit-learn', 'Pandas', 'Exploratory Data Analysis', 'Feature Engineering', 'Model Evaluation'],
   },
   {
-    title: 'Deployment and testing',
-    proof: 'Docker, CI/CD with GitHub Actions, and deployment to Azure and Vercel.',
-    tags: ['Azure', 'Docker', 'GitHub Actions', 'pytest', 'Vercel'],
+    title: 'Full-Stack Development',
+    tags: ['Python (FastAPI)', 'Pydantic', 'OOP', 'JavaScript / TypeScript (React)', 'HTML5', 'CSS3', 'Tailwind CSS', 'RESTful APIs'],
+  },
+  {
+    title: 'Data & Infrastructure',
+    tags: ['Pinecone', 'ChromaDB', 'FAISS', 'MySQL', 'PostgreSQL', 'Supabase', 'Docker', 'Git / GitHub', 'Agile'],
   },
 ]
 
@@ -78,12 +82,13 @@ const projects = [
   },
   {
     name: 'SabiLens',
-    description: 'Counterfeit product detection for Nigeria, using computer vision, OCR and the NAFDAC registry.',
+    description: 'AI-powered NAFDAC food product counterfeit detection. I designed and built the Regulatory RAG module and a ReAct verification agent, and cut scan latency from about 5 minutes to under 300 ms.',
     stack: ['Python', 'FastAPI', 'ResNet50', 'PaddleOCR', 'ChromaDB', 'React', 'Google Cloud'],
     sourceCode: 'https://github.com/Cunyie08/genai_sabilens_national_product_integrity',
     livePreview: 'https://sabi-lens.vercel.app/',
     category: 'AI/ML',
     team: true,
+    role: 'Regulatory RAG',
     image: sabilensImage,
   },
   {
@@ -95,22 +100,30 @@ const projects = [
     image: taxpyreImage,
   },
   {
-    name: 'Breast Cancer Classifier',
-    description: 'A diagnostic classifier with a test F1 score of 0.991, served through FastAPI and React.',
+    name: 'Breast Cancer Prediction',
+    description: 'An end-to-end ML pipeline using scikit-learn and FastAPI to predict diagnostic outcomes with high precision.',
     stack: ['Python', 'scikit-learn', 'pandas', 'FastAPI', 'React', 'Tailwind CSS'],
     sourceCode: 'https://github.com/DuoDduo/ml_projects/tree/master/breast_cancer',
     category: 'AI/ML',
     image: breastCancerImage,
   },
   {
-    name: 'Sentinnel Banking',
-    description: 'A multi-agent banking system for complaints, fraud scoring and recommendations. I built the RAG layer.',
+    name: 'Sentinel Banking',
+    description: 'AI-driven middleware intelligence system. I built the RAG policy grounding layer that anchors every agent decision to verified banking policy documents, and contributed to the backend AI services and React dashboard.',
     stack: ['Python', 'FastAPI', 'LangGraph', 'ChromaDB', 'scikit-learn', 'PostgreSQL', 'React'],
     sourceCode: 'https://github.com/DuoDduo/genai_sentinnel_banking_integration',
     category: 'AI/ML',
     team: true,
-    role: 'RAG engineer',
+    role: 'Fullstack AI Engineer',
     image: sentinnelImage,
+  },
+  {
+    name: 'White Wine Quality & Loan Prediction',
+    description: 'Regression and classification models, built on extensive EDA and feature engineering, to automate quality scoring and loan eligibility assessment.',
+    stack: ['Python', 'Scikit-learn', 'Pandas', 'FastAPI', 'React'],
+    sourceCode: 'https://github.com/DuoDduo/ml_projects',
+    category: 'AI/ML',
+    image: wineLoanImage,
   },
 
   // --- WEB PROJECTS ---
@@ -265,7 +278,7 @@ const education = [
 
 // ----- CONTACT -----
 const contact = {
-  email: 'pelubs2956@mail.com',
+  email: 'pelubs2956@gmail.com',
 }
 
 export { about, pillars, projects, experience, education, contact }

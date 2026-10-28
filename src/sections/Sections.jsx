@@ -84,7 +84,7 @@ export const About = () => (
         <li key={title} data-reveal-batch>
           <Card as='div' className='pillar'>
             <h3 className='pillar__title'>{title}</h3>
-            <p className='pillar__proof'>{proof}</p>
+            {proof && <p className='pillar__proof'>{proof}</p>}
             <div className='tag-row'>{tags.map((t) => <Tag key={t}>{t}</Tag>)}</div>
           </Card>
         </li>

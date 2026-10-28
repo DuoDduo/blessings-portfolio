@@ -1,8 +1,7 @@
 /* ============================================================
-   DESIGN TOKENS — "Blueprint", ember edition
-   Architecture drawings and decision audit trails, lit by ember
-   light behind frosted glass: deterministic engines decide,
-   LLMs explain.
+   DESIGN TOKENS — "Blueprint", cyan and magenta edition
+   The original portfolio palette (void black, magenta, cyan and
+   indigo) behind frosted glass.
 
    Layers:
    1. Primitives  — raw values, never used directly in components
@@ -13,26 +12,28 @@
 
 /* ── 1. Primitives ───────────────────────────────────────────── */
 :root {
-  --night-950: #050506;
-  --night-900: #0a0a0b;       /* Night — dark background */
-  --night-800: #131316;
-  --night-700: #1c1c21;
-  --stone-400: #a8a29e;       /* Muted text on night */
+  --void-950: #010103;
+  --void-900: #020206;        /* Void — dark background (original site) */
+  --void-800: #0a0a14;
+  --void-700: #12121f;
+  --slate-400: #7a8ba6;       /* Muted text (original --clr-fg-alt) */
 
-  --bone-50:  #f5f3ef;        /* Bone — warm white text */
-  --bone-100: #f4f1ec;        /* Light background */
-  --bone-200: #e9e4dc;
-  --bone-300: #d8d1c6;
+  --frost-50:  #eef2f8;       /* Text on void (original --clr-fg) */
+  --frost-100: #f3f5fa;       /* Light background */
+  --frost-200: #e7ebf3;
+  --frost-300: #d3d9e6;
 
-  --ink-900: #1a1714;         /* Ink — light-theme text */
-  --ink-600: #57514a;
+  --ink-900: #0d1020;         /* Ink — light-theme text */
+  --ink-600: #4a5570;
 
-  --ember-500: #ff5c1a;       /* Ember — primary accent */
-  --ember-400: #ff7a45;       /* Ember for text and lines on night */
-  --ember-700: #b8400d;       /* Ember for text on bone */
+  --magenta-500: #ef0bef;     /* Magenta — primary accent (original) */
+  --magenta-300: #f86cf8;     /* Magenta for serif accents on void */
+  --magenta-700: #a3069f;     /* Magenta for text on light */
 
-  --gold-400: #e8b86f;        /* Gold — serif accents and notes */
-  --gold-700: #8a5a12;
+  --cyan-400: #00e5ff;        /* Cyan — links and lines (original) */
+  --cyan-700: #00717f;        /* Cyan for text on light */
+
+  --indigo-500: #4f46e5;      /* Indigo — background glow (original) */
 
   --verified-300: #6fd3a5;    /* Decision passed — status only */
   --verified-700: #1f7a52;
@@ -88,7 +89,7 @@
   --content-max: 72rem;
 
   /* Glass: how much the backdrop is blurred behind surfaces */
-  --glass-blur: 40px;
+  --glass-blur: 28px;
 
   /* Motion */
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -97,68 +98,70 @@
   --duration-draw: 900ms;
 }
 
-/* ── 2. Semantic — dark ("night"), the default ───────────────── */
+/* ── 2. Semantic — dark ("void"), the default ────────────────── */
 :root,
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --color-bg:          var(--night-900);
-  --color-surface:     var(--night-800);
-  --color-surface-alt: var(--night-950);
-  --color-text:        var(--bone-50);
-  --color-text-muted:  var(--stone-400);
-  --color-line:        rgba(245, 243, 239, 0.08);
-  --color-line-strong: rgba(245, 243, 239, 0.24);
-  --color-grid:        rgba(245, 243, 239, 0.025);
-  --color-link:        var(--ember-400);
-  --color-primary:     var(--ember-500);
-  --color-on-primary:  var(--night-900);
-  --color-primary-glow: rgba(255, 92, 26, 0.33);
-  --color-annotation:  var(--gold-400);
-  --color-highlight:   rgba(255, 92, 26, 0.28);
+  --color-bg:          var(--void-900);
+  --color-surface:     var(--void-800);
+  --color-surface-alt: var(--void-950);
+  --color-text:        var(--frost-50);
+  --color-text-muted:  var(--slate-400);
+  --color-line:        rgba(255, 255, 255, 0.06);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-grid:        rgba(0, 229, 255, 0.04);
+  --color-link:        var(--cyan-400);
+  --color-primary:     var(--magenta-500);
+  --color-on-primary:  var(--void-900);
+  --color-primary-glow: rgba(239, 11, 239, 0.3);
+  --color-annotation:  var(--magenta-300);
+  --color-highlight:   rgba(239, 11, 239, 0.25);
   --color-verified:    var(--verified-300);
   --color-flagged:     var(--flagged-300);
-  --color-focus:       var(--gold-400);
+  --color-focus:       var(--cyan-400);
 
-  --glass-bg:        rgba(19, 19, 22, 0.42);
-  --glass-bg-strong: rgba(19, 19, 22, 0.55);
-  --glass-border:    rgba(245, 243, 239, 0.08);
-  --glass-highlight: inset 0 1px 0 rgba(245, 243, 239, 0.05);
-  --glass-shadow:    0 16px 48px rgba(0, 0, 0, 0.5);
-  --glow-1:          rgba(255, 92, 26, 0.16);
-  --glow-2:          rgba(232, 184, 111, 0.07);
-  --cursor-glow:     rgba(255, 92, 26, 0.5);
+  --glass-bg:        rgba(2, 2, 8, 0.55);
+  --glass-bg-strong: rgba(2, 2, 8, 0.65);
+  --glass-border:    rgba(255, 255, 255, 0.07);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --glass-shadow:    0 12px 40px rgba(0, 0, 0, 0.55);
+  --glow-1:          rgba(239, 11, 239, 0.14);
+  --glow-2:          rgba(0, 229, 255, 0.1);
+  --glow-3:          rgba(79, 70, 229, 0.12);
+  --cursor-glow:     rgba(239, 11, 239, 0.4);
   --cursor-blend:    screen;
 }
 
-/* ── 2. Semantic — light ("bone") ────────────────────────────── */
+/* ── 2. Semantic — light ("frost") ───────────────────────────── */
 :root[data-theme='light'] {
   color-scheme: light;
-  --color-bg:          var(--bone-100);
+  --color-bg:          var(--frost-100);
   --color-surface:     #ffffff;
-  --color-surface-alt: var(--bone-200);
+  --color-surface-alt: var(--frost-200);
   --color-text:        var(--ink-900);
   --color-text-muted:  var(--ink-600);
-  --color-line:        var(--bone-300);
-  --color-line-strong: #bdb3a5;
-  --color-grid:        rgba(26, 23, 20, 0.05);
-  --color-link:        var(--ember-700);
-  --color-primary:     var(--ember-500);
-  --color-on-primary:  var(--night-900);
-  --color-primary-glow: rgba(255, 92, 26, 0.25);
-  --color-annotation:  var(--gold-700);
-  --color-highlight:   rgba(255, 92, 26, 0.22);
+  --color-line:        var(--frost-300);
+  --color-line-strong: #b3bccd;
+  --color-grid:        rgba(0, 113, 127, 0.06);
+  --color-link:        var(--cyan-700);
+  --color-primary:     var(--magenta-500);
+  --color-on-primary:  var(--void-900);
+  --color-primary-glow: rgba(239, 11, 239, 0.22);
+  --color-annotation:  var(--magenta-700);
+  --color-highlight:   rgba(239, 11, 239, 0.18);
   --color-verified:    var(--verified-700);
   --color-flagged:     var(--flagged-700);
-  --color-focus:       var(--ember-700);
+  --color-focus:       var(--cyan-700);
 
   --glass-bg:        rgba(255, 255, 255, 0.55);
-  --glass-bg-strong: rgba(244, 241, 236, 0.72);
-  --glass-border:    rgba(26, 23, 20, 0.1);
+  --glass-bg-strong: rgba(243, 245, 250, 0.72);
+  --glass-border:    rgba(13, 16, 32, 0.1);
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --glass-shadow:    0 12px 36px rgba(26, 23, 20, 0.08);
-  --glow-1:          rgba(255, 92, 26, 0.1);
-  --glow-2:          rgba(232, 184, 111, 0.12);
-  --cursor-glow:     rgba(255, 92, 26, 0.18);
+  --glass-shadow:    0 12px 36px rgba(13, 16, 32, 0.08);
+  --glow-1:          rgba(239, 11, 239, 0.08);
+  --glow-2:          rgba(0, 229, 255, 0.1);
+  --glow-3:          rgba(79, 70, 229, 0.08);
+  --cursor-glow:     rgba(239, 11, 239, 0.14);
   --cursor-blend:    multiply;
 }
 

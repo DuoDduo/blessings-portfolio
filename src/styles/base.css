@@ -34,7 +34,7 @@ body::before {
   background:
     radial-gradient(40rem 32rem at 82% 8%, var(--glow-1), transparent 70%),
     radial-gradient(36rem 30rem at 6% 62%, var(--glow-2), transparent 70%),
-    radial-gradient(30rem 24rem at 70% 96%, var(--glow-1), transparent 70%);
+    radial-gradient(30rem 24rem at 50% 104%, var(--glow-3), transparent 70%);
 }
 
 img, svg { display: block; max-width: 100%; }
