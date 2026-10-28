@@ -154,13 +154,15 @@ export const Experience = () => (
       <SectionHeader id='experience-title' title='Experience' />
     </div>
     <ol className='timeline'>
-      {experience.map(({ when, title, org, detail }) => (
+      {experience.map(({ when, title, org, points }) => (
         <li key={`${title}-${org}`} className='timeline__item' data-reveal-batch>
           <span className='timeline__when'>{when}</span>
           <Card as='div' className='timeline__card'>
             <h3 className='timeline__title'>{title}</h3>
             <p className='timeline__org'>{org}</p>
-            <p className='timeline__detail'>{detail}</p>
+            <ul className='timeline__points'>
+              {points.map((point) => <li key={point}>{point}</li>)}
+            </ul>
           </Card>
         </li>
       ))}

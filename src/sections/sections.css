@@ -183,7 +183,16 @@
 .timeline__card { display: grid; gap: var(--space-1); }
 .timeline__title { font: var(--weight-bold) var(--text-md) / var(--leading-snug) var(--font-sans); color: var(--color-text); }
 .timeline__org { color: var(--color-link); font-weight: var(--weight-medium); }
-.timeline__detail { margin-top: var(--space-2); color: var(--color-text-muted); max-width: var(--measure); }
+.timeline__points {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-left: var(--space-5);
+  max-width: var(--measure);
+  list-style: disc;
+  color: var(--color-text-muted);
+}
+.timeline__points li::marker { color: var(--color-link); }
 
 /* ── Education ──────────────────────────────────────────────── */
 .education__title {

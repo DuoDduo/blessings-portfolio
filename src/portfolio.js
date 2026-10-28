@@ -235,37 +235,54 @@ const projects = [
   { name: 'Cartoon 3', description: 'Character illustration.', stack: ['Illustrator'], category: 'Graphics', image: cartoon3Image },
 ]
 
-// ----- EXPERIENCE (from my CV) -----
+// ----- EXPERIENCE (word for word from the CV, in CV order) -----
 const experience = [
   {
     when: '08/2025 – 02/2026',
     title: 'AI Engineer Trainee',
     org: 'Ogun State GenAI Fellowship (Publica Academy)',
-    detail: 'Multi-agent systems, RAG pipelines and FastAPI back ends for LLM apps.',
-  },
-  {
-    when: '11/2024 – now',
-    title: 'Web Developer',
-    org: 'School of Purpose',
-    detail: 'Web apps and an admin dashboard.',
+    points: [
+      'Architected multi-agent systems with LangGraph for autonomous task decomposition and collaboration in enterprises.',
+      'Machine Learning: Engineered and evaluated models from mathematical principles to building and deployment.',
+      'Production RAG Pipelines: Created RAG systems using semantic chunking and vector embeddings. Reduced hallucination rates in document intelligence.',
+      'Type-Safe Backends: Developed robust, high-concurrency APIs using FastAPI and Pydantic, ensuring production-grade data validation and seamless LLM integration.',
+    ],
   },
   {
     when: '08/2024 – 02/2025',
     title: 'Cyber Risk Analyst Intern',
     org: 'Chevron',
-    detail: 'Phishing analysis, disaster recovery testing and data privacy audits.',
+    points: [
+      'Risk Mitigation: Analyzed phishing reports identifying vulnerabilities. Delivered insights to strengthen security.',
+      'Disaster Recovery & BCP: Validated effectiveness of protocols and plans via enterprise recovery exercises.',
+      'Compliance & Privacy: Engaged in Data Privacy Audit walkthroughs, ensuring strict compliance with global regulations and reinforcing cybersecurity best practices for sensitive corporate data.',
+    ],
+  },
+  {
+    when: '11/2024 – Present',
+    title: 'Web Developer',
+    org: 'School of Purpose',
+    points: [
+      'Developed high-performance web apps; built admin dashboard for data-driven management.',
+      'Optimized frontend performance for low-latency interaction with complex, AI-driven backend logic.',
+    ],
   },
   {
     when: '09/2024 – 11/2024',
     title: 'Technical Instructor',
     org: 'Aptech Computer Education',
-    detail: 'Taught OOP, databases and software engineering.',
+    points: [
+      'Mentored students in Object-Oriented Programming (OOP), Database Management, and Software Engineering fundamentals.',
+    ],
   },
   {
     when: '09/2023 – 09/2024',
     title: 'Front-End Developer',
     org: 'JEXCEL TECH',
-    detail: 'React components for enterprise apps.',
+    points: [
+      'Built modular React components for enterprise apps.',
+      'Ensured cross-platform usability and code maintainability.',
+    ],
   },
 ]
 
