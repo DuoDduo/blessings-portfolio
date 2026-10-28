@@ -1,9 +1,9 @@
 // Hero: a photo shoot. A viewfinder hunts for focus, a long exposure draws
 // light trails while the subject brightens, the shutter fires, the frame
-// opens to full size and hand-drawn notes circle the photo. Every step is
-// skipped (and the final state shown) under prefers-reduced-motion, and any
-// scroll, key press or tap jumps straight to the end.
-import { useEffect, useMemo, useRef } from 'react'
+// opens to full size and the copy arrives. Every step is skipped (and the
+// final state shown) under prefers-reduced-motion, and any scroll, key press
+// or tap jumps straight to the end.
+import { useEffect, useRef } from 'react'
 import { FaBehance, FaGithub, FaLinkedin } from 'react-icons/fa'
 import { about } from '../portfolio'
 import { gsap, prefersReducedMotion, ScrollTrigger } from '../motion/motion'
@@ -12,69 +12,14 @@ import { createLightTrails } from './lightTrails'
 import subjectImg from '../assets/hero-subject.webp'
 import './hero.css'
 
-// Notes, positioned as fractions of the (square) photo. Wording follows the CV.
-// box: area to circle [x1, y1, x2, y2]; label: where the text sits [x, y].
-const NOTES = [
-  { id: 'head', part: 'Head', title: 'I architect multi-agent systems', box: [0.38, 0.15, 0.62, 0.3], label: [0.8, 0.04], side: 'right' },
-  { id: 'eyes', part: 'Eyes', title: 'Exploratory data analysis first', box: [0.43, 0.285, 0.61, 0.345], label: [0.17, 0.43], side: 'left' },
-  { id: 'collar', part: 'Collar', title: 'Type-safe backends', box: [0.46, 0.47, 0.62, 0.7], label: [0.84, 0.47], side: 'right' },
-  { id: 'buttons', part: 'Buttons', title: 'Production RAG pipelines', box: [0.47, 0.77, 0.76, 0.98], label: [0.8, 0.7], side: 'right' },
-]
-
-// The trails circle the head
+// The trails circle the head, as a fraction of the (square) photo
 const HEAD = { x: 0.5, y: 0.24 }
-
-const seeded = (seed) => () => {
-  seed = (seed * 16807) % 2147483647
-  return (seed - 1) / 2147483646
-}
-
-// A loose, hand-drawn loop around a box (in a 1000 × 1000 view box). It runs a
-// little past a full turn so the ends overlap, like a pen circling something.
-const loopPath = ([x1, y1, x2, y2], seed) => {
-  const rand = seeded(seed)
-  const cx = ((x1 + x2) / 2) * 1000
-  const cy = ((y1 + y2) / 2) * 1000
-  const rx = ((x2 - x1) / 2) * 1000 * 1.15
-  const ry = ((y2 - y1) / 2) * 1000 * 1.2
-  const phase = rand() * Math.PI * 2
-  const turns = Math.PI * 2 * 1.12
-  const points = []
-  for (let i = 0; i <= 60; i++) {
-    const t = (i / 60) * turns
-    const wobble = 1 + Math.sin(t * 3 + phase) * 0.04 + Math.sin(t * 5 + phase * 2) * 0.025
-    const grow = 1 + (t / turns) * 0.06
-    points.push([cx + Math.cos(t - Math.PI / 2) * rx * wobble * grow, cy + Math.sin(t - Math.PI / 2) * ry * wobble * grow])
-  }
-  return 'M' + points.map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`).join('L')
-}
-
-// A curved arrow from the label towards the edge of the loop
-const arrowPath = ({ box: [x1, y1, x2, y2], label: [lx, ly], side }) => {
-  const sx = lx * 1000 + (side === 'right' ? -16 : 16)
-  const sy = ly * 1000 + 14
-  const ex = (side === 'right' ? x2 : x1) * 1000 + (side === 'right' ? 18 : -18)
-  const ey = ((y1 + y2) / 2) * 1000
-  // Bow the curve sideways from the straight line, upwards, like a pen stroke
-  const dx = ex - sx
-  const dy = ey - sy
-  const len = Math.hypot(dx, dy) || 1
-  let px = -dy / len
-  let py = dx / len
-  if (py > 0) { px = -px; py = -py }
-  const qx = (sx + ex) / 2 + px * len * 0.3
-  const qy = (sy + ey) / 2 + py * len * 0.3
-  const angle = Math.atan2(ey - qy, ex - qx)
-  const head = (da) => `${(ex - Math.cos(angle + da) * 14).toFixed(1)} ${(ey - Math.sin(angle + da) * 14).toFixed(1)}`
-  return `M${sx.toFixed(1)} ${sy.toFixed(1)}Q${qx.toFixed(1)} ${qy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}M${ex.toFixed(1)} ${ey.toFixed(1)}L${head(0.5)}M${ex.toFixed(1)} ${ey.toFixed(1)}L${head(-0.5)}`
-}
 
 const pad = (n) => String(n).padStart(2, '0')
 
 const Hero = () => {
   const root = useRef(null)
   const trailsCanvas = useRef(null)
-  const notes = useMemo(() => NOTES.map((n, i) => ({ ...n, loop: loopPath(n.box, i + 3), arrow: arrowPath(n) })), [])
 
   useEffect(() => {
     const el = root.current
@@ -121,18 +66,11 @@ const Hero = () => {
 
     const ctx = gsap.context(() => {
       const header = document.querySelector('.site-header')
-      const loops = q('.hero__loop')
-      const arrows = q('.hero__arrow')
-      loops.concat(arrows).forEach((p) => {
-        const len = p.getTotalLength()
-        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len })
-      })
 
       // Before the shot: dark subject, frame pulled in, viewfinder up
       gsap.set(q('.hero__subject-img'), { filter: 'brightness(0.12) saturate(0.6)' })
       gsap.set(q('.hero__name'), { opacity: 0.15 })
       gsap.set(q('.hero__frame'), { scale: 0.86 })
-      gsap.set(q('.hero__label'), { opacity: 0, y: 8 })
       gsap.set(q('.hero__copy > *'), { opacity: 0, y: 20 })
       gsap.set(q('.hero__viewfinder'), { display: 'block', opacity: 0 })
       gsap.to(q('.hero__viewfinder'), { opacity: 1, duration: 0.5, delay: 0.1 })
@@ -174,10 +112,6 @@ const Hero = () => {
         .set(q('.hero__viewfinder'), { display: 'none' }, 3.9)
         .to(trails.state, { opacity: 0.55, duration: 1.4, ease: 'sine.inOut' }, 3)
         .to(trails.state, { speed: 1, duration: 3, ease: 'sine.in' }, 2.7)
-        // The notes: each loop draws, then its arrow, then its label
-        .to(loops, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut', stagger: 0.22 }, 3.1)
-        .to(arrows, { strokeDashoffset: 0, duration: 0.5, ease: 'power2.out', stagger: 0.22 }, 3.5)
-        .to(q('.hero__label'), { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.22 }, 3.6)
         .to(q('.hero__copy > *'), { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08 }, 3.1)
       if (header) tl.to(header, { autoAlpha: 1, duration: 0.6, clearProps: 'opacity,visibility' }, 3.4)
 
@@ -240,22 +174,6 @@ const Hero = () => {
               height='940'
               fetchpriority='high'
             />
-            <svg className='hero__notes' viewBox='0 0 1000 1000' aria-hidden='true'>
-              {notes.map(({ id, loop, arrow }) => (
-                <g key={id}>
-                  <path className='hero__loop' d={loop} />
-                  <path className='hero__arrow' d={arrow} />
-                </g>
-              ))}
-            </svg>
-            <ul className='hero__labels' aria-label='Notes about my work'>
-              {notes.map(({ id, part, title, label: [x, y], side }) => (
-                <li key={id} className={`hero__label hero__label--${side}`} style={{ left: `${x * 100}%`, top: `${y * 100}%` }}>
-                  <span className='hero__label-part'>{part}</span>
-                  <span className='hero__label-title'>{title}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
 
