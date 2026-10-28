@@ -16,10 +16,6 @@ const NAV = [
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ]
-
-// Gold serif accent for the key phrase in a heading
-const Accent = ({ children }) => <em className='accent'>{children}</em>
-
 /* ── Header ─────────────────────────────────────────────────── */
 export const SiteHeader = () => (
   <header className='site-header'>
@@ -49,24 +45,26 @@ export const Hero = () => {
   useHeroIntro(scope)
   return (
     <section ref={scope} className='hero' aria-labelledby='hero-title'>
-      <h1 id='hero-title' className='hero__headline' aria-label='I build intelligent products, and make the AI accountable.'>
-        <span className='hero__line' aria-hidden='true'>
-          {['I', 'build', 'intelligent', 'products,'].map((w) => <span key={w} className='hero__word'>{w}</span>)}
-        </span>
-        <span className='hero__line' aria-hidden='true'>
-          {['and', 'make', 'the', 'AI'].map((w) => <span key={w} className='hero__word'>{w}</span>)}
-          <span className='hero__word accent'>accountable.</span>
-        </span>
-      </h1>
-      <p className='hero__intro'>
-        I&apos;m <strong>{about.name}</strong>, a {about.role.replace(' and ', ' & ')}.
-      </p>
-      <div className='hero__actions'>
-        <Button href='#work' data-magnetic>View my work</Button>
-        <Button variant='secondary' href={about.resume} download='Blessing_James_CV.pdf'>Download CV</Button>
-        <Socials />
+      <div className='hero__copy'>
+        <h1 id='hero-title' className='hero__name' aria-label={about.name}>
+          {about.name.split(' ').map((word) => (
+            <span key={word} className='hero__line' aria-hidden='true'>
+              <span className='hero__word'>{word}</span>
+            </span>
+          ))}
+        </h1>
+        <p className='hero__role'>
+          {about.title[0]} <span className='accent'>&amp; {about.title[1]}</span>
+        </p>
+        <p className='hero__tagline'>{about.summary}</p>
+        <div className='hero__actions'>
+          <Button href='#work' data-magnetic>View my work</Button>
+          <Button variant='secondary' href={about.resume} download='Blessing_James_CV.pdf'>Download CV</Button>
+          <Socials />
+        </div>
       </div>
-      <p className='hero__hint'>Move your pointer, scroll, or click anywhere to send a signal through the network.</p>
+      {/* The right column is left open for the 3D network behind the page */}
+      <div className='hero__stage' aria-hidden='true' />
     </section>
   )
 }
@@ -74,7 +72,7 @@ export const Hero = () => {
 /* ── About ──────────────────────────────────────────────────── */
 export const About = () => (
   <section id='about' className='section' aria-labelledby='about-title'>
-    <div data-reveal><SectionHeader id='about-title' title={<>Hey, I&apos;m <Accent>Blessing</Accent>.</>} /></div>
+    <div data-reveal><SectionHeader id='about-title' title='About' /></div>
     <div className='about' data-reveal>
       <img src={profilePic} alt='Blessing James' className='about__photo' width='320' height='400' loading='lazy' />
       <div className='about__bio'>
@@ -138,9 +136,8 @@ export const Work = () => {
   return (
     <section id='work' className='section' aria-labelledby='work-title'>
       <div data-reveal>
-        <SectionHeader id='work-title' title={<>Systems where AI <Accent>shows its working</Accent>.</>}>
-          AI and machine learning projects, from compliance and retrieval systems to classic
-          models. Team projects say what I built.
+        <SectionHeader id='work-title' title='Selected work'>
+          AI and machine learning projects.
         </SectionHeader>
       </div>
       <ul className='work-grid'>
@@ -154,7 +151,7 @@ export const Work = () => {
 export const Experience = () => (
   <section id='experience' className='section' aria-labelledby='experience-title'>
     <div data-reveal>
-      <SectionHeader id='experience-title' title={<>Where I&apos;ve been <Accent>learning by building</Accent>.</>} />
+      <SectionHeader id='experience-title' title='Experience' />
     </div>
     <ol className='timeline'>
       {experience.map(({ when, title, org, detail }) => (
@@ -210,8 +207,8 @@ export const MoreWork = () => {
   return (
     <section id='more-work' className='section' aria-labelledby='more-title'>
       <div data-reveal>
-        <SectionHeader id='more-title' title={<>Where it <Accent>started</Accent>.</>}>
-          Client websites, interface design and graphic design.
+        <SectionHeader id='more-title' title='Other work'>
+          Websites, interface design and graphics.
         </SectionHeader>
       </div>
       <div className='tabs' role='tablist' aria-label='Project type'>
@@ -267,8 +264,8 @@ export const GitHubSection = () => {
   return (
     <section id='github' className='section' aria-labelledby='github-title'>
       <div data-reveal>
-        <SectionHeader id='github-title' title={<>Building <Accent>in the open</Accent>.</>}>
-          Live numbers from my public profile, excluding forks.
+        <SectionHeader id='github-title' title='GitHub'>
+          Public activity, excluding forks.
         </SectionHeader>
       </div>
       {status === 'error' && (
@@ -311,8 +308,8 @@ export const GitHubSection = () => {
 export const Contact = () => (
   <section id='contact' className='section contact' aria-labelledby='contact-title'>
     <div data-reveal>
-      <SectionHeader id='contact-title' title={<>Let&apos;s build something <Accent>you can trust</Accent>.</>}>
-        I&apos;m open to full-stack and AI/ML engineering roles and freelance projects. Email is the fastest way to reach me.
+      <SectionHeader id='contact-title' title='Contact'>
+        Open to AI/ML and full-stack roles, and freelance projects.
       </SectionHeader>
     </div>
     <div className='contact__actions' data-reveal>

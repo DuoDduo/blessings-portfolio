@@ -67,9 +67,9 @@ const DesignSystem = () => (
       <section className='ds-intro' aria-labelledby='ds-title'>
         <h1 id='ds-title' className='ds-intro__title'>Blueprint</h1>
         <p className='ds-intro__lede'>
-          The design system behind this portfolio. It borrows from architecture drawings and
-          audit logs, because the work it presents is about AI whose{' '}
-          <Note note='the brand in one line'>decisions can be traced and explained.</Note>
+          The design system behind this portfolio: colour and type tokens, components and
+          motion rules,{' '}
+          <Note note='margin note style'>documented in one place.</Note>
         </p>
       </section>
 

@@ -29,12 +29,12 @@ import e1netImage from './assets/projects/e1net.webp'
 // ----- ABOUT -----
 const about = {
   name: 'Blessing James',
-  role: 'Full-stack developer and AI/ML engineer',
-  tagline: 'I build intelligent products end to end, and I make the AI accountable.',
+  // Title shown in the hero, in the same order as the CV
+  title: ['AI/ML Engineer', 'Full-Stack Developer'],
+  summary: 'I build AI products and the web apps around them.',
   bio: [
-    "I'm Blessing, a full-stack developer and AI/ML engineer. I build products end to end: React front ends, FastAPI and Flask back ends, and the machine learning and LLM systems inside them.",
-    'I care most about AI that people can trust. On Sentinnel Banking I built the RAG layer that checks every agent decision against written policy. On TaxPyre, every answer cites the passages it came from.',
-    'I trained as an AI engineer in the Ogun State GenAI Fellowship with Publica Academy, where I built team capstones such as Sentinnel Banking and SabiLens.',
+    'I build AI features and the applications around them, combining RAG, LLM integration and machine learning with full-stack development.',
+    'Recently I built e1NET, a compliance platform for small businesses, and completed the Ogun State GenAI Fellowship with Publica Academy.',
   ],
   // Served from public/; replace that file to update the CV
   resume: '/Blessing_James_CV.pdf',
@@ -48,18 +48,18 @@ const about = {
 // ----- PILLARS (replace the old skills list; every tag is used in a repo) -----
 const pillars = [
   {
-    title: 'Intelligence',
-    proof: 'Retrieval over real documents with pgvector and ChromaDB, LLM drafting behind rule-based checks, multi-agent orchestration with LangGraph, and classic ML for classification and risk scoring.',
+    title: 'AI and machine learning',
+    proof: 'RAG pipelines, LLM integration, multi-agent workflows and ML models.',
     tags: ['OpenAI API', 'pgvector', 'LangGraph', 'LangChain', 'ChromaDB', 'scikit-learn', 'pandas'],
   },
   {
-    title: 'Product',
-    proof: 'Full-stack apps from the database schema to the interface: Next.js and React front ends on Python APIs, with proper sign-in and roles.',
+    title: 'Full-stack development',
+    proof: 'Next.js and React front ends on FastAPI and PostgreSQL back ends.',
     tags: ['Next.js', 'React', 'Tailwind CSS', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL', 'Auth0'],
   },
   {
-    title: 'Production',
-    proof: 'Work that ships: e1NET deploys to Azure through GitHub Actions with malware scanning on every upload, and my habit tracker runs 29 passing tests.',
+    title: 'Deployment and testing',
+    proof: 'Docker, CI/CD with GitHub Actions, and deployment to Azure and Vercel.',
     tags: ['Azure', 'Docker', 'GitHub Actions', 'pytest', 'Vercel'],
   },
 ]
@@ -70,7 +70,7 @@ const projects = [
   // --- AI/ML PROJECTS ---
   {
     name: 'e1NET',
-    description: 'Compliance that small businesses can actually do. e1NET checks the policies a business already keeps against Cyber Essentials and ISO 27001: it finds the relevant passages, drafts each assessment with AI, and lets versioned rules, not the model, decide what counts as met. Every finding links to its evidence and lands in an audit trail.',
+    description: 'A compliance platform that checks a business\'s policy documents against Cyber Essentials and ISO 27001, and shows what to fix first.',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'OpenAI API', 'Next.js', 'Auth0', 'Azure', 'GitHub Actions'],
     note: 'Private repository. Walkthrough on request.',
     category: 'AI/ML',
@@ -78,7 +78,7 @@ const projects = [
   },
   {
     name: 'SabiLens',
-    description: 'Checks whether a product is genuine from a photo of its label. A ResNet50 vision model and PaddleOCR read the packaging, then an LLM agent checks it against the NAFDAC registry and returns a verdict in under 5 seconds.',
+    description: 'Counterfeit product detection for Nigeria, using computer vision, OCR and the NAFDAC registry.',
     stack: ['Python', 'FastAPI', 'ResNet50', 'PaddleOCR', 'ChromaDB', 'React', 'Google Cloud'],
     sourceCode: 'https://github.com/Cunyie08/genai_sabilens_national_product_integrity',
     livePreview: 'https://sabi-lens.vercel.app/',
@@ -88,7 +88,7 @@ const projects = [
   },
   {
     name: 'TaxPyre Nigeria',
-    description: "A RAG assistant that answers questions about Nigeria's 2026 tax reforms in plain language. It searches 152 chunks from 4 bills (500+ pages) and cites the passages behind every answer.",
+    description: "A RAG assistant that answers questions about Nigeria's 2026 tax reforms, with sources.",
     stack: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'React', 'Docker'],
     sourceCode: 'https://github.com/DuoDduo/nigeria-tax-reform',
     category: 'AI/ML',
@@ -96,7 +96,7 @@ const projects = [
   },
   {
     name: 'Breast Cancer Classifier',
-    description: 'Cleaning, EDA and feature selection on 569 tumour samples, then a tuned logistic regression served through FastAPI with a React front end. Test F1 0.991, with 97.7% of malignant cases correctly identified.',
+    description: 'A diagnostic classifier with a test F1 score of 0.991, served through FastAPI and React.',
     stack: ['Python', 'scikit-learn', 'pandas', 'FastAPI', 'React', 'Tailwind CSS'],
     sourceCode: 'https://github.com/DuoDduo/ml_projects/tree/master/breast_cancer',
     category: 'AI/ML',
@@ -104,7 +104,7 @@ const projects = [
   },
   {
     name: 'Sentinnel Banking',
-    description: 'Three LangGraph agents route complaints across 15+ categories, score fraud risk and recommend products. Policy engines make every decision, a random forest only raises risk sensitivity, and LLMs only write audit-ready explanations. I built the RAG layer that checks each decision against 6 policy documents.',
+    description: 'A multi-agent banking system for complaints, fraud scoring and recommendations. I built the RAG layer.',
     stack: ['Python', 'FastAPI', 'LangGraph', 'ChromaDB', 'scikit-learn', 'PostgreSQL', 'React'],
     sourceCode: 'https://github.com/DuoDduo/genai_sentinnel_banking_integration',
     category: 'AI/ML',
@@ -228,31 +228,31 @@ const experience = [
     when: '08/2025 – 02/2026',
     title: 'AI Engineer Trainee',
     org: 'Ogun State GenAI Fellowship (Publica Academy)',
-    detail: 'Built multi-agent systems with LangGraph, production RAG pipelines with semantic chunking and vector embeddings, and type-safe FastAPI and Pydantic backends for LLM integration.',
+    detail: 'Multi-agent systems, RAG pipelines and FastAPI back ends for LLM apps.',
   },
   {
     when: '11/2024 – now',
     title: 'Web Developer',
     org: 'School of Purpose',
-    detail: 'Build and maintain the web apps, including an admin dashboard for data-driven management.',
+    detail: 'Web apps and an admin dashboard.',
   },
   {
     when: '08/2024 – 02/2025',
     title: 'Cyber Risk Analyst Intern',
     org: 'Chevron',
-    detail: 'Analysed phishing reports to find vulnerabilities, validated disaster recovery and business continuity plans in enterprise exercises, and took part in data privacy audit walkthroughs.',
+    detail: 'Phishing analysis, disaster recovery testing and data privacy audits.',
   },
   {
     when: '09/2024 – 11/2024',
     title: 'Technical Instructor',
     org: 'Aptech Computer Education',
-    detail: 'Taught object-oriented programming, database management and software engineering fundamentals.',
+    detail: 'Taught OOP, databases and software engineering.',
   },
   {
     when: '09/2023 – 09/2024',
     title: 'Front-End Developer',
     org: 'JEXCEL TECH',
-    detail: 'Built modular React components for enterprise apps, with a focus on cross-platform usability and maintainable code.',
+    detail: 'React components for enterprise apps.',
   },
 ]
 

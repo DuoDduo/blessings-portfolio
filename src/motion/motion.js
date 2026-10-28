@@ -19,10 +19,9 @@ export const useHeroIntro = (scope) => {
     if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.timeline({ defaults: { ease: 'power4.out' } })
-        .from('.hero__word', { yPercent: 115, duration: 1.1, stagger: 0.06 })
-        .from('.hero__intro', { y: 24, opacity: 0, duration: 0.8 }, '-=0.6')
+        .from('.hero__word', { yPercent: 110, duration: 1.1, stagger: 0.08 })
+        .from('.hero__role, .hero__tagline', { y: 24, opacity: 0, duration: 0.8, stagger: 0.1 }, '-=0.6')
         .from('.hero__actions > *', { y: 16, opacity: 0, duration: 0.6, stagger: 0.06 }, '-=0.5')
-        .from('.hero__hint', { opacity: 0, duration: 1 }, '-=0.2')
     }, scope)
     return () => ctx.revert()
   }, [scope])

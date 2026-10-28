@@ -54,35 +54,48 @@
 .site-header__link:hover { color: var(--color-text); }
 
 /* ── Hero ───────────────────────────────────────────────────── */
-/* Centred statement over the page-wide 3D network */
+/* Copy on the left; the right column stays open for the 3D network,
+   which starts on the right side of the page-wide backdrop */
 .hero {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-6);
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: calc(100vh - 4.5rem);
-  padding: var(--space-8) 0 var(--space-7);
+  min-height: min(44rem, calc(100vh - 4.5rem));
+  padding-top: var(--space-6);
 }
-.hero__headline {
-  max-width: 15ch;
-  font: var(--weight-bold) clamp(2.6rem, 7.2vw, 5.4rem) / 1.04 var(--font-sans);
+/* Soft fade behind the copy so it stays readable if the network drifts under it */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0 45% 0 0;
+  z-index: -1;
+  background: radial-gradient(closest-side, var(--color-bg) 40%, transparent 100%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.hero__stage { min-height: 28rem; }
+.hero__name {
+  font: var(--weight-black) var(--text-4xl) / var(--leading-tight) var(--font-sans);
   letter-spacing: var(--tracking-display);
   color: var(--color-text);
-  text-wrap: balance;
 }
-/* Each line is a mask the words rise out of during the intro */
-.hero__line { display: block; overflow: hidden; padding: 0 0.04em 0.08em; }
-.hero__word { display: inline-block; margin: 0 0.12em; will-change: transform; }
-.hero__intro {
-  margin-top: var(--space-6);
+/* Each word rises out of its own mask during the intro */
+.hero__line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.hero__word { display: inline-block; will-change: transform; }
+.hero__role {
+  margin-top: var(--space-4);
+  font: var(--weight-bold) var(--text-xl) / var(--leading-snug) var(--font-sans);
+  color: var(--color-text);
+}
+.hero__role .accent { font-size: 1.15em; }
+.hero__tagline {
+  margin-top: var(--space-3);
+  max-width: 40ch;
   font-size: var(--text-lg);
-  color: var(--color-text-muted);
-}
-.hero__intro strong { color: var(--color-text); font-weight: var(--weight-bold); }
-.hero__hint {
-  margin-top: var(--space-7);
-  font-size: var(--text-xs);
+  line-height: var(--leading-body);
   color: var(--color-text-muted);
 }
 
@@ -94,7 +107,6 @@
   letter-spacing: 0;
   color: var(--color-annotation);
 }
-.hero__headline .accent { font-size: 1.08em; }
 
 /* ── Page-wide 3D backdrop ──────────────────────────────────── */
 .scene-backdrop {
@@ -127,7 +139,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   gap: var(--space-3);
   margin-top: var(--space-6);
 }
@@ -223,8 +234,16 @@
   display: grid;
   gap: var(--space-4);
   max-width: var(--measure);
+  padding: var(--space-6);
   font-size: var(--text-md);
   color: var(--color-text-muted);
+  /* Glass panel so the drifting network never sits behind bare text */
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border: var(--line-width) solid var(--glass-border);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--glass-highlight), var(--glass-shadow);
 }
 .about__bio p:first-child { color: var(--color-text); }
 
@@ -389,7 +408,9 @@
 
 /* ── Tablet ─────────────────────────────────────────────────── */
 @media (max-width: 960px) {
-  .hero { min-height: 80vh; }
+  .hero { grid-template-columns: 1fr; min-height: 0; padding-top: var(--space-7); }
+  .hero::before { inset: 0; }
+  .hero__stage { min-height: 18rem; }
   .education { grid-template-columns: 1fr; }
   .pillars { grid-template-columns: 1fr; }
   .work-grid { grid-template-columns: 1fr; }
@@ -404,7 +425,8 @@
   .site-header__inner { flex-wrap: wrap; row-gap: var(--space-2); padding: var(--space-3) var(--space-4); }
   .site-header__nav { order: 3; width: 100%; margin-left: 0; justify-content: space-between; }
   .site-header .ui-theme-toggle { margin-left: auto; }
-  .hero { padding-top: var(--space-6); min-height: 78vh; }
+  .hero { padding-top: var(--space-6); }
+  .hero__stage { min-height: 14rem; }
   .timeline::before { left: 5px; }
   .timeline__item { grid-template-columns: 1fr; gap: var(--space-2); padding-left: var(--space-5); }
   .timeline__item::before { left: 0; top: 0.35rem; }

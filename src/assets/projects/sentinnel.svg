@@ -31,6 +31,4 @@
   </g>
   <path d="M442 238 L442 296" stroke="#e8b86f" stroke-dasharray="3 4"/>
   <text x="434" y="322" text-anchor="end" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-style="italic" fill="#e8b86f">my part: the RAG layer</text>
-  <text x="194" y="120" text-anchor="middle" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-style="italic" fill="#e8b86f">engines decide, LLMs explain</text>
-  <path d="M194 128 L194 146" stroke="#e8b86f" stroke-dasharray="3 4"/>
 </svg>

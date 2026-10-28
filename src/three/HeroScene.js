@@ -50,6 +50,8 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
   camera.position.set(0, 0, CAMERA_Z)
 
   const network = new Group()
+  // Sized to sit in the hero's right column of a full-screen canvas
+  network.scale.setScalar(0.7)
   scene.add(network)
 
   /* ── Nodes ───────────────────────────────────────────────── */
@@ -96,14 +98,14 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
   const lineMaterial = new LineBasicMaterial({ transparent: true, opacity: 0.35 })
   network.add(new LineSegments(lineGeometry, lineMaterial))
 
-  const nodeGeometry = new IcosahedronGeometry(0.11, 2)
+  const nodeGeometry = new IcosahedronGeometry(0.08, 2)
   const nodeMaterial = new MeshBasicMaterial()
   const nodeMesh = new InstancedMesh(nodeGeometry, nodeMaterial, nodes.length)
   network.add(nodeMesh)
 
   // The output layer is the decision: drawn in the annotation colour
   const outputMaterial = new MeshBasicMaterial()
-  const outputMesh = new InstancedMesh(new IcosahedronGeometry(0.17, 2), outputMaterial, layers[layers.length - 1])
+  const outputMesh = new InstancedMesh(new IcosahedronGeometry(0.13, 2), outputMaterial, layers[layers.length - 1])
   network.add(outputMesh)
 
   // Per-layer scale, animated by the signal wave
@@ -182,7 +184,7 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
   let progress = 0
   let smooth = 0
   let baseZ = CAMERA_Z
-  let driftX = 2.4
+  let driftX = 2.0
 
   const onPointerMove = (e) => {
     const r = canvas.getBoundingClientRect()
@@ -215,7 +217,7 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
     camera.aspect = w / h
     // Keep the whole network in frame on narrow screens, and drift less there
     baseZ = w / h < 1 ? CAMERA_Z / Math.max(w / h, 0.6) : CAMERA_Z
-    driftX = w / h < 1 ? 0.6 : 2.4
+    driftX = w / h < 1 ? 0.6 : 2.0
     camera.position.z = baseZ
     camera.updateProjectionMatrix()
   }
@@ -243,7 +245,8 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
     smooth += (progress - smooth) * 0.08
     network.rotation.x = tilt.x + Math.sin(now / 4000) * 0.05 + smooth * 0.6
     network.rotation.y = tilt.y - 0.35 + smooth * Math.PI * 1.6 + Math.sin(now / 5000) * 0.08
-    network.position.x = Math.sin(smooth * Math.PI * 3) * driftX
+    // Starts on the right (beside the hero copy), then sweeps across as you scroll
+    network.position.x = Math.cos(smooth * Math.PI * 3) * driftX
     camera.position.z = baseZ - Math.sin(smooth * Math.PI) * 3
 
     spawnClock += dt
