@@ -65,7 +65,7 @@ const pillars = [
   },
   {
     title: 'Data & Infrastructure',
-    tags: ['Pinecone', 'ChromaDB', 'FAISS', 'MySQL', 'PostgreSQL', 'Supabase', 'Docker', 'Git / GitHub', 'Agile'],
+    tags: ['Pinecone', 'ChromaDB', 'FAISS', 'MySQL', 'PostgreSQL', 'Supabase', 'Azure', 'Docker', 'CI/CD', 'Git / GitHub', 'Agile'],
   },
 ]
 
