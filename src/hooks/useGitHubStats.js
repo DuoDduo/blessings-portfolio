@@ -44,14 +44,16 @@ const topLanguages = (repos) => {
 
 export const GITHUB_PROFILE = `https://github.com/${USERNAME}`
 
-export const useGitHubStats = () => {
+// `enabled` lets the caller wait until the section is near the screen,
+// so the four API calls do not compete with the first page load
+export const useGitHubStats = (enabled = true) => {
   const [state, setState] = useState(() => {
     const cached = readCache()
     return { data: cached, status: cached ? 'ready' : 'loading' }
   })
 
   useEffect(() => {
-    if (state.status !== 'loading') return
+    if (!enabled || state.status !== 'loading') return
     let dead = false
 
     Promise.all([
@@ -77,7 +79,7 @@ export const useGitHubStats = () => {
       })
 
     return () => { dead = true }
-  }, [state.status])
+  }, [enabled, state.status])
 
   return state
 }

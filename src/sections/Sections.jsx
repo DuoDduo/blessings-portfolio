@@ -115,7 +115,6 @@ const WorkCard = ({ project }) => {
             <p className='work-card__desc'>{project.description}</p>
             <div className='tag-row'>{project.stack.map((s) => <Tag key={s}>{s}</Tag>)}</div>
             <ProjectLinks project={project} />
-            {project.note && <p className='work-card__note'>{project.note}</p>}
           </div>
         </Card>
       </div>
@@ -124,12 +123,12 @@ const WorkCard = ({ project }) => {
 }
 
 export const Work = () => {
-  const featured = projects.filter((p) => p.category === 'AI/ML')
+  const featured = projects.filter((p) => p.category === 'AI/ML' || p.category === 'Full-Stack')
   return (
     <section id='work' className='section' aria-labelledby='work-title'>
       <div data-reveal>
         <SectionHeader id='work-title' title='Selected work'>
-          AI and machine learning projects.
+          AI, machine learning and full-stack projects.
         </SectionHeader>
       </div>
       <ul className='work-grid'>
@@ -254,9 +253,19 @@ const Stat = ({ label, value }) => {
 }
 
 export const GitHubSection = () => {
-  const { data, status } = useGitHubStats()
+  const sectionRef = useRef(null)
+  const [near, setNear] = useState(false)
+  // Fetch stats only when the section is about a screen away
+  useEffect(() => {
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setNear(true); io.disconnect() }
+    }, { rootMargin: '100% 0px' })
+    io.observe(sectionRef.current)
+    return () => io.disconnect()
+  }, [])
+  const { data, status } = useGitHubStats(near)
   return (
-    <section id='github' className='section' aria-labelledby='github-title'>
+    <section ref={sectionRef} id='github' className='section' aria-labelledby='github-title'>
       <div data-reveal>
         <SectionHeader id='github-title' title='GitHub'>
           Public activity, excluding forks.
@@ -317,10 +326,5 @@ export const Contact = () => (
 export const SiteFooter = () => (
   <footer className='site-footer'>
     <p>© {new Date().getFullYear()} {about.name}. Designed and built by me.</p>
-    <p>
-      <a href='/design'>Design system</a>
-      <span aria-hidden='true'> · </span>
-      This site uses Vercel Analytics, which collects no cookies or personal data.
-    </p>
   </footer>
 )

@@ -48,7 +48,7 @@
   display: flex;
   justify-content: center;
   gap: 0.22em;
-  font: var(--weight-black) clamp(3rem, 10.4vw, 10.5rem) / 0.9 var(--font-sans);
+  font: var(--weight-black) clamp(2.6rem, 9vw, 9rem) / 0.9 var(--font-sans);
   letter-spacing: -0.045em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -84,7 +84,8 @@
 /* ── Copy, bottom left ─────────────────────────────────────── */
 .hero__copy {
   position: absolute;
-  left: clamp(1rem, 4vw, 3rem);
+  /* Same left edge as the page sections, including on very wide screens */
+  left: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter)));
   bottom: clamp(1.25rem, 5vh, 3.5rem);
   z-index: 5;
   max-width: 24rem;
@@ -111,7 +112,7 @@
 /* ── Scroll cue, bottom right ──────────────────────────────── */
 .hero__cue {
   position: absolute;
-  right: clamp(1rem, 4vw, 3rem);
+  right: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter)));
   bottom: clamp(1.25rem, 5vh, 3.5rem);
   z-index: 5;
   display: flex;
@@ -155,7 +156,7 @@
 .hero__statement-now { grid-column: 3; padding-left: clamp(1rem, 2.5vw, 2.5rem); }
 .hero__statement-line {
   max-width: 11ch;
-  font: var(--weight-bold) clamp(2.1rem, 3.4vw, 4.2rem) / 1.04 var(--font-sans);
+  font: var(--weight-bold) clamp(1.8rem, 2.8vw, 3.4rem) / 1.06 var(--font-sans);
   letter-spacing: -0.03em;
   color: var(--color-text);
 }
@@ -229,7 +230,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0;
-    font-size: clamp(2.4rem, 14.5vw, 6.5rem);
+    font-size: clamp(2.2rem, 13vw, 5.5rem);
     line-height: 0.88;
   }
   .hero__subject { height: min(78%, 92vw); }
@@ -252,7 +253,7 @@
   }
   .hero__statement-then, .hero__statement-now { grid-column: 1; justify-self: start; padding: 0; text-align: left; }
   .hero__statement-then .hero__statement-line { margin-left: 0; }
-  .hero__statement-line { max-width: 14ch; font-size: clamp(2rem, 8vw, 3.2rem); }
+  .hero__statement-line { max-width: 14ch; font-size: clamp(1.75rem, 7vw, 2.6rem); }
   .hero__vf-info { justify-content: center; gap: var(--space-4); }
 }
 

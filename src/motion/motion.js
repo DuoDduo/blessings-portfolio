@@ -13,17 +13,52 @@ export const prefersReducedMotion = () =>
 
 const finePointer = () => window.matchMedia('(pointer: fine)').matches
 
-/* Scroll reveals for anything marked data-reveal; cards arrive in batches */
+/* Wrap each word of a heading in a mask so it can rise into view.
+   Returns a function that puts the plain text back. */
+const splitWords = (el) => {
+  const text = el.textContent
+  el.setAttribute('aria-label', text)
+  el.textContent = ''
+  text.split(' ').forEach((word, i) => {
+    if (i) el.append(' ')
+    const mask = document.createElement('span')
+    mask.className = 'reveal-mask'
+    mask.setAttribute('aria-hidden', 'true')
+    const inner = document.createElement('span')
+    inner.className = 'reveal-word'
+    inner.textContent = word
+    mask.append(inner)
+    el.append(mask)
+  })
+  return () => {
+    el.textContent = text
+    el.removeAttribute('aria-label')
+  }
+}
+
+/* Scroll reveals: headings rise word by word, text fades up, images wipe
+   open, cards arrive in batches and the timeline draws as you scroll */
 export const useScrollReveals = () => {
   useLayoutEffect(() => {
     if (prefersReducedMotion()) return
+    const restores = []
     const ctx = gsap.context(() => {
       gsap.utils.toArray('[data-reveal]').forEach((el) => {
-        gsap.from(el, {
-          y: 32, opacity: 0, duration: 0.9, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-        })
+        const title = el.querySelector('.ui-section-header__title')
+        const trigger = { trigger: el, start: 'top 85%', once: true }
+        if (!title) {
+          gsap.from(el, { y: 32, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: trigger })
+          return
+        }
+        restores.push(splitWords(title))
+        const tl = gsap.timeline({ scrollTrigger: trigger })
+        tl.fromTo(title.querySelectorAll('.reveal-word'),
+          { yPercent: 120 },
+          { yPercent: 0, duration: 1.1, ease: 'expo.out', stagger: 0.06 })
+        const desc = el.querySelector('.ui-section-header__desc')
+        if (desc) tl.from(desc, { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, 0.25)
       })
+
       ScrollTrigger.batch('[data-reveal-batch]', {
         start: 'top 90%',
         once: true,
@@ -31,8 +66,31 @@ export const useScrollReveals = () => {
           y: 48, opacity: 0, rotateX: -8, duration: 0.9, ease: 'power3.out', stagger: 0.1,
         }),
       })
+
+      // Images open from the bottom like a curtain
+      ScrollTrigger.batch('.work-card__media, .more-card__img, .about__photo', {
+        start: 'top 92%',
+        once: true,
+        onEnter: (batch) => gsap.fromTo(batch,
+          { clipPath: 'inset(100% 0% 0% 0%)' },
+          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.inOut', stagger: 0.12, clearProps: 'clipPath' }),
+      })
+
+      // The timeline line draws with the scroll: across on desktop, down on
+      // smaller screens (the CSS reads --line either way)
+      gsap.utils.toArray('.timeline').forEach((line) => {
+        gsap.fromTo(line, { '--line': 0 }, {
+          '--line': 1,
+          ease: 'none',
+          scrollTrigger: { trigger: line, start: 'top 80%', end: 'bottom 70%', scrub: 0.6 },
+        })
+      })
     })
-    return () => ctx.revert()
+
+    return () => {
+      ctx.revert()
+      restores.forEach((restore) => restore())
+    }
   }, [])
 }
 

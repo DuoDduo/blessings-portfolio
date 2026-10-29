@@ -74,13 +74,13 @@
 }
 
 /* ── Card ───────────────────────────────────────────────────── */
-.ui-card { padding: var(--space-6); }
+.ui-card { padding: var(--space-5); }
 
 /* ── SectionHeader ──────────────────────────────────────────── */
 .ui-section-header { max-width: var(--measure); margin-bottom: var(--space-6); }
 .ui-section-header__title {
-  font: var(--weight-bold) var(--text-2xl) / var(--leading-tight) var(--font-sans);
-  letter-spacing: -0.02em;
+  font: var(--weight-bold) var(--text-4xl) / 1.02 var(--font-sans);
+  letter-spacing: -0.035em;
   color: var(--color-text);
 }
 .ui-section-header__desc {

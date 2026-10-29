@@ -24,8 +24,9 @@ import sabilensImage from './assets/projects/sabilens.svg'
 import taxpyreImage from './assets/projects/taxpyre.svg'
 import breastCancerImage from './assets/projects/breastcancer.svg'
 import sentinnelImage from './assets/projects/sentinnel.svg'
-import e1netImage from './assets/projects/e1net.webp'
+import e1netImage from './assets/projects/e1net.svg'
 import wineLoanImage from './assets/projects/wineloan.svg'
+import habitTrackerImage from './assets/projects/habittracker.svg'
 
 // All wording below comes from the CV (public/Blessing_James_CV.pdf).
 // e1NET and TaxPyre are not on the CV and keep their own short lines.
@@ -76,7 +77,7 @@ const projects = [
     name: 'e1NET',
     description: 'A compliance platform that checks a business\'s policy documents against Cyber Essentials and ISO 27001, and shows what to fix first.',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'OpenAI API', 'Next.js', 'Auth0', 'Azure', 'GitHub Actions'],
-    note: 'Private repository. Walkthrough on request.',
+    livePreview: 'https://www.e1net.org/',
     category: 'AI/ML',
     image: e1netImage,
   },
@@ -124,6 +125,15 @@ const projects = [
     sourceCode: 'https://github.com/DuoDduo/ml_projects',
     category: 'AI/ML',
     image: wineLoanImage,
+  },
+  {
+    name: 'HabitOS',
+    description: 'A full-stack habit tracker with an object-oriented Flask API, functional-style analytics for streaks and history, and a React dashboard. Tested with pytest.',
+    stack: ['Python', 'Flask', 'SQLAlchemy', 'Pydantic', 'pytest', 'React', 'Tailwind CSS'],
+    sourceCode: 'https://github.com/DuoDduo/habit-tracker',
+    livePreview: 'https://habit-tracker-olive-six.vercel.app/',
+    category: 'Full-Stack',
+    image: habitTrackerImage,
   },
 
   // --- WEB PROJECTS ---

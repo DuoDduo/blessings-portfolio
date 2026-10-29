@@ -169,9 +169,10 @@ const Hero = () => {
           scrollTrigger: {
             trigger: el,
             start: () => `top ${headerHeight()}px`,
-            end: '+=160%',
+            // Short pin and light smoothing so the handover keeps pace with the scroll
+            end: '+=90%',
             pin: true,
-            scrub: 0.9,
+            scrub: 0.4,
             anticipatePin: 1,
             onUpdate: (self) => {
               // The statement link only becomes clickable once it has arrived

@@ -1,14 +1,16 @@
 /* Page section layout — semantic tokens only (see styles/tokens.css) */
 
+/* Full-width page with the same side margin as the hero copy, so every
+   section lines up with it (capped on very wide screens) */
 .page {
-  max-width: var(--content-max);
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 0 var(--space-5) var(--space-8);
+  padding: 0 var(--gutter) var(--space-8);
 }
 
 .section {
-  padding-top: var(--space-8);
-  margin-top: var(--space-8);
+  padding-top: var(--space-7);
+  margin-top: var(--space-7);
   border-top: var(--line-width) solid var(--color-line);
   scroll-margin-top: var(--space-7);
 }
@@ -30,9 +32,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-5);
-  max-width: var(--content-max);
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-3) var(--gutter);
 }
 .site-header__name {
   font-weight: var(--weight-bold);
@@ -159,6 +161,9 @@
   bottom: var(--space-3);
   width: var(--line-width);
   background: linear-gradient(var(--color-primary), var(--color-line) 70%);
+  /* Drawn on scroll: motion.js animates --line from 0 to 1 */
+  transform: scaleY(var(--line, 1));
+  transform-origin: top;
 }
 .timeline__item {
   position: relative;
@@ -199,6 +204,49 @@
 }
 .timeline__points li::marker { color: var(--color-link); }
 
+/* Desktop: the roles sit side by side on a horizontal line, inside the page
+   width. Five across on wide screens, three per row on laptops. Each role
+   draws its own piece of the line, so wrapped rows still read as one. */
+@media (min-width: 1024px) {
+  .timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-4);
+  }
+  .timeline::before { display: none; }
+  .timeline__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;
+  }
+  .timeline__item::before { left: 0; top: calc(1rem + var(--space-4) - 5px); z-index: 1; }
+  /* This role's piece of the line, running into the gap after it */
+  .timeline__item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: calc(var(--space-4) * -1);
+    top: calc(1rem + var(--space-4));
+    height: var(--line-width);
+    background: linear-gradient(90deg, var(--color-primary), var(--color-line));
+    transform: scaleX(var(--line, 1));
+    transform-origin: left;
+  }
+  /* The line stops at the end of each row */
+  .timeline__item:nth-child(3n)::after,
+  .timeline__item:last-child::after { right: 0; }
+  .timeline__when { padding-top: 0; line-height: 1rem; }
+  .timeline__card { flex: 1; align-content: start; margin-top: var(--space-4); }
+  .timeline__points { padding-left: var(--space-4); }
+}
+@media (min-width: 1440px) {
+  .timeline { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .timeline__item:nth-child(3n)::after { right: calc(var(--space-4) * -1); }
+  .timeline__item:last-child::after { right: 0; }
+  .timeline__card { padding: var(--space-5) var(--space-4); }
+  .timeline__points { font-size: var(--text-xs); }
+}
+
 /* ── Education ──────────────────────────────────────────────── */
 .education__title {
   margin: var(--space-7) 0 var(--space-4);
@@ -212,9 +260,6 @@
 .education > li { display: flex; }
 .education__card { display: grid; align-content: start; gap: var(--space-1); width: 100%; padding: var(--space-5); }
 .education__card .timeline__when { padding-top: 0; }
-
-/* Private repo note on project cards */
-.work-card__note { font-size: var(--text-xs); color: var(--color-text-muted); font-style: italic; }
 
 .socials { display: flex; gap: var(--space-1); margin-left: var(--space-2); }
 .socials a {
@@ -272,11 +317,25 @@
 .pillar__proof { color: var(--color-text-muted); flex: 1; }
 
 /* ── Selected work ──────────────────────────────────────────── */
+/* 3 columns on desktop, 2 on laptops and tablets, 1 on phones */
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-5);
 }
+/* A lone card on the last row sits in the middle */
+@media (min-width: 1200px) {
+  .work-grid__item:last-child:nth-child(3n + 1) { grid-column: 2; }
+}
+@media (max-width: 1199px) { .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 721px) and (max-width: 1199px) {
+  .work-grid__item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - var(--space-5)) / 2);
+  }
+}
+@media (max-width: 720px) { .work-grid { grid-template-columns: 1fr; } }
 .work-grid__item { display: flex; perspective: 1200px; }
 .work-card__tilt { display: flex; width: 100%; transform-style: preserve-3d; will-change: transform; }
 .work-card {
@@ -347,10 +406,15 @@
   border-color: var(--color-primary);
 }
 
+/* Four across on desktop, then 3, 2 and 1 as the screen narrows
+   (the 2 and 1 steps are in the tablet and phone blocks below) */
 .more-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-6) var(--space-5);
+}
+@media (max-width: 1199px) {
+  .more-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 .more-card { display: flex; flex-direction: column; gap: var(--space-2); }
 .more-card__img {
@@ -408,9 +472,9 @@
 .contact__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 
 .site-footer {
-  max-width: var(--content-max);
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: var(--space-6) var(--space-5) var(--space-7);
+  padding: var(--space-6) var(--gutter) var(--space-7);
   border-top: var(--line-width) solid var(--color-line);
   display: flex;
   flex-wrap: wrap;
@@ -424,7 +488,6 @@
 @media (max-width: 960px) {
   .education { grid-template-columns: 1fr; }
   .pillars { grid-template-columns: 1fr; }
-  .work-grid { grid-template-columns: 1fr; }
   .more-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .github__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

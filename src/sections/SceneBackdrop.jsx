@@ -22,7 +22,22 @@ const SceneBackdrop = () => {
       if (!e.target.closest(INTERACTIVE)) scene?.wave()
     }
 
-    import('../three/HeroScene.js')
+    // The backdrop is hidden behind the hero at first, so it waits until the
+    // page is idle (or the visitor scrolls) before downloading
+    const load = () => new Promise((resolve) => {
+      let done = false
+      const go = () => {
+        if (done) return
+        done = true
+        window.removeEventListener('scroll', go)
+        resolve()
+      }
+      window.addEventListener('scroll', go, { passive: true, once: true })
+      if ('requestIdleCallback' in window) window.requestIdleCallback(go, { timeout: 4000 })
+      else setTimeout(go, 2500)
+    }).then(() => import('../three/HeroScene.js'))
+
+    load()
       .then(({ createHeroScene }) => {
         if (disposed || !canvasRef.current) return
         const reduced = prefersReducedMotion()
@@ -43,12 +58,21 @@ const SceneBackdrop = () => {
           end: 'max',
           onUpdate: (self) => scene.setProgress(self.progress),
         }))
-        // Hidden behind the photo hero, then fades in quietly behind the sections
+        // Hidden behind the photo hero, then fades in quietly behind the sections.
+        // No frames are drawn while it is fully faded out.
         triggers.push(gsap.fromTo(stageRef.current, { opacity: 0 }, {
           opacity: 0.28,
           ease: 'none',
-          scrollTrigger: { trigger: '.hero', start: 'center top', end: 'bottom top', scrub: true },
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'center top',
+            end: 'bottom top',
+            scrub: true,
+            onUpdate: (self) => scene.setActive(self.progress > 0),
+            onRefresh: (self) => scene.setActive(self.progress > 0),
+          },
         }).scrollTrigger)
+        scene.setActive(triggers[triggers.length - 1].progress > 0)
       })
       .catch((err) => {
         console.warn('3D scene unavailable:', err)

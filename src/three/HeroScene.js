@@ -225,8 +225,9 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
   resizeObserver.observe(canvas.parentElement)
   resize()
 
-  /* ── Loop (paused when hidden or off-screen) ─────────────── */
+  /* ── Loop (paused when hidden, off-screen or faded out) ───── */
   let visible = true
+  let active = true
   let raf = 0
   let last = performance.now()
   let spawnClock = 0
@@ -242,7 +243,7 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
     tilt.y += (pointer.x * 0.45 - tilt.y) * 0.06
     // Scrolling the page carries you through the network: it turns,
     // drifts from side to side between sections and flies closer mid-page
-    smooth += (progress - smooth) * 0.08
+    smooth += (progress - smooth) * 0.14
     network.rotation.x = tilt.x + Math.sin(now / 4000) * 0.05 + smooth * 0.6
     network.rotation.y = tilt.y - 0.35 + smooth * Math.PI * 1.6 + Math.sin(now / 5000) * 0.08
     // Starts on the right (beside the hero copy), then sweeps across as you scroll
@@ -257,7 +258,7 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
   }
 
   const startLoop = () => {
-    if (reducedMotion || raf || !visible || document.hidden) return
+    if (reducedMotion || raf || !visible || !active || document.hidden) return
     last = performance.now()
     raf = requestAnimationFrame(tick)
   }
@@ -284,6 +285,11 @@ export const createHeroScene = (canvas, { reducedMotion = false, compact = false
     setTheme: () => { setTheme(); if (reducedMotion) render() },
     // 0 at the top of the page, 1 at the bottom
     setProgress: (p) => { progress = p },
+    // Stop drawing frames while the backdrop is faded out
+    setActive: (on) => {
+      active = on
+      if (on) startLoop(); else stopLoop()
+    },
     dispose: () => {
       stopLoop()
       io.disconnect()
