@@ -1,0 +1,262 @@
+/* Hero: full-bleed photo shoot. Always dark, like a studio, in either theme. */
+
+.hero {
+  /* Local dark palette so the photo reads the same in light and dark mode */
+  --color-text: #eef2f8;
+  --color-text-muted: #a3b1c6;
+  --color-bg: #020206;
+  --color-link: #00e5ff;
+  --color-annotation: #f86cf8;
+  --note-ink: #eef2f8;
+  color-scheme: dark;
+  position: relative;
+  z-index: 1;
+  height: calc(100svh - 3.75rem);
+  min-height: 34rem;
+  max-height: 64rem;
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.hero__stage { position: absolute; inset: 0; }
+
+.hero__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse 60% 55% at 50% 30%, #0d0d24 0%, #020206 70%);
+  transform-origin: 50% 45%;
+}
+
+.hero__trails {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+}
+
+/* ── Name: sits behind the cut-out, so the head overlaps the letters ── */
+.hero__name {
+  position: absolute;
+  /* Low enough that the head overlaps the letters */
+  top: 21%;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 0.22em;
+  font: var(--weight-black) clamp(2.6rem, 9vw, 9rem) / 0.9 var(--font-sans);
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+/* Each part masks its letters so they can rise into view */
+.hero__name-part { display: inline-flex; overflow: hidden; padding: 0.04em 0.02em 0.06em; }
+.hero__char { display: inline-block; will-change: transform; }
+
+.hero__subject {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 2;
+  /* Square photo: as tall as the stage allows, never wider than the screen */
+  height: min(88%, 92vw);
+  aspect-ratio: 1 / 1;
+  /* translate (not transform) centres it, leaving transform free for GSAP */
+  translate: -50% 0;
+}
+.hero__subject-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  transform-origin: 50% 40%;
+  /* Fade the crop at the bottom of the frame */
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
+  mask-image: linear-gradient(to bottom, #000 82%, transparent);
+}
+
+/* ── Copy, bottom left ─────────────────────────────────────── */
+.hero__copy {
+  position: absolute;
+  /* Same left edge as the page sections, including on very wide screens */
+  left: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter)));
+  bottom: clamp(1.25rem, 5vh, 3.5rem);
+  z-index: 5;
+  max-width: 24rem;
+  text-shadow: 0 2px 16px rgba(2, 2, 6, 0.85);
+}
+.hero__role {
+  font: var(--weight-bold) var(--text-lg) / var(--leading-snug) var(--font-sans);
+}
+.hero__role .accent { font-size: 1.15em; }
+.hero__tagline {
+  margin-top: var(--space-2);
+  font-size: var(--text-md);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+/* ── Scroll cue, bottom right ──────────────────────────────── */
+.hero__cue {
+  position: absolute;
+  right: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter)));
+  bottom: clamp(1.25rem, 5vh, 3.5rem);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+.hero__cue-line {
+  position: relative;
+  width: 3rem;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(238, 242, 248, 0.2);
+}
+.hero__cue-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-link);
+  animation: hero-cue 2.2s var(--ease-out) infinite;
+}
+@keyframes hero-cue {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* ── Statement the photo hands over to (wide screens) ──────── */
+.hero__statement {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  /* The middle column is where the photo card sits after the handover */
+  grid-template-columns: minmax(0, 1fr) 32% minmax(0, 1fr);
+  align-items: center;
+  padding: 0 clamp(1.5rem, 3.5vw, 3.5rem);
+  pointer-events: none;
+}
+.hero__statement-then { grid-column: 1; justify-self: end; padding-right: clamp(1rem, 2.5vw, 2.5rem); text-align: right; }
+.hero__statement-now { grid-column: 3; padding-left: clamp(1rem, 2.5vw, 2.5rem); }
+.hero__statement-line {
+  max-width: 11ch;
+  font: var(--weight-bold) clamp(1.8rem, 2.8vw, 3.4rem) / 1.06 var(--font-sans);
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+.hero__statement-then .hero__statement-line { margin-left: auto; }
+.hero__statement-line--accent { color: var(--color-annotation); }
+/* Each word rises out of its own mask */
+.hero__mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; }
+.hero__word { display: inline-block; }
+.hero__statement-detail { max-width: 22rem; margin-top: var(--space-6); }
+.hero__statement-detail p { font-size: var(--text-md); line-height: var(--leading-body); color: var(--color-text-muted); }
+.hero__statement-link {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-weight: var(--weight-bold);
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+.hero__statement-link:hover { text-decoration-thickness: 2px; }
+
+/* ── Viewfinder (intro only) ───────────────────────────────── */
+.hero__viewfinder { display: none; position: absolute; inset: 0; z-index: 8; pointer-events: none; }
+.hero__vf-frame {
+  position: absolute;
+  inset: 7%;
+  /* Corner brackets drawn with gradients */
+  background:
+    linear-gradient(var(--note-ink), var(--note-ink)) top left / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) top left / 1.5px 28px,
+    linear-gradient(var(--note-ink), var(--note-ink)) top right / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) top right / 1.5px 28px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom left / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom left / 1.5px 28px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom right / 28px 1.5px,
+    linear-gradient(var(--note-ink), var(--note-ink)) bottom right / 1.5px 28px;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+}
+.hero__focus {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  color: var(--note-ink);
+}
+.hero__focus svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.hero__vf-info {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: 3.5%;
+  display: flex;
+  gap: var(--space-5);
+  justify-content: flex-end;
+  font: var(--text-xs) / 1 var(--font-mono);
+  letter-spacing: 0.12em;
+  color: var(--note-ink);
+  font-variant-numeric: tabular-nums;
+}
+.hero__shutter { position: absolute; inset: 0; background: #000; opacity: 0; }
+
+/* ── Below 1024px: name, photo, copy, then statement, stacked ── */
+@media (max-width: 1023px) {
+  .hero { height: auto; min-height: 0; max-height: none; overflow: visible; }
+  .hero__stage { position: relative; inset: auto; aspect-ratio: 1 / 1.1; max-height: 82svh; overflow: hidden; }
+  .hero__name {
+    top: 5%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    font-size: clamp(2.2rem, 13vw, 5.5rem);
+    line-height: 0.88;
+  }
+  .hero__subject { height: min(78%, 92vw); }
+  .hero__copy {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    max-width: none;
+    padding: var(--space-5) var(--space-4) var(--space-2);
+  }
+  .hero__cue { display: none; }
+  .hero__statement {
+    position: relative;
+    inset: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding: var(--space-8) var(--space-4) var(--space-4);
+    pointer-events: auto;
+  }
+  .hero__statement-then, .hero__statement-now { grid-column: 1; justify-self: start; padding: 0; text-align: left; }
+  .hero__statement-then .hero__statement-line { margin-left: 0; }
+  .hero__statement-line { max-width: 14ch; font-size: clamp(1.75rem, 7vw, 2.6rem); }
+  .hero__vf-info { justify-content: center; gap: var(--space-4); }
+}
+
+@media (min-width: 721px) and (max-width: 1023px) {
+  .hero__copy, .hero__statement { padding-left: var(--space-7); padding-right: var(--space-7); }
+}

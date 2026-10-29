@@ -1,41 +1,34 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from './contexts/theme';
-import Header from './components/Header/Header';
-import About from './components/About/About';
-import MeetMe from './components/Meet/MeetMe';
-import Projects from './components/Projects/Projects';
-import GitHubStats from './components/Github/GitHubStats';
-import Skills from './components/Skills/Skills';
-import Contact from './components/Contact/Contact';
-import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import Footer from './components/Footer/Footer';
-
-import './App.css';
+import {
+  About, Contact, Experience, GitHubSection, MoreWork, SiteFooter, SiteHeader, Work,
+} from './sections/Sections';
+import Hero from './sections/Hero';
+import SceneBackdrop from './sections/SceneBackdrop';
+import { useCursorGlow, useScrollReveals } from './motion/motion';
 
 const App = () => {
-  const [{ themeName }] = useContext(ThemeContext);
+  useScrollReveals();
+  useCursorGlow();
 
   return (
-    <div id="top" className={`${themeName} app`}>
-      {/* Immersive Top Header & Navigation */}
-      <Header />
-
-      {/* Main Single Page Document Flow */}
-      <main className="main-content">
-        <About />
-        <MeetMe />
-        <Projects />
-        <GitHubStats />
-        <Skills />
-        <Contact />
+    <>
+      <a href='#main' className='skip-link'>Skip to content</a>
+      <SceneBackdrop />
+      <SiteHeader />
+      <main id='main'>
+        <span id='top' />
+        {/* Full-bleed hero sits outside the width-limited page column */}
+        <Hero />
+        <div className='page'>
+          <About />
+          <Work />
+          <Experience />
+          <MoreWork />
+          <GitHubSection />
+          <Contact />
+        </div>
       </main>
-
-      {/* Floating Scroll Top Helper */}
-      <ScrollToTop />
-
-      {/* Page Footer */}
-      <Footer />
-    </div>
+      <SiteFooter />
+    </>
   );
 };
 

@@ -1,277 +1,311 @@
-// Import images
-import project1Image from './assets/projects/faithexplorers.png'
-import project2Image from './assets/projects/project2.png'
-import project3Image from './assets/projects/teensandyouth.jpg'
-import project6Image from './assets/projects/flyer2.jpg'
-import project7Image from './assets/projects/purposeacademy.png'
-import project5Image from './assets/projects/Followers.jpg'
-import project4Image from './assets/projects/aptechbenin.png'
-import project8Image from './assets/projects/maycpc.jpg'
-import project9Image from './assets/projects/flyer.jpg'
-import project10Image from './assets/projects/singlesmarried.jpg'
-import project11Image from './assets/projects/abby.png'
-import project12Image from './assets/projects/chimjoy.png'
-import project13Image from './assets/projects/cartoon1.jpg'
-import project14Image from './assets/projects/cartoon2.jpg'
-import project15Image from './assets/projects/cartoon3.jpg'
-import project16Image from './assets/projects/anchorport.png'
-import project17Image from './assets/projects/devconnect.png'
-import project18Image from './assets/projects/babyhub.png'
+// All site content. Only state what a repo, README or notebook can back up.
 
-// New Year & Frutajugo Assets (Ensure these assets exist in your directory)
-import projectNewYearImage from './assets/projects/visionletter.png' 
-import projectFrutajugoImage from './assets/projects/frutajugo.png' 
+import faithExplorersImage from './assets/projects/faithexplorers.webp'
+import helplineImage from './assets/projects/project2.webp'
+import teensYouthImage from './assets/projects/teensandyouth.webp'
+import flyer2Image from './assets/projects/flyer2.webp'
+import purposeAcademyImage from './assets/projects/purposeacademy.webp'
+import followersImage from './assets/projects/Followers.webp'
+import aptechBeninImage from './assets/projects/aptechbenin.webp'
+import maycpcImage from './assets/projects/maycpc.webp'
+import flyerImage from './assets/projects/flyer.webp'
+import singlesMarriedImage from './assets/projects/singlesmarried.webp'
+import abbyImage from './assets/projects/abby.webp'
+import chimjoyImage from './assets/projects/chimjoy.webp'
+import cartoon1Image from './assets/projects/cartoon1.webp'
+import cartoon2Image from './assets/projects/cartoon2.webp'
+import cartoon3Image from './assets/projects/cartoon3.webp'
+import anchorPortImage from './assets/projects/anchorport.webp'
+import devConnectImage from './assets/projects/devconnect.webp'
+import babyHubImage from './assets/projects/babyhub.webp'
+import visionLetterImage from './assets/projects/visionletter.webp'
+import frutajugoImage from './assets/projects/frutajugo.webp'
+import sabilensImage from './assets/projects/sabilens.svg'
+import taxpyreImage from './assets/projects/taxpyre.svg'
+import breastCancerImage from './assets/projects/breastcancer.svg'
+import sentinnelImage from './assets/projects/sentinnel.svg'
+import e1netImage from './assets/projects/e1net.svg'
+import wineLoanImage from './assets/projects/wineloan.svg'
+import habitTrackerImage from './assets/projects/habittracker.svg'
 
-// ----- HEADER -----
-const header = {
-  homepage: 'https://github.com/DuoDduo',
-  title: 'BJ.',
-};
+// All wording below comes from the CV (public/Blessing_James_CV.pdf).
+// e1NET and TaxPyre are not on the CV and keep their own short lines.
 
 // ----- ABOUT -----
 const about = {
   name: 'Blessing James',
-  role: 'AI Systems Engineer & Full-Stack Developer',
-  description: `I architect production-ready intelligent systems, specializing in Agentic RAG pipelines, multi-agent AI orchestrations, and secure high-performance full-stack architectures.`,
- 
-  resume: 'https://drive.google.com/file/d/1SsgATiH1pcj7NcQ91dwGB2AH92nLbM_n/view?usp=sharing',
+  title: ['AI/ML Engineer', 'Full-Stack Developer'],
+  summary: 'Building intelligent, production-ready systems that solve real-world problems.',
+  bio: [
+    'Results-driven AI Engineer and Full-Stack Developer. I specialise in Agentic RAG architectures, multi-agent orchestration and end-to-end LLM integration, bringing together the full stack from data pipelines to scalable web deployments.',
+    'Equally at home across the full machine learning lifecycle, from exploratory data analysis and feature engineering to model training, evaluation and production deployment.',
+  ],
+  // Served from public/; replace that file to update the CV
+  resume: '/Blessing_James_CV.pdf',
   social: {
-    linkedin: 'https://www.linkedin.com/in/dblessingjames',
     github: 'https://github.com/DuoDduo',
+    linkedin: 'https://www.linkedin.com/in/blessing-james-6b541829b/',
     behance: 'https://www.behance.net/blessing_james',
   },
-};
+}
 
+// ----- SKILLS (the four groups on the CV) -----
+const pillars = [
+  {
+    title: 'AI Engineering',
+    tags: ['Large Language Models (LLMs)', 'Agentic RAG', 'Multi-agent Systems', 'Transformer Models', 'Tool Integration', 'Prompt Engineering'],
+  },
+  {
+    title: 'Machine Learning & Data Science',
+    tags: ['Linear Algebra', 'Inferential Statistics', 'Scikit-learn', 'Pandas', 'Exploratory Data Analysis', 'Feature Engineering', 'Model Evaluation'],
+  },
+  {
+    title: 'Full-Stack Development',
+    tags: ['Python (FastAPI)', 'Pydantic', 'OOP', 'JavaScript / TypeScript (React)', 'HTML5', 'CSS3', 'Tailwind CSS', 'RESTful APIs'],
+  },
+  {
+    title: 'Data & Infrastructure',
+    tags: ['Pinecone', 'ChromaDB', 'FAISS', 'MySQL', 'PostgreSQL', 'Supabase', 'Azure', 'Docker', 'CI/CD', 'Git / GitHub', 'Agile'],
+  },
+]
+
+// ----- PROJECTS -----
+// team: true marks group work; role says what I personally built.
 const projects = [
+  // --- AI/ML PROJECTS ---
+  {
+    name: 'e1NET',
+    description: 'A compliance platform that checks a business\'s policy documents against Cyber Essentials and ISO 27001, and shows what to fix first.',
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'OpenAI API', 'Next.js', 'Auth0', 'Azure', 'GitHub Actions'],
+    livePreview: 'https://www.e1net.org/',
+    category: 'AI/ML',
+    image: e1netImage,
+  },
+  {
+    name: 'SabiLens',
+    description: 'AI-powered NAFDAC food product counterfeit detection. I designed and built the Regulatory RAG module and a ReAct verification agent, and cut scan latency from about 5 minutes to under 300 ms.',
+    stack: ['Python', 'FastAPI', 'ResNet50', 'PaddleOCR', 'ChromaDB', 'React', 'Google Cloud'],
+    sourceCode: 'https://github.com/Cunyie08/genai_sabilens_national_product_integrity',
+    livePreview: 'https://sabi-lens.vercel.app/',
+    category: 'AI/ML',
+    team: true,
+    role: 'Regulatory RAG',
+    image: sabilensImage,
+  },
+  {
+    name: 'TaxPyre Nigeria',
+    description: "A RAG assistant that answers questions about Nigeria's 2026 tax reforms, with sources.",
+    stack: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'React', 'Docker'],
+    sourceCode: 'https://github.com/DuoDduo/nigeria-tax-reform',
+    category: 'AI/ML',
+    image: taxpyreImage,
+  },
+  {
+    name: 'Breast Cancer Prediction',
+    description: 'An end-to-end ML pipeline using scikit-learn and FastAPI to predict diagnostic outcomes with high precision.',
+    stack: ['Python', 'scikit-learn', 'pandas', 'FastAPI', 'React', 'Tailwind CSS'],
+    sourceCode: 'https://github.com/DuoDduo/ml_projects/tree/master/breast_cancer',
+    category: 'AI/ML',
+    image: breastCancerImage,
+  },
+  {
+    name: 'Sentinel Banking',
+    description: 'AI-driven middleware intelligence system. I built the RAG policy grounding layer that anchors every agent decision to verified banking policy documents, and contributed to the backend AI services and React dashboard.',
+    stack: ['Python', 'FastAPI', 'LangGraph', 'ChromaDB', 'scikit-learn', 'PostgreSQL', 'React'],
+    sourceCode: 'https://github.com/DuoDduo/genai_sentinnel_banking_integration',
+    category: 'AI/ML',
+    team: true,
+    role: 'Fullstack AI Engineer',
+    image: sentinnelImage,
+  },
+  {
+    name: 'White Wine Quality & Loan Prediction',
+    description: 'Regression and classification models, built on extensive EDA and feature engineering, to automate quality scoring and loan eligibility assessment.',
+    stack: ['Python', 'Scikit-learn', 'Pandas', 'FastAPI', 'React'],
+    sourceCode: 'https://github.com/DuoDduo/ml_projects',
+    category: 'AI/ML',
+    image: wineLoanImage,
+  },
+  {
+    name: 'HabitOS',
+    description: 'A full-stack habit tracker with an object-oriented Flask API, functional-style analytics for streaks and history, and a React dashboard. Tested with pytest.',
+    stack: ['Python', 'Flask', 'SQLAlchemy', 'Pydantic', 'pytest', 'React', 'Tailwind CSS'],
+    sourceCode: 'https://github.com/DuoDduo/habit-tracker',
+    livePreview: 'https://habit-tracker-olive-six.vercel.app/',
+    category: 'Full-Stack',
+    image: habitTrackerImage,
+  },
+
   // --- WEB PROJECTS ---
   {
     name: 'Vision Letter 2026',
-    description: 'An elite, high-performance brand activation platform designed with neo-tech glassmorphism, responsive canvas layers, and custom physics animations.',
-    stack: ['React', 'Vanilla CSS', 'HTML5 Canvas', 'Framer Motion'],
-    sourceCode: 'https://github.com/DuoDduo',
+    description: 'A New Year vision-letter site with canvas-based animation.',
+    stack: ['React', 'HTML5 Canvas', 'Framer Motion'],
+    sourceCode: 'https://github.com/DuoDduo/new_year',
     livePreview: 'https://new-year-one-murex.vercel.app/',
     category: 'Web',
-    image: projectNewYearImage,
+    image: visionLetterImage,
   },
   {
-    name: 'Frutajugo Platform',
-    description: 'A premium, ultra-responsive web application designed with fluid user interactions, glassmorphic UI nodes, and optimized state management.',
-    stack: ['React', 'JavaScript (ES6+)', 'Vanilla CSS'],
-    sourceCode: 'https://github.com/DuoDduo',
+    name: 'Frutajugo',
+    description: 'A responsive React website for the Frutajugo brand.',
+    stack: ['React', 'JavaScript', 'CSS'],
     livePreview: 'https://www.frutajugo.com/',
     category: 'Web',
-    image: projectFrutajugoImage,
+    image: frutajugoImage,
   },
   {
-    name: 'Faith Explorers Hub',
-    description: 'A highly responsive Christian content publication engine, built with SEO semantic structuring and optimized paint times.',
-    stack: ['HTML5', 'Vanilla CSS', 'JavaScript (ES6+)'],
+    name: 'Faith Explorers',
+    description: 'A Christian blog built with semantic, search-friendly HTML.',
+    stack: ['HTML', 'CSS', 'JavaScript'],
     sourceCode: 'https://github.com/DuoDduo/faith-explorers',
     livePreview: 'https://duodduo.github.io/faith-explorers/',
     category: 'Web',
-    image: project1Image,
+    image: faithExplorersImage,
   },
   {
-    name: 'Aptech Benin Portal',
-    description: 'Official corporate and academic web portal for Aptech Benin, featuring responsive layouts and intuitive student navigation paths.',
-    stack: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap'],
-    sourceCode: 'https://github.com',
+    name: 'Aptech Benin',
+    description: "Website for Aptech's training centre in Benin City, Edo State.",
+    stack: ['HTML', 'SCSS', 'JavaScript', 'Bootstrap'],
+    sourceCode: 'https://github.com/DuoDduo/aptech-benin',
     livePreview: 'https://duodduo.github.io/aptech-benin/',
     category: 'Web',
-    image: project4Image,
+    image: aptechBeninImage,
   },
   {
-    name: 'School of Purpose Ministry',
-    description: 'A dynamic online community portal and digital library designed with custom animations, custom media players, and high responsiveness.',
+    name: 'School of Purpose',
+    description: 'Community portal and digital library for a ministry school, with a custom media player.',
     stack: ['React', 'Tailwind CSS', 'JavaScript'],
-    sourceCode: 'https://schoolofpurpose.vercel.app/',
+    sourceCode: 'https://github.com/DuoDduo/Purpose-Academy',
     livePreview: 'https://schoolofpurpose.vercel.app/',
     category: 'Web',
-    image: project7Image,
+    image: purposeAcademyImage,
   },
   {
-    name: 'Anchor Port Lounge',
-    description: 'A sleek, visual-first digital brand experience for a premium restaurant and lounge, featuring custom styling transitions.',
-    stack: ['HTML5', 'SCSS', 'Vanilla JS'],
+    name: 'Anchor Port',
+    description: 'Website for a restaurant and lounge.',
+    stack: ['HTML', 'SCSS', 'JavaScript'],
     sourceCode: 'https://github.com/DuoDduo/anchorport',
     livePreview: 'https://duodduo.github.io/anchorport/',
     category: 'Web',
-    image: project16Image,
+    image: anchorPortImage,
   },
   {
-    name: "Abby's Kitchen Node",
-    description: 'A rich, highly dynamic single-page web portal designed for an automated food ordering and kitchen dispatch flow.',
-    stack: ['Angular', 'HTML5', 'TypeScript', 'CSS3'],
+    name: "Abby's Kitchen",
+    description: 'Restaurant site with a menu, ordering and payment flow.',
+    stack: ['Angular', 'TypeScript', 'HTML', 'CSS'],
     sourceCode: 'https://github.com/DuoDduo/abby-s-kitchen',
     livePreview: 'https://duodduo.github.io/abby-s-kitchen/#/main',
     category: 'Web',
-    image: project11Image,
+    image: abbyImage,
   },
   {
-    name: 'Chimjoy Booking Suite',
-    description: 'An interactive vehicle rental and ride booking platform with live route estimation and interactive dashboard interfaces.',
-    stack: ['HTML5', 'Vanilla CSS', 'JavaScript (ES6+)'],
-    sourceCode: 'https://github.com/DuoDduo/Chimjoy-Projectn',
+    name: 'Chimjoy',
+    description: 'Ride booking and car rental site with a booking dashboard.',
+    stack: ['HTML', 'CSS', 'JavaScript'],
+    sourceCode: 'https://github.com/DuoDduo/Chimjoy-Project',
     livePreview: 'https://duodduo.github.io/Chimjoy-Project/dashboard.html',
     category: 'Web',
-    image: project12Image,
-  },
-
-  // --- GRAPHICS PROJECTS ---
-  {
-    name: 'Followers',
-    description: 'Celebrating LinkedIn followers',
-    stack: ['Photoshop'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project5Image,
-  },
-  {
-    name: "Flyer",
-    description: 'Social Media flyer',
-    stack: ['Photoshop'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project6Image,
-  },
-  {
-    name: 'Flyer',
-    description: 'Singles and Married flyer',
-    stack: ['Photoshop', 'Illustrator'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project10Image,
-  },
-  {
-    name: 'Flyer',
-    description: 'Teens & Youth',
-    stack: ['Photoshop'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project3Image,
-  },
-  {
-    name: "Flyer",
-    description: 'Children/Teenagers',
-    stack: ['Photoshop'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project8Image,
-  },
-  {
-    name: 'Flyer',
-    description: 'Delivery',
-    stack: ['Photoshop', 'Illustrator'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project9Image,
-  },
-  {
-    name: 'Cartoon',
-    description: 'Cartoon 1',
-    stack: ['Illustrator'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project13Image,
-  },
-  {
-    name: "Cartoon",
-    description: 'Cartoon 2',
-    stack: ['Illustrator'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project14Image,
-  },
-  {
-    name: 'Cartoon',
-    description: 'Cartoon 3',
-    stack: ['Illustrator'],
-    sourceCode: 'https://github.com',
-    livePreview: 'https://github.com',
-    category: 'Graphics',
-    image: project15Image,
+    image: chimjoyImage,
   },
 
   // --- UI/UX PROJECTS ---
   {
     name: 'Helpline',
-    description: 'An NGO website UI',
+    description: 'Website interface for an NGO.',
     stack: ['Figma'],
-    sourceCode: '#',
-    livePreview: '#',
     category: 'UI/UX',
-    image: project2Image,
+    image: helplineImage,
   },
   {
     name: 'DevConnect',
-    description: 'Career Quest Project: UI for mobile app that connect developers around the world',
+    description: 'Mobile app interface for connecting developers around the world.',
     stack: ['Figma'],
-    sourceCode: '#',
-    livePreview: 'https://embed.figma.com/proto/7cXMdiuDRUA7kCCn1CQ6A0/BabyHub?page-id=0%3A1&node-id=27-2457&p=f&viewport=188%2C263%2C0.5&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A2&show-proto-sidebar=1&embed-host=share ',
+    livePreview: 'https://embed.figma.com/proto/7cXMdiuDRUA7kCCn1CQ6A0/BabyHub?page-id=0%3A1&node-id=27-2457&p=f&viewport=188%2C263%2C0.5&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A2&show-proto-sidebar=1&embed-host=share',
     category: 'UI/UX',
-    image: project17Image,
+    image: devConnectImage,
   },
   {
     name: 'BabyHub',
-    description: 'A mobile app UI solely for infant products',
+    description: 'Mobile shopping app interface for infant products.',
     stack: ['Figma'],
-    sourceCode: '#',
-    livePreview: '#',
     category: 'UI/UX',
-    image: project18Image,
+    image: babyHubImage,
   },
-];
 
-// ----- SKILLS -----
-const skills = [
-  // AI/ML Systems & Intelligent Layer
-  { name: 'Python', category: 'AI/ML' },
-  { name: 'FastAPI', category: 'AI/ML' },
-  { name: 'PyTorch / Neural Networks', category: 'AI/ML' },
-  { name: 'Agentic RAG / LangChain', category: 'AI/ML' },
-  { name: 'Multi-Agent Orchestration', category: 'AI/ML' },
-  { name: 'Vector DBs (Chroma/Pinecone)', category: 'AI/ML' },
-  { name: 'LlamaIndex', category: 'AI/ML' },
-  { name: 'Data Pipeline Design', category: 'AI/ML' },
+  // --- GRAPHICS PROJECTS ---
+  { name: 'Followers milestone', description: 'Post celebrating LinkedIn followers.', stack: ['Photoshop'], category: 'Graphics', image: followersImage },
+  { name: 'Social media flyer', description: 'Event flyer for social media.', stack: ['Photoshop'], category: 'Graphics', image: flyer2Image },
+  { name: 'Singles and married', description: 'Event flyer.', stack: ['Photoshop', 'Illustrator'], category: 'Graphics', image: singlesMarriedImage },
+  { name: 'Teens and youth', description: 'Event flyer.', stack: ['Photoshop'], category: 'Graphics', image: teensYouthImage },
+  { name: 'Children and teenagers', description: 'Event flyer.', stack: ['Photoshop'], category: 'Graphics', image: maycpcImage },
+  { name: 'Delivery', description: 'Delivery service flyer.', stack: ['Photoshop', 'Illustrator'], category: 'Graphics', image: flyerImage },
+  { name: 'Cartoon 1', description: 'Character illustration.', stack: ['Illustrator'], category: 'Graphics', image: cartoon1Image },
+  { name: 'Cartoon 2', description: 'Character illustration.', stack: ['Illustrator'], category: 'Graphics', image: cartoon2Image },
+  { name: 'Cartoon 3', description: 'Character illustration.', stack: ['Illustrator'], category: 'Graphics', image: cartoon3Image },
+]
 
-  // Fullstack & Backend Infrastructure
-  { name: 'JavaScript (ES6+) / TypeScript', category: 'Fullstack' },
-  { name: 'Node.js / Express.js', category: 'Fullstack' },
-  { name: 'PostgreSQL / MongoDB', category: 'Fullstack' },
-  { name: 'Redis Caching', category: 'Fullstack' },
-  { name: 'Docker Containers', category: 'Fullstack' },
-  { name: 'REST & GraphQL API Design', category: 'Fullstack' },
-  { name: 'System Design & State Management', category: 'Fullstack' },
+// ----- EXPERIENCE (word for word from the CV, in CV order) -----
+const experience = [
+  {
+    when: '08/2025 – 02/2026',
+    title: 'AI Engineer Trainee',
+    org: 'Ogun State GenAI Fellowship (Publica Academy)',
+    points: [
+      'Architected multi-agent systems with LangGraph for autonomous task decomposition and collaboration in enterprises.',
+      'Machine Learning: Engineered and evaluated models from mathematical principles to building and deployment.',
+      'Production RAG Pipelines: Created RAG systems using semantic chunking and vector embeddings. Reduced hallucination rates in document intelligence.',
+      'Type-Safe Backends: Developed robust, high-concurrency APIs using FastAPI and Pydantic, ensuring production-grade data validation and seamless LLM integration.',
+    ],
+  },
+  {
+    when: '08/2024 – 02/2025',
+    title: 'Cyber Risk Analyst Intern',
+    org: 'Chevron',
+    points: [
+      'Risk Mitigation: Analyzed phishing reports identifying vulnerabilities. Delivered insights to strengthen security.',
+      'Disaster Recovery & BCP: Validated effectiveness of protocols and plans via enterprise recovery exercises.',
+      'Compliance & Privacy: Engaged in Data Privacy Audit walkthroughs, ensuring strict compliance with global regulations and reinforcing cybersecurity best practices for sensitive corporate data.',
+    ],
+  },
+  {
+    when: '11/2024 – Present',
+    title: 'Web Developer',
+    org: 'School of Purpose',
+    points: [
+      'Developed high-performance web apps; built admin dashboard for data-driven management.',
+      'Optimized frontend performance for low-latency interaction with complex, AI-driven backend logic.',
+    ],
+  },
+  {
+    when: '09/2024 – 11/2024',
+    title: 'Technical Instructor',
+    org: 'Aptech Computer Education',
+    points: [
+      'Mentored students in Object-Oriented Programming (OOP), Database Management, and Software Engineering fundamentals.',
+    ],
+  },
+  {
+    when: '09/2023 – 09/2024',
+    title: 'Front-End Developer',
+    org: 'JEXCEL TECH',
+    points: [
+      'Built modular React components for enterprise apps.',
+      'Ensured cross-platform usability and code maintainability.',
+    ],
+  },
+]
 
-  // Frontend Engineering & Design
-  { name: 'React', category: 'Frontend' },
-  { name: 'Next.js Framework', category: 'Frontend' },
-  { name: 'HTML5 & Vanilla CSS', category: 'Frontend' },
-  { name: 'Tailwind CSS', category: 'Frontend' },
-  { name: 'Framer Motion', category: 'Frontend' },
-  { name: 'Responsive Web Design', category: 'Frontend' },
-
-  // DevOps & Core Tools
-  { name: 'Git & GitHub', category: 'Tools' },
-  { name: 'GitHub Actions (CI/CD)', category: 'Tools' },
-  { name: 'AWS (S3 / EC2)', category: 'Tools' },
-  { name: 'Vercel Deployment', category: 'Tools' },
-  { name: 'Figma Prototyping', category: 'Tools' },
-  { name: 'Photoshop / Illustrator', category: 'Tools' }
-];
+// ----- EDUCATION (from my CV) -----
+const education = [
+  { title: 'B.Sc. in Data Science', org: 'IU International University of Applied Sciences, Germany' },
+  { when: '2022 – 2024', title: 'Advanced Diploma in Software Engineering (ADSE)', org: 'Aptech Computer Education' },
+  { when: '2021 – 2022', title: 'Diploma in Graphic Design', org: 'Aptech Computer Education' },
+]
 
 // ----- CONTACT -----
 const contact = {
-  email: 'pelubs2956@mail.com',
-};
+  email: 'pelubs2956@gmail.com',
+}
 
-// Export all data
-export { header, about, projects, skills, contact };
+export { about, pillars, projects, experience, education, contact }

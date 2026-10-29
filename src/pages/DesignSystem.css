@@ -1,0 +1,165 @@
+/* /design page layout — semantic tokens only */
+
+.ds {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-text);
+  /* Background, grid and glow come from body (styles/base.css) */
+}
+
+/* Plain text links only; components such as buttons set their own colour */
+.ds a:not([class]) { color: var(--color-link); }
+
+.ds-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-5);
+}
+.ds-topbar__home {
+  font-weight: var(--weight-bold);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.ds-main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--space-5) var(--space-9);
+}
+
+/* ── Intro ──────────────────────────────────────────────────── */
+.ds-intro { padding: var(--space-8) 0 var(--space-7); max-width: var(--measure); }
+.ds-intro__title {
+  font: var(--weight-black) var(--text-4xl) / var(--leading-tight) var(--font-sans);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text);
+}
+.ds-intro__lede {
+  margin-top: var(--space-5);
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+  color: var(--color-text-muted);
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+.ds-section {
+  padding-top: var(--space-7);
+  margin-top: var(--space-7);
+  border-top: var(--line-width) solid var(--color-line);
+}
+
+.ds-principles {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--measure);
+  list-style: none;
+}
+.ds-principles strong { color: var(--color-text); }
+.ds-principles li { color: var(--color-text-muted); }
+
+/* ── Colour ─────────────────────────────────────────────────── */
+.ds-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-4);
+  list-style: none;
+}
+.ds-swatch {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  column-gap: var(--space-3);
+  align-items: start;
+}
+.ds-swatch__chip {
+  grid-row: span 3;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-control);
+  border: var(--line-width) solid var(--color-line-strong);
+}
+.ds-swatch__name { font-weight: var(--weight-medium); color: var(--color-text); }
+.ds-swatch__token,
+.ds-type__meta {
+  font: var(--text-xs) / 1.5 var(--font-mono);
+  color: var(--color-link);
+}
+.ds-swatch__use { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* ── Type ───────────────────────────────────────────────────── */
+.ds-type { list-style: none; }
+.ds-type__row {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-3) 0;
+  border-bottom: var(--line-width) solid var(--color-line);
+}
+.ds-type__sample {
+  font-family: var(--font-sans);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+/* ── Components ─────────────────────────────────────────────── */
+.ds-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.ds-grid__wide { grid-column: 1 / -1; }
+.ds-card-title {
+  font: var(--weight-bold) var(--text-md) / var(--leading-snug) var(--font-sans);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+.ds-card-copy {
+  max-width: var(--measure);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+.ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+
+/* ── Spacing and radius ─────────────────────────────────────── */
+.ds-spacing { list-style: none; margin-bottom: var(--space-6); }
+.ds-spacing__row {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-1) 0;
+}
+.ds-spacing__bar {
+  display: block;
+  height: 0.75rem;
+  background: var(--color-link);
+  border-radius: var(--radius-chip);
+}
+.ds-radii {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  list-style: none;
+}
+.ds-radii__item { display: grid; gap: var(--space-1); justify-items: start; }
+.ds-radii__shape {
+  width: 4rem;
+  height: 3rem;
+  border: 2px solid var(--color-link);
+  background: var(--color-surface);
+}
+
+/* ── Small screens ──────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .ds-grid { grid-template-columns: 1fr; }
+  .ds-type__row,
+  .ds-spacing__row { grid-template-columns: 1fr; gap: var(--space-1); }
+  .ds-topbar,
+  .ds-main { padding-left: var(--space-4); padding-right: var(--space-4); }
+}

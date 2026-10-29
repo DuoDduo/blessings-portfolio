@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="TaxPyre pipeline: question, retriever, language model, answer with sources">
+  <defs>
+    <pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#00e5ff" stroke-opacity=".09"/></pattern>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#00e5ff"/></marker>
+  </defs>
+  <rect width="640" height="360" fill="#05050c"/>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g font-family="Segoe UI, system-ui, sans-serif" fill="#fff">
+    <rect x="28" y="150" width="116" height="84" rx="6" fill="#0d0d1a" stroke="#00e5ff"/>
+    <text x="86" y="185" text-anchor="middle" font-size="17" font-weight="700">Question</text>
+    <text x="86" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">React UI</text>
+
+    <rect x="184" y="150" width="128" height="84" rx="6" fill="#0d0d1a" stroke="#00e5ff"/>
+    <text x="248" y="185" text-anchor="middle" font-size="17" font-weight="700">Retriever</text>
+    <text x="248" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">top 5 · Chroma</text>
+
+    <rect x="352" y="150" width="116" height="84" rx="6" fill="#0d0d1a" stroke="#00e5ff"/>
+    <text x="410" y="185" text-anchor="middle" font-size="17" font-weight="700">LLM</text>
+    <text x="410" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">LangChain</text>
+
+    <rect x="508" y="150" width="110" height="84" rx="6" fill="#020206" stroke="#6fd3a5" stroke-width="2"/>
+    <text x="563" y="185" text-anchor="middle" font-size="17" font-weight="700" fill="#6fd3a5">Answer</text>
+    <text x="563" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">+ sources</text>
+  </g>
+  <g stroke="#00e5ff" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <path d="M144 192 L180 192"/><path d="M312 192 L348 192"/><path d="M468 192 L504 192"/>
+  </g>
+  <path d="M248 238 L248 296" stroke="#f86cf8" stroke-dasharray="3 4"/>
+  <text x="256" y="322" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-style="italic" fill="#f86cf8">152 chunks from 4 bills, 500+ pages</text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Breast cancer classifier pipeline: data, feature selection, logistic regression, API and web app">
+  <defs>
+    <pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#00e5ff" stroke-opacity=".09"/></pattern>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#00e5ff"/></marker>
+  </defs>
+  <rect width="640" height="360" fill="#05050c"/>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g font-family="Segoe UI, system-ui, sans-serif" fill="#fff">
+    <rect x="28" y="150" width="116" height="84" rx="6" fill="#0d0d1a" stroke="#00e5ff"/>
+    <text x="86" y="185" text-anchor="middle" font-size="17" font-weight="700">Data</text>
+    <text x="86" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">569 samples</text>
+
+    <rect x="184" y="150" width="128" height="84" rx="6" fill="#0d0d1a" stroke="#00e5ff"/>
+    <text x="248" y="185" text-anchor="middle" font-size="17" font-weight="700">Features</text>
+    <text x="248" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">20 selected</text>
+
+    <rect x="352" y="150" width="116" height="84" rx="6" fill="#020206" stroke="#6fd3a5" stroke-width="2"/>
+    <text x="410" y="185" text-anchor="middle" font-size="17" font-weight="700" fill="#6fd3a5">Model</text>
+    <text x="410" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">logistic reg.</text>
+
+    <rect x="508" y="150" width="110" height="84" rx="6" fill="#0d0d1a" stroke="#00e5ff"/>
+    <text x="563" y="185" text-anchor="middle" font-size="17" font-weight="700">App</text>
+    <text x="563" y="210" text-anchor="middle" font-size="13" fill="#7a8ba6" font-family="Consolas, monospace">FastAPI+React</text>
+  </g>
+  <g stroke="#00e5ff" stroke-width="1.5" fill="none" marker-end="url(#a)">
+    <path d="M144 192 L180 192"/><path d="M312 192 L348 192"/><path d="M468 192 L504 192"/>
+  </g>
+  <path d="M410 238 L410 296" stroke="#f86cf8" stroke-dasharray="3 4"/>
+  <text x="402" y="322" text-anchor="end" font-family="Segoe UI, system-ui, sans-serif" font-size="17" font-style="italic" fill="#f86cf8">end-to-end ML pipeline</text>
+</svg>
