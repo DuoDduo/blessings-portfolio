@@ -85,14 +85,12 @@ export const About = () => (
   </section>
 )
 
-/* ── Project links ──────────────────────────────────────────── */
-const ProjectLinks = ({ project, hideSource }) => {
-  const showSource = project.sourceCode && !hideSource
-  if (!showSource && !project.livePreview) return null
+/* ── Project links (live sites only; source code is not shared) ── */
+const ProjectLinks = ({ project }) => {
+  if (!project.livePreview) return null
   return (
     <div className='project-links'>
-      {showSource && <Button variant='ghost' href={project.sourceCode} external>Source code</Button>}
-      {project.livePreview && <Button variant='ghost' href={project.livePreview} external>Live site</Button>}
+      <Button variant='ghost' href={project.livePreview} external>Live site</Button>
     </div>
   )
 }
@@ -226,7 +224,7 @@ export const MoreWork = () => {
             <img src={project.image} alt='' className='more-card__img' loading='lazy' />
             <h3 className='more-card__name'>{project.name}</h3>
             <p className='more-card__desc'>{project.description}</p>
-            <ProjectLinks project={project} hideSource={project.category === 'UI/UX'} />
+            <ProjectLinks project={project} />
           </li>
         ))}
       </ul>
