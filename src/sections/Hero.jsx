@@ -146,15 +146,17 @@ const Hero = () => {
         .to(q('.hero__copy > *'), { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08 }, 3.4)
         .to(q('.hero__cue'), { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 3.9)
       if (header) tl.to(header, { autoAlpha: 1, duration: 0.6, clearProps: 'opacity,visibility' }, 3.4)
+      // Played faster than written: the name lands at about 1.7 s, not 3 s
+      tl.timeScale(1.8)
 
       // Any scroll, key or tap ends the intro
       const skip = () => { if (tl.progress() < 1) tl.progress(1) }
       const events = ['wheel', 'touchstart', 'keydown', 'pointerdown']
       events.forEach((e) => window.addEventListener(e, skip, { once: true, passive: true }))
 
-      // Start once the photo is ready (or after 4 s at most)
+      // Start once the photo is ready (or after 2.5 s at most)
       const img = q('.hero__subject-img')[0]
-      const timer = setTimeout(() => tl.play(), 4000)
+      const timer = setTimeout(() => tl.play(), 2500)
       img.decode().catch(() => {}).then(() => { clearTimeout(timer); tl.play() })
 
       const words = q('.hero__word')
